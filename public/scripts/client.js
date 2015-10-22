@@ -3,7 +3,7 @@ var getMongoModule = angular.module('getData');
 
 
 //Creates the controllero for getMongo controller
-getMongoModule.controller('getMongoController', ['$scope', '$http','MongoModules', function($scope, $http, MongoModules){
+getMongoModule.controller('getMongoController', ['$scope', '$filter', 'MongoModules', function($scope, $filter,MongoModules){
 
 	//Here it will be stored all the information for people
 	$scope.people= {};
@@ -42,7 +42,7 @@ getMongoModule.controller('getMongoController', ['$scope', '$http','MongoModules
 
 					$scope.peopleCategories[i].total = $scope.resultChanged(i);
 					var date = $scope.peopleCategories.date;
-					$scope.peopleCategories.date = dateFilter(date, 'yyyy-MM-dd');
+					$scope.peopleCategories.date = $filter('date')(date, 'MM-dd-YYYY');
 						
 				}
 			}
