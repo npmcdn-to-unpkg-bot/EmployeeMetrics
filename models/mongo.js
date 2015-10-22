@@ -31,6 +31,7 @@ var employeeCategorySchema = new mongoSchema({
 	'_id'			: 	mongoSchema.ObjectId,
 	'employeeId'	: 	{type: mongoSchema.ObjectId, ref: 'Employee'},
 	'categoryId'	: 	{type: mongoSchema.ObjectId, ref: 'Category'},
+	'date'			: 	Date,
 	'Results'		: 	[
 			Number, 
 			Number, 

@@ -63,9 +63,11 @@ router.route('/employees')
 			//creates a new document for EmployeeCategory
 			var db = new mongoOp.EmployeeCategory();
 			//Saves all new information to be saved
+			db._id = mongoose.Types.ObjectId();		//Generates ObjectId
 			db.employeeId = req.body.employeeId;
 			db.categoryId = req.body.categoryId;
 			db.Results = req.body.Results;
+			db.date = req.body.date;
 			//Calss the save functiont to mongo
 			db.save(function(err){
 				//if an error is or not saves a different response and sends it to the client
@@ -76,6 +78,7 @@ router.route('/employees')
 					response = {'error': false, 'message' : 'Data added'};
 				}
 			});
+			
 			res.send(response);
 		});
 
@@ -106,10 +109,11 @@ router.route('/employees/:id')
 			db.employeeId = req.body.employeeId
 			db.categoryId = req.body.categoryId;
 			db.Results = req.body.Results;
+			db.date = req.body.date;
 			//Update the old information with the new one 
 			mongoOp.EmployeeCategory.update(
 				{'employeeId' : db.employeeId, 'categoryId' : db.categoryId}, //Query where to update
-				{$set: {'Results' : db.Results, 'employeeIdId': db.employeeId , 'categoryId': db.categoryId }}, //sValues to change
+				{$set: {'Results' : db.Results, 'employeeIdId': db.employeeId , 'categoryId': db.categoryId, 'date':db.date }}, //sValues to change
 				function(err,data){
 					//If an error appear or not it set response and send a message to the client
 					if(err){

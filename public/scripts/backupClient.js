@@ -1,23 +1,7 @@
-'use strict';
-var getMongoModule = angular.module('getData');
-
-
-//Creates the controllero for getMongo controller
-getMongoModule.controller('getMongoController', ['$scope', '$http','MongoModules', function($scope, $http, MongoModules){
-
-	//Here it will be stored all the information for people
-	$scope.people= {};
-	//Here it will be stored all the information about categories
-	$scope.categories = {};
-	//Here it will be stored all the relations between categories and people
-	$scope.peopleCategories = {};
-	
-	//This decides which button will show
-	$scope.ShowButton=false;
-
-	//depending on the person selected it will show all the categories that person has been graded
-	$scope.getPeopleCategories = function(idem){	
-		MongoModules.GetPeopleCategories(idem).then(function(data){
+	$scope.getPeopleCategories = function(idem){		
+		$http.get('/employees/'+idem, {params: {'employeeId': idem}})
+		.success(function(data){
+			//Checks if this person was already graded
 			if (data.length == 0){
 				$scope.ShowButton = true;
 				for (var i=0;i<10; i++)
@@ -27,28 +11,28 @@ getMongoModule.controller('getMongoController', ['$scope', '$http','MongoModules
 					$scope.peopleCategories[i].employeeId = idem;
 					$scope.peopleCategories[i].categoryId = $scope.categories[i]._id;
 					$scope.peopleCategories[i].name = $scope.getCategoryName($scope.peopleCategories[i].categoryId);
-					/*var date = new Date().toISOString();
-					$scope.peopleCategories[i].date = new Date(date.getFullYear(), date.getMonth(), date.getDay());*/
+					$scope.peopleCategories[i].date = new Date().toISOString();
 					$scope.peopleCategories[i].Results = [	1,	1,	1,	1 	];
 					$scope.peopleCategories[i].total = 4;
 
 				}
+				
 			}else{
 				//gets all the information for that person
 				$scope.ShowButton = false;
 				$scope.peopleCategories = data;
 				for (var i = 0; i<10; i++){
-					$scope.peopleCategories[i].name = $scope.getCategoryName($scope.peopleCategories[i].categoryId);
-					//var date = new Date($scope.peopleCategories[i].date);
-					//console.log(date.getFullYear());
-					//$scope.peopleCategories.date = date;
-
-					$scope.peopleCategories[i].total = $scope.resultChanged(i);
+						$scope.peopleCategories[i].name = $scope.getCategoryName($scope.peopleCategories[i].categoryId);
+						$scope.peopleCategories[i].total = $scope.resultChanged(i);
 						
 				}
-			}
+		}
+		}).error(function(data){
+			//Checks if there was an error retrieving the data
+			console.log("something really bad happened " + data);
 		});
 	}
+
 
 	//Add new documents to the people-categories collection
 	$scope.addToMongo = function(){
@@ -56,8 +40,11 @@ getMongoModule.controller('getMongoController', ['$scope', '$http','MongoModules
 		//Sends all the categories
 		for(var i = 0; i<10;i++){
 			//Post the information stored in $scope.peoplecategories
-			MongoModules.AddToMongo($scope.peopleCategories[i]).then(function(data){
-				console.log('Data Added');
+			$http.post('/employees', $scope.peopleCategories[i]).success(function(data){
+		
+			}).error(function(data){
+				//Sends an error if there was a problem in the post
+				console.log("something really bad happened " + data);
 			});
 		}
 		
@@ -66,12 +53,17 @@ getMongoModule.controller('getMongoController', ['$scope', '$http','MongoModules
 	//Update the documents in people catagories with the new data
 	$scope.updateToMongo = function(){
 		for(var i = 0; i<10;i++){
-	
+			//Set all dates to Todays day in ISO Format
+			$scope.peopleCategories[i].date = new Date().toISOString();
 			//Update all the categories of the person selected by sending the most recent information 
 			//stored in $scope.peopleCategories
-			MongoModules.UpdateToMongo($scope.peopleCategories[i]).then(function(data){
-				console.log('Data Updated');
-
+			$http.post('/employees/' +  $scope.peopleCategories[i].employeeId		//URL to be send
+				, $scope.peopleCategories[i], 										//Data sent to the post
+				{params: {'employeeId': $scope.peopleCategories[i].employeeId}})	//Config and parameters sent to the post
+			.error(function(data){
+				//Sends an error if there was a proble in the post
+				console.log("something really bad happened " + data);
+				$scope.showButton = false;
 			});
 		}
 		$scope.ShowButton = false;	
@@ -90,7 +82,7 @@ getMongoModule.controller('getMongoController', ['$scope', '$http','MongoModules
 
 	//This function triggers if any value of a specific row changes 
 	$scope.resultChanged = function(rowNumber){
-		return parseInt($scope.peopleCategories[rowNumber].Results[0]) + //make this a function and take out the hard coding in the indexes
+		$scope.peopleCategories[rowNumber].total = parseInt($scope.peopleCategories[rowNumber].Results[0]) + //make this a function and take out the hard coding in the indexes
 							parseInt($scope.peopleCategories[rowNumber].Results[1]) + 
 							parseInt($scope.peopleCategories[rowNumber].Results[2]) + 
 							parseInt($scope.peopleCategories[rowNumber].Results[3]);
@@ -114,7 +106,3 @@ getMongoModule.controller('getMongoController', ['$scope', '$http','MongoModules
 //use toasts instead of console log in errors (optional)
 //Services capitalized
 //Use deferred on the http calls $q
-
-//Add to the top matrices competition
-//take the update to the side if the rows are too many
-//add button allow us to add a new category for that person
