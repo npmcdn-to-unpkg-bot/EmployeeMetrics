@@ -39,11 +39,10 @@ getMongoModule.controller('getMongoController', ['$scope', '$http','MongoModules
 				$scope.peopleCategories = data;
 				for (var i = 0; i<10; i++){
 					$scope.peopleCategories[i].name = $scope.getCategoryName($scope.peopleCategories[i].categoryId);
-					//var date = new Date($scope.peopleCategories[i].date);
-					//console.log(date.getFullYear());
-					//$scope.peopleCategories.date = date;
 
 					$scope.peopleCategories[i].total = $scope.resultChanged(i);
+					var date = $scope.peopleCategories.date;
+					$scope.peopleCategories.date = dateFilter(date, 'yyyy-MM-dd');
 						
 				}
 			}
