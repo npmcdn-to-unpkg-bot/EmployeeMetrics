@@ -41,8 +41,8 @@ getMongoModule.controller('getMongoController', ['$scope', '$filter', 'MongoModu
 					$scope.peopleCategories[i].name = $scope.getCategoryName($scope.peopleCategories[i].categoryId);
 
 					$scope.peopleCategories[i].total = $scope.resultChanged(i);
-					var date = $scope.peopleCategories.date;
-					$scope.peopleCategories.date = $filter('date')(date, 'MM-dd-YYYY');
+					/*var date = $scope.peopleCategories.date;
+					$scope.peopleCategories.date = $filter('date')(date, 'MM-dd-YYYY');*/
 						
 				}
 			}
