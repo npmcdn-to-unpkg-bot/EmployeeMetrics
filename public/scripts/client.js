@@ -27,8 +27,9 @@ getMongoModule.controller('getMongoController', ['$scope', '$filter', 'MongoModu
 					$scope.peopleCategories[i].employeeId = idem;
 					$scope.peopleCategories[i].categoryId = $scope.categories[i]._id;
 					$scope.peopleCategories[i].name = $scope.getCategoryName($scope.peopleCategories[i].categoryId);
-					/*var date = new Date().toISOString();
-					$scope.peopleCategories[i].date = new Date(date.getFullYear(), date.getMonth(), date.getDay());*/
+					var date = new Date($scope.peopleCategories[i].date);
+					console.log(date);
+					//$scope.peopleCategories[i].date = new Date(date.getFullYear(), date.getMonth(), date.getDay());
 					$scope.peopleCategories[i].Results = [	1,	1,	1,	1 	];
 					$scope.peopleCategories[i].total = 4;
 
@@ -43,7 +44,10 @@ getMongoModule.controller('getMongoController', ['$scope', '$filter', 'MongoModu
 					$scope.peopleCategories[i].total = $scope.resultChanged(i);
 					/*var date = $scope.peopleCategories.date;
 					$scope.peopleCategories.date = $filter('date')(date, 'MM-dd-YYYY');*/
-						
+					var date = new Date($scope.peopleCategories[i].date);
+					console.log(date);
+					$scope.peopleCategories[i].date = new Date(date.getFullYear(),date.getMonth(), date.getDay());
+					console.log($scope.peopleCategories[i].date);
 				}
 			}
 		});
