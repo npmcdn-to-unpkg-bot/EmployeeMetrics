@@ -7,7 +7,7 @@
 		<title>Matrices Ccompetition</title>
 		
 		<script type="text/javascript" src="scripts/libraries/jquery.min.js"></script>
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+		<script type="text/javascript" src="scripts/libraries/angular.min.js"></script>
 		<script type="text/javascript" src="scripts/libraries/bootstrap.min.js"></script>
 		<script type="text/javascript" src='scripts/libraries/moment.min.js'></script>
 
@@ -50,28 +50,28 @@
 					<td><input class = 'form-control' type ='text' class='' name='category' ng-model='categories[$index].name' size = '65' disabled></td>
 					<td>
 
-						<select class='form-control' name='column-a' id='column-a' ng-change='resultChanged($index)' ng-model='personCategory.Results[0]'>
+						<select class='form-control' name='column-a' id='column-a' ng-change='resultChanged($index)' ng-model='personCategory.Results[0]' ng-options='rating as rating for rating in ratings'>
 							<option value = 1>1</option>
 							<option value = 2>2</option>
 							<option value = 3>3</option>
 						</select>
 					</td>
 					<td>
-						<select class='form-control' name='column-b' id='column-b' ng-change='resultChanged($index)' ng-model='personCategory.Results[1]'>
+						<select class='form-control' name='column-b' id='column-b' ng-change='resultChanged($index)' ng-model='personCategory.Results[1]' ng-options='rating as rating for rating in ratings'>
 							<option value = 1>1</option>
 							<option value = 2>2</option>
 							<option value = 3>3</option>
 						</select>
 					</td>
 					<td>
-						<select class='form-control' name='column-c' id='column-c' ng-change='resultChanged($index)' ng-model='personCategory.Results[2]'>
+						<select class='form-control' name='column-c' id='column-c' ng-change='resultChanged($index)' ng-model='personCategory.Results[2]' ng-options='rating as rating for rating in ratings'>
 							<option value = 1>1</option>
 							<option value = 2>2</option>
 							<option value = 3>3</option>
 						</select>
 					</td>
 					<td>
-						<select class='form-control' name='column-d' id='column-d' ng-change='resultChanged($index)' ng-model='personCategory.Results[3]'>
+						<select class='form-control' name='column-d' id='column-d' ng-change='resultChanged($index)' ng-model='personCategory.Results[3]' ng-options='rating as rating for rating in ratings'>
 							<option value = 1>1</option>
 							<option value = 2>2</option>
 							<option value = 3>3</option>
