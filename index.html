@@ -18,7 +18,7 @@
 		
 			<div class = 'col-md-3'>
 				<label for = 'name'>Your name
-				<select class = 'form-control' name = 'name' id='nameSelector' ng-change='getPeopleCategories(person._id)' ng-model='person._id'>
+				<select class = 'form-control' name = 'name' id='nameSelector' ng-change='getPeopleCategories(params)' ng-model='params.employeeId'>
 					<option ng-repeat="person in people" value='{{person._id}}'>{{person.firstname + ' ' + person.lastname}}</option>
 
 				</select>
@@ -28,20 +28,20 @@
 			</div>
 			<div class = 'col-md-3'>
 				<label for = 'date'>Date
-				<input type = 'date' class='form-control' name = 'date' id='datePicker' ng-model = 'peopleCategories[0].date'  />
+				<input type = 'date' class='form-control' name = 'date' id='datePicker' ng-change='getPeopleCategories(params)' ng-model = 'params.date'  />
 			</div>
 			<div class = 'col-md-12'>
 			<table class='table table-striped'>
 				<thead>
 					<th>Category</th>
-					<th>Column A</th>
-					<th>Column B</th>
-					<th>Column C</th>
-					<th>Column D</th>
-					<th>Column Total</th>
+					<th>JS Frameworks (Angular/Backbone)</th>
+					<th>Databases (Mongo / SQL Server)</th>
+					<th>Core javascript / jquery</th>
+					<th>HTML5.0 / CSS3.0</th>
+					<th>Total</th>
 				</thead>
 				<tr ng-repeat='personCategory in peopleCategories track by $index'>
-					<td><input class = 'form-control' type ='text' class='' name='category' ng-model='personCategory.name' disabled></td>
+					<td><input class = 'form-control' type ='text' class='' name='category' ng-model='categories[$index].name' size = '65' disabled></td>
 					<td>
 						<select class='form-control' name='column-a' id='column-a' ng-change='resultChanged($index)' ng-model='personCategory.Results[0]'>
 							<option value = 1>1</option>

@@ -5,6 +5,7 @@ var path 		= 	require('path');
 var mongoose	= 	require('mongoose');
 var bodyParser	=	require('body-parser');
 var mongoOp		=	require('./models/mongo');
+var moment 		=  	require('moment')
 var router		=	express.Router();
 var ObjectId 	= 	mongoose.Types.ObjectId;
 
@@ -87,9 +88,15 @@ router.route('/employees')
 router.route('/employees/:id')
 		//Gets information taking id as parameter
 		.get(function(req, res){
-			var response = {};
+			var response = {};	
+			var startDate  = moment(req.query.date);
+			startDate.date(1);
+			
+			var endDate = moment(startDate).add(1,'months');
+			
+			
 			//Find all the documents in EmployeeCategory which employeeId is equal the the id pass through url
-			mongoOp.EmployeeCategory.find({'employeeId' : ObjectId.createFromHexString(req.params.id)}, function(err,data){
+			mongoOp.EmployeeCategory.find({'employeeId' : ObjectId.createFromHexString(req.params.id), 'date': {$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}}, function(err,data){
 				if (err){
 					//If an error happens it sends information about the error to the client
 					response = {'error': true, 'message': 'error fetching data from Employees Categories on employeeId: ' + req.params.id};
@@ -110,10 +117,14 @@ router.route('/employees/:id')
 			db.categoryId = req.body.categoryId;
 			db.Results = req.body.Results;
 			db.date = req.body.date;
+
+			var startDate  = moment(req.body.date);
+			startDate.date(1);
+			var endDate = moment(startDate).add(1,'months');
 			//Update the old information with the new one 
 			mongoOp.EmployeeCategory.update(
-				{'employeeId' : db.employeeId, 'categoryId' : db.categoryId}, //Query where to update
-				{$set: {'Results' : db.Results, 'employeeIdId': db.employeeId , 'categoryId': db.categoryId, 'date':db.date }}, //sValues to change
+				{'employeeId' : db.employeeId, 'categoryId' : db.categoryId, 'date':{$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}}, //Query where to update
+				{$set: {'Results' : db.Results, 'employeeIdId': db.employeeId , 'categoryId': db.categoryId, 'date': db.date}}, //sValues to change
 				function(err,data){
 					//If an error appear or not it set response and send a message to the client
 					if(err){

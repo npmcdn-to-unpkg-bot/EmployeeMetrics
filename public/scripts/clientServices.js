@@ -26,9 +26,9 @@ function MongoModuleServicesFactory($http, $q){
 		return deferred.promise;
 	}
 
-	var _getPeopleCategories = function(idem){		
+	var _getPeopleCategories = function(params){		
 		var deferred = $q.defer(); 
-		$http.get('/employees/'+idem, {params: {'employeeId': idem}})
+		$http.get('/employees/'+params.employeeId, {params: params})
 		.success(function(data){
 			deferred.resolve(data);
 		}).error(function(data){
@@ -55,6 +55,7 @@ function MongoModuleServicesFactory($http, $q){
 				, data, 				//Data sent to the post
 				{params: data.employeeId})	//Config and parameters sent to the post
 			.success(function(data){
+
 				deferred.resolve(data);
 			})
 			.error(function(data){
