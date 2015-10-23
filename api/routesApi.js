@@ -1,25 +1,15 @@
-//All libraries I will use
 var express		=	require ('express');
 var app			= 	express();
 var path 		= 	require('path');
 var mongoose	= 	require('mongoose');
-var bodyParser	=	require('body-parser');
-var mongoOp		=	require('./models/mongo');
+var mongoOp		=	require('../models/mongo');
 var moment 		=  	require('moment')
 var router		=	express.Router();
 var ObjectId 	= 	mongoose.Types.ObjectId;
 
-
-//Use JSON to parse the data
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({'extended':false}));
-
-//This call allow us to call from the html all the information in public
-app.use(express.static(__dirname +'/public'));
-
 //Gets index.html whenever we call localhost
 router.get('/', function(req,res){
-	res.sendFile(path.join(__dirname,"./index.html"));
+	res.sendFile(path.join(__dirname,"../index.html"));
 });
 
 //Routes all the information in categories
@@ -96,7 +86,9 @@ router.route('/employees/:id')
 			
 			
 			//Find all the documents in EmployeeCategory which employeeId is equal the the id pass through url
-			mongoOp.EmployeeCategory.find({'employeeId' : ObjectId.createFromHexString(req.params.id), 'date': {$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}}, function(err,data){
+			mongoOp.EmployeeCategory.find({	'employeeId' : ObjectId.createFromHexString(req.params.id), 
+											'date': {$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}}, 
+											function(err,data){
 				if (err){
 					//If an error happens it sends information about the error to the client
 					response = {'error': true, 'message': 'error fetching data from Employees Categories on employeeId: ' + req.params.id};
@@ -135,8 +127,4 @@ router.route('/employees/:id')
 					res.send(response);
 			});
 		});
-
-
-app.use('/', router);
-app.listen(3000);
-console.log('Listening to PORT 3000');
+module.exports = router;

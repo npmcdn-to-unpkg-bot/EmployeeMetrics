@@ -1,23 +1,28 @@
 <!DOCTYPE html>
-<html ng-app='getData'>
+<html ng-app='competitionMatrices'>
 	<head>
+		
 		<link rel="stylesheet" href="styles/bootstrap.min.css">
-		<title>Express Test</title>
+		
+		<title>Matrices Ccompetition</title>
+		
+		<script type="text/javascript" src="scripts/libraries/jquery.min.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-		<script type="text/javascript" src="scripts/jquery.min.js"></script>
-		<script type="text/javascript" src="scripts/bootstrap.min.js"></script>
-		<script type="text/javascript" src='scripts/module.js'></script>
-		<script type="text/javascript" src='scripts/clientServices.js'></script>
-		<script type="text/javascript" src='scripts/client.js'></script>
-		<script type="text/javascript" src='scripts/moment.min.js'></script>
+		<script type="text/javascript" src="scripts/libraries/bootstrap.min.js"></script>
+		<script type="text/javascript" src='scripts/libraries/moment.min.js'></script>
+
+
+		<script type="text/javascript" src='scripts/competitionMatricesModule.js'></script>
+		<script type="text/javascript" src='scripts/competitionMatricesServices.js'></script>
+		<script type="text/javascript" src='scripts/competitionMatricesController.js'></script>
 
 	</head>
 	<body>
-		<div ng-controller="getMongoController" ng-init="initialize()">
+		<div ng-controller="competitionMatricesController" ng-init="initialize()">
 		<div class = 'container' >
 		
 			<div class = 'col-md-3'>
-				<label for = 'name'>Your name
+				<label for = 'name' />Your name
 				<select class = 'form-control' name = 'name' id='nameSelector' ng-change='getPeopleCategories(params)' ng-model='params.employeeId'>
 					<option ng-repeat="person in people" value='{{person._id}}'>{{person.firstname + ' ' + person.lastname}}</option>
 
@@ -39,10 +44,12 @@
 					<th>Core javascript / jquery</th>
 					<th>HTML5.0 / CSS3.0</th>
 					<th>Total</th>
+					
 				</thead>
 				<tr ng-repeat='personCategory in peopleCategories track by $index'>
 					<td><input class = 'form-control' type ='text' class='' name='category' ng-model='categories[$index].name' size = '65' disabled></td>
 					<td>
+
 						<select class='form-control' name='column-a' id='column-a' ng-change='resultChanged($index)' ng-model='personCategory.Results[0]'>
 							<option value = 1>1</option>
 							<option value = 2>2</option>
@@ -73,6 +80,7 @@
 					<td>
 						<input type='number' name='total' class='form-control' id='total' ng-change='resultChanged($index)' ng-model='personCategory.total' disabled>
 					</td>
+
 				</tr>
 
 			</table>

@@ -1,1 +1,0 @@
-var getMongoModule = angular.module('getData',[]);

@@ -1,10 +1,11 @@
-var getMongoModule = angular.module('getData');
+'use strict'
+var competitionMatricesModule = angular.module('competitionMatrices');
 
-getMongoModule.factory('MongoModules', MongoModuleServicesFactory);
+competitionMatricesModule.factory('CompetitionMatrixServices', CompetitionMatricesServices);
 
-function MongoModuleServicesFactory($http, $q){
+function CompetitionMatricesServices($http, $q){
 	
-	var MongoModuleServicesFactory = {};
+	var CompetitionMatricesServices = {};
 
 	var _getPeople = function(){
 		var deferred = $q.defer(); 
@@ -55,7 +56,6 @@ function MongoModuleServicesFactory($http, $q){
 				, data, 				//Data sent to the post
 				{params: data.employeeId})	//Config and parameters sent to the post
 			.success(function(data){
-
 				deferred.resolve(data);
 			})
 			.error(function(data){
@@ -65,11 +65,11 @@ function MongoModuleServicesFactory($http, $q){
 		return deferred.promise;
 	}
 
-	MongoModuleServicesFactory.GetPeople 			= _getPeople;
-	MongoModuleServicesFactory.GetCategories  		= _getCategories;
-	MongoModuleServicesFactory.GetPeopleCategories 	= _getPeopleCategories;
-	MongoModuleServicesFactory.AddToMongo 			= _addToMongo;
-	MongoModuleServicesFactory.UpdateToMongo 		= _updateToMongo;
-	return MongoModuleServicesFactory;
+	CompetitionMatricesServices.GetPeople 			= _getPeople;
+	CompetitionMatricesServices.GetCategories  		= _getCategories;
+	CompetitionMatricesServices.GetPeopleCategories = _getPeopleCategories;
+	CompetitionMatricesServices.AddToMongo 			= _addToMongo;
+	CompetitionMatricesServices.UpdateToMongo 		= _updateToMongo;
+	return CompetitionMatricesServices;
 
 }
