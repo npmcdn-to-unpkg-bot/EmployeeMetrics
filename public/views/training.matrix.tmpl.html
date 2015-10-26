@@ -1,0 +1,77 @@
+<div ng-controller="competitionMatricesController" ng-init="initialize()">
+		<div class = 'container' >
+		<form class='form form-inline'>
+			<div class = 'col-md-3'>
+				<label for = 'name' />Your name
+				<select class = 'form-control' name = 'name' id='nameSelector' ng-change='getPeopleCategories(params)' ng-model='params.employeeId'>
+					<option ng-repeat="person in people" value='{{person._id}}'>{{person.firstname + ' ' + person.lastname}}</option>
+
+				</select>
+			</div>
+			<div class = 'col-md-6'>
+					<h2 align = 'center'>Matrices Competition</h2>
+			</div>
+			<div class = 'col-md-3'>
+				<label for = 'date'>Date
+				<input type = 'date' class='form-control' name = 'date' id='datePicker' ng-change='getPeopleCategories(params)' ng-model = 'params.date'  />
+			</div>
+		</form>
+			<div class = 'col-md-12'>
+			<table class='table table-striped'>
+				<thead>
+					<th>Category</th>
+					<th>JS Frameworks (Angular/Backbone)</th>
+					<th>Databases (Mongo / SQL Server)</th>
+					<th>Core javascript / jquery</th>
+					<th>HTML5.0 / CSS3.0</th>
+					<th>Total</th>
+					
+				</thead>
+				<tr ng-repeat='personCategory in peopleCategories track by $index'>
+					<td><input class = 'form-control' type ='text' class='' name='category' ng-model='categories[$index].name' size = '65' disabled></td>
+					<td>
+
+						<select class='form-control' name='column-a' id='column-a' ng-change='resultChanged($index)' ng-model='personCategory.Results[0]' ng-options='rating as rating for rating in ratings'>
+							<option value = 1>1</option>
+							<option value = 2>2</option>
+							<option value = 3>3</option>
+						</select>
+					</td>
+					<td>
+						<select class='form-control' name='column-b' id='column-b' ng-change='resultChanged($index)' ng-model='personCategory.Results[1]' ng-options='rating as rating for rating in ratings'>
+							<option value = 1>1</option>
+							<option value = 2>2</option>
+							<option value = 3>3</option>
+						</select>
+					</td>
+					<td>
+						<select class='form-control' name='column-c' id='column-c' ng-change='resultChanged($index)' ng-model='personCategory.Results[2]' ng-options='rating as rating for rating in ratings'>
+							<option value = 1>1</option>
+							<option value = 2>2</option>
+							<option value = 3>3</option>
+						</select>
+					</td>
+					<td>
+						<select class='form-control' name='column-d' id='column-d' ng-change='resultChanged($index)' ng-model='personCategory.Results[3]' ng-options='rating as rating for rating in ratings'>
+							<option value = 1>1</option>
+							<option value = 2>2</option>
+							<option value = 3>3</option>
+						</select>
+					</td>
+					<td>
+						<input type='number' name='total' class='form-control' id='total' ng-change='resultChanged($index)' ng-model='personCategory.total' disabled>
+					</td>
+
+				</tr>
+
+			</table>
+		</div>
+			<div class = 'col-md-3'ng-show='ShowButton'>
+				<button name='Add' class = 'btn btn-success' ng-click='addToMongo()'>Add New Information </button>
+			</div>
+			<div class = 'col-md-3' ng-hide='ShowButton'>
+				<button name='update' class = 'btn btn-info' ng-click='updateToMongo()'>Update Information </button>
+			</div>
+		</div>
+
+	</div>
