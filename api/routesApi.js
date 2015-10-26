@@ -3,7 +3,7 @@ var app			= 	express();
 var path 		= 	require('path');
 var mongoose	= 	require('mongoose');
 var mongoOp		=	require('../models/mongo');
-var moment 		=  	require('moment')
+var moment 		=  	require('moment');
 var router		=	express.Router();
 var ObjectId 	= 	mongoose.Types.ObjectId;
 
@@ -14,117 +14,31 @@ router.get('/', function(req,res){
 
 //Routes all the information in categories
 router.route('/categories')
-		.get(function(req, res){
-			var response = {};
-			//Query all the categories in the Category collection
-			mongoOp.Category.find({}, function(err,data){
-				if (err){
-					//Sends Error if the query is unsuccessful
-					response = {'error': true, 'message': 'error fetching data from categries'};
-					res.json(data);
-				}else{
-					//Sends to the client the deata retrieved
-					res.json(data);
-				}
-
-			});
-		});
+	.get(function(req, res){
+		mongoOp.model.findCategoriesTrainingMatrix(req,res);
+	});
 
 //Routes all information in Employees
 router.route('/employees')
 		//Get Employees data
-		.get(function(req, res){
-			var response = {};
-			//This function find all Documents inside Employee collection
-			mongoOp.Employee.find({}, function(err,data){
-				if(err){
-					//Response send an error if the query fails
-					response = {"error" : true, 'message': "Error Fetching data from employees"};
-					//Sends information abour the error
-					res.json(response);
-				}else{
-					//Sends the data found to the client
-					res.json(data);
-				}
-			});
-		})
-		//Post new information in employee categories
-		.post(function(req,res){
-			var response={};
-			//creates a new document for EmployeeCategory
-			var db = new mongoOp.EmployeeCategory();
-			//Saves all new information to be saved
-			db._id = mongoose.Types.ObjectId();		//Generates ObjectId
-			db.employeeId = req.body.employeeId;
-			db.categoryId = req.body.categoryId;
-			db.Results = req.body.Results;
-			db.date = req.body.date;
-			//Calss the save functiont to mongo
-			db.save(function(err){
-				//if an error is or not saves a different response and sends it to the client
-				if (err){
-					response = {'error': true, 'message' : 'Something really bad happened'};
-				}else
-				{
-					response = {'error': false, 'message' : 'Data added'};
-				}
-			});
-			
-			res.send(response);
-		});
+	.get(function(req, res){
+		mongoOp.model.findEmployeesTrainingMatrix(req,res);
+	})
+	//Post new information in employee categories
+	.post(function(req,res){
+		mongoOp.model.addScoreTrainingMatrix(req,res);
+	});
 
 
 //Routes to get all results between categories and people
 router.route('/employees/:id')
-		//Gets information taking id as parameter
-		.get(function(req, res){
-			var response = {};	
-			var startDate  = moment(req.query.date);
-			startDate.date(1);
-			
-			var endDate = moment(startDate).add(1,'months');
-			
-			
-			//Find all the documents in EmployeeCategory which employeeId is equal the the id pass through url
-			mongoOp.EmployeeCategory.find({	'employeeId' : ObjectId.createFromHexString(req.params.id), 
-											'date': {$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}}, 
-											function(err,data){
-				if (err){
-					//If an error happens it sends information about the error to the client
-					response = {'error': true, 'message': 'error fetching data from Employees Categories on employeeId: ' + req.params.id};
-					res.json(response);
-				}else
-				{
-					//Sends to the client the deata retrieved
-					res.json(data);
-				}
-			});
-		})
-		//Post informatio taking id as parameter
-		.post(function(req, res){
-			var response={};
-			var db = new mongoOp.EmployeeCategory();
-			//Sets new information to be saved
-			db.employeeId = req.body.employeeId
-			db.categoryId = req.body.categoryId;
-			db.Results = req.body.Results;
-			db.date = req.body.date;
+	//Gets information taking id as parameter
+	.get(function(req, res){
+		mongoOp.model.findEmployeeTrainingMatrix(req,res);
+	})
+	//Post informatio taking id as parameter
+	.post(function(req, res){
+		mongoOp.model.updateTrainingMatrix(req,res);
+	});
 
-			var startDate  = moment(req.body.date);
-			startDate.date(1);
-			var endDate = moment(startDate).add(1,'months');
-			//Update the old information with the new one 
-			mongoOp.EmployeeCategory.update(
-				{'employeeId' : db.employeeId, 'categoryId' : db.categoryId, 'date':{$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}}, //Query where to update
-				{$set: {'Results' : db.Results, 'employeeIdId': db.employeeId , 'categoryId': db.categoryId, 'date': db.date}}, //sValues to change
-				function(err,data){
-					//If an error appear or not it set response and send a message to the client
-					if(err){
-						response = {'error': true, 'message' : 'Something really bad happened'};
-					}else{
-						response = {'error': false, 'message' : 'Data added'};
-					}
-					res.send(response);
-			});
-		});
 module.exports = router;
