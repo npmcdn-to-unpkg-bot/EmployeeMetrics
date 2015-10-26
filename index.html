@@ -20,7 +20,7 @@
 	<body>
 		<div ng-controller="competitionMatricesController" ng-init="initialize()">
 		<div class = 'container' >
-		
+		<form class='form form-inline'>
 			<div class = 'col-md-3'>
 				<label for = 'name' />Your name
 				<select class = 'form-control' name = 'name' id='nameSelector' ng-change='getPeopleCategories(params)' ng-model='params.employeeId'>
@@ -35,6 +35,7 @@
 				<label for = 'date'>Date
 				<input type = 'date' class='form-control' name = 'date' id='datePicker' ng-change='getPeopleCategories(params)' ng-model = 'params.date'  />
 			</div>
+		</form>
 			<div class = 'col-md-12'>
 			<table class='table table-striped'>
 				<thead>
