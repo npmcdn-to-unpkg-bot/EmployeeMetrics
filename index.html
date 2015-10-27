@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html ng-app='competitionMatrices'>
+<html>
 	<head>
 		
 		<link rel="stylesheet" href="styles/bootstrap.min.css">
+		<link rel="stylesheet" href="styles/angular-material.layouts.min.css">
 		
-		<title>Matrices Ccompetition</title>
+		<title>Matrices Competition</title>
 		
 		<script type="text/javascript" src="libraries/jquery.min.js"></script>
 		<script type="text/javascript" src="libraries/angular.min.js"></script>
@@ -12,8 +13,11 @@
 		<script type="text/javascript" src='libraries/moment.min.js'></script>
 		<script type="text/javascript" src='libraries/angular-ui-router.min.js'></script>
 
+		<script type="text/javascript" src='libraries/angular-animate.min.js'></script>
+		<script type="text/javascript" src='libraries/angular-aria.min.js'></script>
+		<script type="text/javascript" src='libraries/angular-material.min.js'></script>
 
-		<script type="text/javascript" src = 'app/appModule.js'></script>
+
 
 		<!--calling matrices module-->
 		<script type="text/javascript" src='app/matrices/competitionMatricesModule.js'></script>
@@ -25,31 +29,41 @@
 		<script type="text/javascript" src='app/matrices/technology/technology.matrix.controller.js'></script>
 		<script type="text/javascript" src='app/matrices/training/training.matrix.controller.js'></script>
 
+		<!--calling employees module-->
+		<script type="text/javascript" src='app/employees/employeeModule.js'></script>
+		<script type="text/javascript" src='app/employees/employeeConfig.js'></script>
+		<script type="text/javascript" src='app/employees/employeeServices.js'></script>
+		<script type="text/javascript" src='app/employees/view/view.employee.controller.js'></script>
+	
+		<script type="text/javascript" src = 'app/appModule.js'></script>
 		
 
 	</head>
 	<body>
+	<div ng-app='myApp'>
+		<nav class="navbar navbar-default">
+			<div class='collapse navbar-collapse'>
+				<ul class = 'nav navbar-nav'>
+					<li class='active'>
+						<a href = '/'>Home</a>
+					</li>
+					<li>
+						<a ui-sref = 'training'>Training Matrix</a>
+					</li>
+					<li>
+						<a ui-sref = 'technologymatrix'>Technology Matrix</a>
+					</li>
+					<li>
+						<a ui-sref = 'continuous-evaluation'>Continuous Evaluation</a>
+					</li>
+					<li>
+						<a ui-sref = 'employee'>Employee Crud</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
 
-	<nav class="navbar navbar-default">
-		<div class='collapse navbar-collapse'>
-			<ul class = 'nav navbar-nav'>
-				<li class='active'>
-					<a href = '/'>Home</a>
-				</li>
-				<li>
-					<a ui-sref = 'training'>Training Matrix</a>
-				</li>
-				<li>
-					<a ui-sref = 'technologymatrix'>Technology Matrix</a>
-				</li>
-				<li>
-					<a ui-sref = 'continuous-evaluation'>Continuous Evaluation</a>
-				</li>
-			</ul>
-		</div>
-	</nav>
-
-	<div ui-view></div>
-
+		<div ui-view></div>
+	</div>
 	</body>
 </html>

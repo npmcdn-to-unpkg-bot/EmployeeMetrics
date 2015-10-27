@@ -4,12 +4,6 @@ var competitionMatricesModule = angular.module('competitionMatrices');
 competitionMatricesModule.config(function($stateProvider){
 	
 	$stateProvider
-		/*.state('index',{
-			url: '/index',
-			templateUrl	: 'index.html', 
-			controller	: 'competitionMatricesController',
-			abstract: true			
-		})*/
 
 		.state('training',{
 			url: '/training',

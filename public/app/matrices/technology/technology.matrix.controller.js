@@ -3,7 +3,7 @@ var competitionMatricesModule = angular.module('competitionMatrices');
 
 
 //Creates the controllero for getMongo controller
-competitionMatricesModule.controller('technologyMatrixController', ['$scope', '$filter', 'CompetitionMatrixServices', function($scope, $filter, CompetitionMatrixServices){
+competitionMatricesModule.controller('technologyMatrixController', ['$scope', 'CompetitionMatrixServices', function($scope, CompetitionMatrixServices){
 
 	//Here it will be stored all the information for people
 	$scope.people= {};
