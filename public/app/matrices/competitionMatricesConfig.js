@@ -13,21 +13,21 @@ competitionMatricesModule.config(function($stateProvider){
 
 		.state('training',{
 			url: '/training',
-			templateUrl	: '/matrices/training/training.matrix.tmpl.html',
+			templateUrl	: 'app/matrices/training/training.matrix.tmpl.html',
 			controller 	: 'trainingMatrixController'
 			
 		})
 
 		.state('technologymatrix', {
 			url: '/technologymatrix',
-			templateUrl	: '/matrices/technology/technology.matrix.tmpl.html',
+			templateUrl	: 'app/matrices/technology/technology.matrix.tmpl.html',
 			controller 	: 'technologyMatrixController'
 			
 		})	
 
 		.state('continuous-evaluation',{
 			url: '/continuous-evaluation',
-			templateUrl	: '/matrices/continuousevaluation/continuousevaluation.matrix.tmpl.html',
+			templateUrl	: 'app/matrices/continuousevaluation/continuousevaluation.matrix.tmpl.html',
 			controller 	: 'continuousEvaluationMatrixController'
 		});
 
