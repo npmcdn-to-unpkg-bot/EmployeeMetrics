@@ -22,7 +22,8 @@ var Employee = mongoose.model('Employee', employeeSchema);
 //Creates categorySchema
 var categorySchema = new mongoSchema({
 	'_id'	: 	mongoSchema.ObjectId,
-	'name'	: 	String
+	'name'	: 	String,
+	'table'	: 	Number
 });
 
 //Creates category from CategorySchema
@@ -34,6 +35,7 @@ var employeeCategorySchema = new mongoSchema({
 	'employeeId'	: 	{type: mongoSchema.ObjectId, ref: 'Employee'},
 	'categoryId'	: 	{type: mongoSchema.ObjectId, ref: 'Category'},
 	'date'			: 	Date,
+	'table'			: 	Number,
 	'Results'		: 	[
 			Number, 
 			Number, 
@@ -46,28 +48,24 @@ var employeeCategorySchema = new mongoSchema({
 var EmployeeCategory = mongoose.model('employees.categories', employeeCategorySchema);
 
 
-
-var findEmployeesTrainingMatrix = function(req,res){
-	var response = {};
-	//This function find all Documents inside Employee collection
+var findEmployees = function(req,res)
+{
 	Employee.find({}, function(err,data){
-		if(err){
-			//Response send an error if the query fails
-			response = {"error" : true, 'message': "Error Fetching data from employees"};
-			//Sends information abour the error
+		if (err){
+			response = {'error': true, 'message': 'error fetching data from employees'};
 			res.json(response);
 		}else{
-			//Sends the data found to the client
 			res.json(data);
 		}
 	});
 }
 
+
 var findCategoriesTrainingMatrix = function(req,res){
 	
 	var response = {};
 	//Query all the categories in the Category collection
-	Category.find({}, function(err,data){
+	Category.find({'table' : 1}, function(err,data){
 		if (err){
 			//Sends Error if the query is unsuccessful
 			response = {'error': true, 'message': 'error fetching data from categries'};
@@ -80,8 +78,43 @@ var findCategoriesTrainingMatrix = function(req,res){
 	});
 }
 
-var findEmployeeTrainingMatrix = function(req, res){
+var findCategoriesTechnologyMatrix = function(req,res){
+	
+	var response = {};
+	//Query all the categories in the Category collection
+	Category.find({'table' : 0}, function(err,data){
+		if (err){
+			//Sends Error if the query is unsuccessful
+			response = {'error': true, 'message': 'error fetching data from categries'};
+			res.json(data);
+		}else{
+			//Sends to the client the deata retrieved
+			res.json(data);
+		}
+
+	});
+}
+
+var findCategoriesContinuousEvaluationMatrix = function(req,res){
+	
+	var response = {};
+	//Query all the categories in the Category collection
+	Category.find({'table' : 2}, function(err,data){
+		if (err){
+			//Sends Error if the query is unsuccessful
+			response = {'error': true, 'message': 'error fetching data from categries'};
+			res.json(data);
+		}else{
+			//Sends to the client the deata retrieved
+			res.json(data);
+		}
+
+	});
+}
+
+var findEmployeesCategoriesMatrix = function(req, res){
 	var response = {};	
+	
 
 	var startDate  = moment(req.query.date);
 	startDate.date(1);
@@ -89,7 +122,8 @@ var findEmployeeTrainingMatrix = function(req, res){
 	var endDate = moment(startDate).add(1,'months');
 		
 	//Find all the documents in EmployeeCategory which employeeId is equal the the id pass through url
-	EmployeeCategory.find({	'employeeId' : ObjectId.createFromHexString(req.params.id), 
+	EmployeeCategory.find({	'employeeId' : req.query.employeeId, 
+									'table': parseInt(req.query.table),
 									'date': {$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}}, 
 									function(err,data){
 		if (err){
@@ -104,6 +138,7 @@ var findEmployeeTrainingMatrix = function(req, res){
 	});
 }
 
+
 var updateTrainingMatrix = function(req, res){
 	var response={};
 	var db = new EmployeeCategory();
@@ -112,14 +147,14 @@ var updateTrainingMatrix = function(req, res){
 	db.categoryId = req.body.categoryId;
 	db.Results = req.body.Results;
 	db.date = req.body.date;
-	
+	db.table = parseInt(req.body.table);
 	var startDate  = moment(req.body.date);
 	startDate.date(1);
 	var endDate = moment(startDate).add(1,'months');
 	//Update the old information with the new one 
 	EmployeeCategory.update(
 		{'employeeId' : db.employeeId, 'categoryId' : db.categoryId, 'date':{$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}}, //Query where to update
-		{$set: {'Results' : db.Results, 'employeeIdId': db.employeeId , 'categoryId': db.categoryId, 'date': db.date}}, //sValues to change
+		{$set: {'Results' : db.Results, 'employeeIdId': db.employeeId , 'categoryId': db.categoryId, 'date': db.date, 'table' : db.table}}, //sValues to change
 		function(err,data){
 			//If an error appear or not it set response and send a message to the client
 			if(err){
@@ -127,6 +162,7 @@ var updateTrainingMatrix = function(req, res){
 			}else{
 				response = {'error': false, 'message' : 'Data added'};
 			}
+
 			res.send(response);
 	});
 }
@@ -140,7 +176,9 @@ var addScoreTrainingMatrix = function(req,res){
 	db.employeeId = req.body.employeeId;
 	db.categoryId = req.body.categoryId;
 	db.Results = req.body.Results;
+	db.table = parseInt(req.body.table);
 	db.date = req.body.date;
+	console.log(db);
 	//Calss the save functiont to mongo
 	db.save(function(err){
 		//if an error is or not saves a different response and sends it to the client
@@ -163,9 +201,17 @@ module.exports.model = {
 	EmployeeCategory : EmployeeCategory,
 
 	//Exporting functionalities needed
-	findEmployeesTrainingMatrix : findEmployeesTrainingMatrix,
+	
+	findEmployees : findEmployees,
+	
+	//Finding categories for the different tables
+	findCategoriesContinuousEvaluationMatrix : findCategoriesContinuousEvaluationMatrix,
+	findCategoriesTechnologyMatrix : findCategoriesTechnologyMatrix,
 	findCategoriesTrainingMatrix : findCategoriesTrainingMatrix,
-	findEmployeeTrainingMatrix : findEmployeeTrainingMatrix,
+
+	//Finding relations between employees and categories for the three tables
+	findEmployeesCategoriesMatrix : findEmployeesCategoriesMatrix,
+	
 	updateTrainingMatrix : updateTrainingMatrix,
 	addScoreTrainingMatrix : addScoreTrainingMatrix
 };

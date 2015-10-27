@@ -3,7 +3,7 @@ var competitionMatricesModule = angular.module('competitionMatrices');
 
 
 //Creates the controllero for getMongo controller
-competitionMatricesModule.controller('competitionMatricesController', ['$scope', '$filter', 'CompetitionMatrixServices', function($scope, $filter, CompetitionMatrixServices){
+competitionMatricesModule.controller('continuousEvaluationMatrixController', ['$scope', '$filter', 'CompetitionMatrixServices', function($scope, $filter, CompetitionMatrixServices){
 
 	//Here it will be stored all the information for people
 	$scope.people= {};
@@ -21,7 +21,8 @@ competitionMatricesModule.controller('competitionMatricesController', ['$scope',
 	//depending on the person selected it will show all the categories that person has been graded
 	$scope.getPeopleCategories = function(params){
 		$scope.params = params;
-
+		$scope.params.table = $scope.categories[0].table;
+		
 		CompetitionMatrixServices.GetPeopleCategories(params).then(function(data){
 
 			if (data.length == 0){
@@ -61,9 +62,11 @@ competitionMatricesModule.controller('competitionMatricesController', ['$scope',
 
 		$scope.ShowButton = false;
 		//Sends all the categories
-		for(var i = 0; i<$scope.peopleCategories.length;i++){
+
+		for(var i = 0; i<$scope.categories.length;i++){
 			//Post the information stored in $scope.peoplecategories
 			$scope.peopleCategories[i].date = $scope.params.date;
+			$scope.peopleCategories[i].table = $scope.categories[i].table;
 			CompetitionMatrixServices.AddToMongo($scope.peopleCategories[i]).then(function(data){
 				
 			});
@@ -88,14 +91,15 @@ competitionMatricesModule.controller('competitionMatricesController', ['$scope',
 
 	//On Index load this fucntion is called to and gets all the information from people and categories
 	$scope.initialize = function(){
+		$scope.categories = {};
+		$scope.people = {};
 		CompetitionMatrixServices.GetPeople().then(function(response){
 			$scope.people = response;
 		});
-		CompetitionMatrixServices.GetCategories().then(function(response){
+		CompetitionMatrixServices.GetContinuousEvaluationCategories().then(function(response){
 			$scope.categories = response;
 		});
 		$scope.params.date = new Date();
-		
 	}
 
 	//This function triggers if any value of a specific row changes 
@@ -120,6 +124,4 @@ competitionMatricesModule.controller('competitionMatricesController', ['$scope',
 }]);
 
 
-
-//use vm instead of scope
 

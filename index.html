@@ -6,94 +6,45 @@
 		
 		<title>Matrices Ccompetition</title>
 		
-		<script type="text/javascript" src="scripts/libraries/jquery.min.js"></script>
-		<script type="text/javascript" src="scripts/libraries/angular.min.js"></script>
-		<script type="text/javascript" src="scripts/libraries/bootstrap.min.js"></script>
-		<script type="text/javascript" src='scripts/libraries/moment.min.js'></script>
+		<script type="text/javascript" src="libraries/jquery.min.js"></script>
+		<script type="text/javascript" src="libraries/angular.min.js"></script>
+		<script type="text/javascript" src="libraries/bootstrap.min.js"></script>
+		<script type="text/javascript" src='libraries/moment.min.js'></script>
+		<script type="text/javascript" src='libraries/angular-ui-router.min.js'></script>
 
+		<!--calling matrices module-->
+		<script type="text/javascript" src='matrices/competitionMatricesModule.js'></script>
+		<script type="text/javascript" src='matrices/competitionMatricesConfig.js'></script>
+		<script type="text/javascript" src='matrices/competitionMatricesServices.js'></script>
 
-		<script type="text/javascript" src='scripts/competitionMatricesModule.js'></script>
-		<script type="text/javascript" src='scripts/competitionMatricesServices.js'></script>
-		<script type="text/javascript" src='scripts/competitionMatricesController.js'></script>
+		<!--matrices controllers-->
+		<script type="text/javascript" src='matrices/continuousevaluation/continuousevaluation.matrix.controller.js'></script>
+		<script type="text/javascript" src='matrices/technology/technology.matrix.controller.js'></script>
+		<script type="text/javascript" src='matrices/training/training.matrix.controller.js'></script>
 
 	</head>
 	<body>
-		<div ng-controller="competitionMatricesController" ng-init="initialize()">
-		<div class = 'container' >
-		
-			<div class = 'col-md-3'>
-				<label for = 'name' />Your name
-				<select class = 'form-control' name = 'name' id='nameSelector' ng-change='getPeopleCategories(params)' ng-model='params.employeeId'>
-					<option ng-repeat="person in people" value='{{person._id}}'>{{person.firstname + ' ' + person.lastname}}</option>
 
-				</select>
-			</div>
-			<div class = 'col-md-6'>
-					<h2 align = 'center'>Matrices Competition</h2>
-			</div>
-			<div class = 'col-md-3'>
-				<label for = 'date'>Date
-				<input type = 'date' class='form-control' name = 'date' id='datePicker' ng-change='getPeopleCategories(params)' ng-model = 'params.date'  />
-			</div>
-			<div class = 'col-md-12'>
-			<table class='table table-striped'>
-				<thead>
-					<th>Category</th>
-					<th>JS Frameworks (Angular/Backbone)</th>
-					<th>Databases (Mongo / SQL Server)</th>
-					<th>Core javascript / jquery</th>
-					<th>HTML5.0 / CSS3.0</th>
-					<th>Total</th>
-					
-				</thead>
-				<tr ng-repeat='personCategory in peopleCategories track by $index'>
-					<td><input class = 'form-control' type ='text' class='' name='category' ng-model='categories[$index].name' size = '65' disabled></td>
-					<td>
-
-						<select class='form-control' name='column-a' id='column-a' ng-change='resultChanged($index)' ng-model='personCategory.Results[0]' ng-options='rating as rating for rating in ratings'>
-							<option value = 1>1</option>
-							<option value = 2>2</option>
-							<option value = 3>3</option>
-						</select>
-					</td>
-					<td>
-						<select class='form-control' name='column-b' id='column-b' ng-change='resultChanged($index)' ng-model='personCategory.Results[1]' ng-options='rating as rating for rating in ratings'>
-							<option value = 1>1</option>
-							<option value = 2>2</option>
-							<option value = 3>3</option>
-						</select>
-					</td>
-					<td>
-						<select class='form-control' name='column-c' id='column-c' ng-change='resultChanged($index)' ng-model='personCategory.Results[2]' ng-options='rating as rating for rating in ratings'>
-							<option value = 1>1</option>
-							<option value = 2>2</option>
-							<option value = 3>3</option>
-						</select>
-					</td>
-					<td>
-						<select class='form-control' name='column-d' id='column-d' ng-change='resultChanged($index)' ng-model='personCategory.Results[3]' ng-options='rating as rating for rating in ratings'>
-							<option value = 1>1</option>
-							<option value = 2>2</option>
-							<option value = 3>3</option>
-						</select>
-					</td>
-					<td>
-						<input type='number' name='total' class='form-control' id='total' ng-change='resultChanged($index)' ng-model='personCategory.total' disabled>
-					</td>
-
-				</tr>
-
-			</table>
+	<nav class="navbar navbar-default">
+		<div class='collapse navbar-collapse'>
+			<ul class = 'nav navbar-nav'>
+				<li class='active'>
+					<a href = '/'>Home</a>
+				</li>
+				<li>
+					<a ui-sref = 'training'>Training Matrix</a>
+				</li>
+				<li>
+					<a ui-sref = 'technologymatrix'>Technology Matrix</a>
+				</li>
+				<li>
+					<a ui-sref = 'continuous-evaluation'>Continuous Evaluation</a>
+				</li>
+			</ul>
 		</div>
-			<div class = 'col-md-3'ng-show='ShowButton'>
-				<button name='Add' class = 'btn btn-success' ng-click='addToMongo()'>Add New Information </button>
-			</div>
-			<div class = 'col-md-3' ng-hide='ShowButton'>
-				<button name='update' class = 'btn btn-info' ng-click='updateToMongo()'>Update Information </button>
-			</div>
-		</div>
+	</nav>
 
-	</div>
+	<div ui-view></div>
 
 	</body>
 </html>

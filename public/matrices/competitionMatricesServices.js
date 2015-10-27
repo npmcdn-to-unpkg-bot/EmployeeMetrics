@@ -17,9 +17,29 @@ function CompetitionMatricesServices($http, $q){
 		return deferred.promise;
 	}
 
-	var _getCategories = function(){
+	var _getTechnologyCategories = function(){
 		var deferred = $q.defer(); 
-		$http.get('/categories').success(function(data){
+		$http.get('/categories/technology').success(function(data){
+			deferred.resolve(data);
+		}).error(function(data){
+			deferred.resolve(data);
+		});
+		return deferred.promise;
+	}
+
+	var _getTrainingCategories = function(){
+		var deferred = $q.defer(); 
+		$http.get('/categories/training').success(function(data){
+			deferred.resolve(data);
+		}).error(function(data){
+			deferred.resolve(data);
+		});
+		return deferred.promise;
+	}
+
+	var _getContinuousEvaluationCategories = function(){
+		var deferred = $q.defer(); 
+		$http.get('/categories/continuous').success(function(data){
 			deferred.resolve(data);
 		}).error(function(data){
 			deferred.resolve(data);
@@ -65,11 +85,13 @@ function CompetitionMatricesServices($http, $q){
 		return deferred.promise;
 	}
 
-	CompetitionMatricesServices.GetPeople 			= _getPeople;
-	CompetitionMatricesServices.GetCategories  		= _getCategories;
-	CompetitionMatricesServices.GetPeopleCategories = _getPeopleCategories;
-	CompetitionMatricesServices.AddToMongo 			= _addToMongo;
-	CompetitionMatricesServices.UpdateToMongo 		= _updateToMongo;
+	CompetitionMatricesServices.GetPeople 							= _getPeople;
+	CompetitionMatricesServices.GetTechnologyCategories  			= _getTechnologyCategories;
+	CompetitionMatricesServices.GetTrainingCategories 				= _getTrainingCategories;
+	CompetitionMatricesServices.GetContinuousEvaluationCategories 	= _getContinuousEvaluationCategories;
+	CompetitionMatricesServices.GetPeopleCategories 				= _getPeopleCategories;
+	CompetitionMatricesServices.AddToMongo 							= _addToMongo;
+	CompetitionMatricesServices.UpdateToMongo 						= _updateToMongo;
 	return CompetitionMatricesServices;
 
 }
