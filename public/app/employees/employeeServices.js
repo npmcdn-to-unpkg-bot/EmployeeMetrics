@@ -17,10 +17,31 @@ function EmployeeServices($http, $q){
 		return deferred.promise;
 	}
 
-	
+	var _getEmployee = function(id){
+		var deferred = $q.defer();
+		$http.get('/employee/' + id, {id: id}).success(function(data){
+			deferred.resolve(data);
+		}).error(function(data){
+			deferred.resolve(data);
+		});		
+		return deferred.promise;
+	}
+
+	var _saveEmployee = function(data){
+		var deferred = $q.defer();
+		$http.post('/employee', data).success(function(data){
+			deferred.resolve(data);
+		}).error(function(data){
+			deferred.resolve(data);
+		});
+		return deferred.promise;
+	}
 	
 
 	EmployeeServices.GetEmployees	= _getEmployees;
+	EmployeeServices.SaveEmployee 	= _saveEmployee;
+	EmployeeServices.GetEmployee	= _getEmployee;
+
 	return EmployeeServices;
 
 }

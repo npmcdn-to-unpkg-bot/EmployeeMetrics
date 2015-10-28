@@ -1,6 +1,25 @@
-var mongoose = require('mongoose');
+var mongoose 	= 	require('mongoose');
 var moment 		=  	require('moment')
 var ObjectId 	= 	mongoose.Types.ObjectId;
+var crypto 		= 	require('crypto');
+
+var key = 'c0n.3E,!;36Rde|0m0Nos.20.yE.15';
+
+
+function encrypt(data,key){
+	var cipher = crypto.createCipher('aes256', key);
+	var crypted = cipher.update(data, 'utf-8', 'hex');
+	crypted += cipher.final('hex');
+	return crypted;
+}
+
+function decrypt(data,key){
+	var decipher = crypto.createDecipher('aes256', key);
+    var decrypted = decipher.update(data, 'hex', 'utf-8');
+    decrypted += decipher.final('utf-8');
+    return decrypted;
+}
+
 
 //Connects to the database people in mongoDB
 mongoose.connect('mongodb://localhost:27017/people');
@@ -10,10 +29,13 @@ var mongoSchema = mongoose.Schema;
 
 //Creates employee Schema
 var employeeSchema = new mongoSchema({
-	'_id'		: mongoSchema.ObjectId,
-	'firstname'	: String,
-	'lastname'	: String,
-	'index'		: Number
+	'_id'			: mongoSchema.ObjectId,
+	'firstname'		: String,
+	'lastname'		: String,
+	'email'			: String,
+	'password'		: String,
+	'accesslevel'	: Number,
+	'active'		: Boolean
 });
 
 //Creates employee from employeeSchema
@@ -56,8 +78,10 @@ var findEmployees = function(req,res)
 			res.json(response);
 		}else{
 			res.json(data);
+		
 		}
 	});
+
 }
 
 
@@ -178,7 +202,7 @@ var addScoreTrainingMatrix = function(req,res){
 	db.Results = req.body.Results;
 	db.table = parseInt(req.body.table);
 	db.date = req.body.date;
-	console.log(db);
+	
 	//Calss the save functiont to mongo
 	db.save(function(err){
 		//if an error is or not saves a different response and sends it to the client
@@ -192,6 +216,49 @@ var addScoreTrainingMatrix = function(req,res){
 	
 	res.send(response);
 }
+
+var findEmployee = function(req,res){
+	var response ={}
+	var id = req.params.id;
+	
+	//console.log(req.params);
+	Employee.find({'_id': id}, function(err,data){
+		if (err){
+			//If an error happens it sends information about the error to the client
+			response = {'error': true, 'message': 'error fetching the employee ' + req.params.id};
+			res.json(response);
+		}else
+		{
+			//Sends to the client the deata retrieved
+			res.json(data);
+		}
+	})
+	
+}
+
+var createEmployee = function(req,res){
+	var response = {};
+	var db = new Employee();
+	db._id = mongoose.Types.ObjectId();
+	db.firstname = req.body.firstname;
+	db.lastname = req.body.lastname;
+	db.email = req.body.email;
+	db.password = encrypt(req.body.password, key);
+	db.accesslevel = parseInt(req.body.accesslevel);
+	db.active = req.body.active;
+	
+	db.save(function(err){
+	//if an error is or not saves a different response and sends it to the client
+		if (err){
+			response = {'error': true, 'message' : 'Something really bad happened'};
+		}else
+		{
+			response = {'error': false, 'message' : 'Data added'};
+		}
+	});
+	res.send(response);
+}
+
 
 //Exports all schemas created
 module.exports.model = {
@@ -212,6 +279,8 @@ module.exports.model = {
 	//Finding relations between employees and categories for the three tables
 	findEmployeesCategoriesMatrix : findEmployeesCategoriesMatrix,
 	
-	updateTrainingMatrix : updateTrainingMatrix,
-	addScoreTrainingMatrix : addScoreTrainingMatrix
+	updateTrainingMatrix 	: updateTrainingMatrix,
+	addScoreTrainingMatrix 	: addScoreTrainingMatrix,
+	findEmployee 			: findEmployee,
+	createEmployee			: createEmployee
 };

@@ -14,15 +14,16 @@ employeeApp.config(function($stateProvider){
 
 		.state('employee.create',{
 			url: '/create',
-			templateUrl	: 'app/matrices/continuousevaluation/continuousevaluation.matrix.tmpl.html',
+			templateUrl	: 'app/employees/create/create.employee.tmpl.html',
 			controller 	: 'createEmployeeController'
 		})
 
 		.state('employee.update',{
-			url: '/update',
-			templateUrl	: 'app/employee/view/view.employee.tmpl.html',
+			url: '/update/:id',
+			templateUrl	: 'app/employees/update/update.employee.tmpl.html',
 			controller 	: 'updateEmployeeController'
-		})
+			
+		});
 
 
 

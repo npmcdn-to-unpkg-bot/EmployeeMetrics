@@ -2,7 +2,7 @@
 var express		=	require ('express');
 var app			= 	express();
 var bodyParser	=	require('body-parser');
-var api 		=	require('./api/routesApi')
+var api 		=	require('./server/routesApi')
 
 //Use JSON to parse the data
 app.use(bodyParser.json());

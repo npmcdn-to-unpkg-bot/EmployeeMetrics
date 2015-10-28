@@ -1,11 +1,10 @@
 var express		=	require ('express');
 var app			= 	express();
 var path 		= 	require('path');
-var mongoose	= 	require('mongoose');
-var mongoOp		=	require('../models/mongo');
 var moment 		=  	require('moment');
 var router		=	express.Router();
-var ObjectId 	= 	mongoose.Types.ObjectId;
+var dbCalls		=	require('./database/dbcalls');
+
 
 
 
@@ -25,17 +24,17 @@ router.get('/', function(req,res){
 //Routes all the information in categories
 router.route('/categories/training')
 	.get(function(req, res){
-		mongoOp.model.findCategoriesTrainingMatrix(req,res);
+		dbCalls.findCategoriesTrainingMatrix(req,res);
 	});
 
 router.route('/categories/technology')
 	.get(function(req, res){
-		mongoOp.model.findCategoriesTechnologyMatrix(req,res);
+		dbCalls.findCategoriesTechnologyMatrix(req,res);
 	});
 
 router.route('/categories/continuous')
 	.get(function(req, res){
-		mongoOp.model.findCategoriesContinuousEvaluationMatrix(req,res);
+		dbCalls.findCategoriesContinuousEvaluationMatrix(req,res);
 	});
 
 
@@ -44,11 +43,11 @@ router.route('/categories/continuous')
 router.route('/employees')
 	//Get Employees data
 	.get(function(req, res){
-		mongoOp.model.findEmployees(req,res);
+		dbCalls.findEmployees(req,res);
 	})
 	//Post new information in employee categories
 	.post(function(req,res){
-		mongoOp.model.addScoreTrainingMatrix(req,res);
+		dbCalls.addScoreTrainingMatrix(req,res);
 	});
 
 
@@ -56,11 +55,20 @@ router.route('/employees')
 router.route('/employees/:id')
 	//Gets information taking id as parameter
 	.get(function(req, res){
-		mongoOp.model.findEmployeesCategoriesMatrix(req,res);
+		dbCalls.findEmployeesCategoriesMatrix(req,res);
 	})
 	//Post informatio taking id as parameter
 	.post(function(req, res){
-		mongoOp.model.updateTrainingMatrix(req,res);
+		dbCalls.updateTrainingMatrix(req,res);
 	});
 
+router.route('/employee')
+	.post(function(req,res){
+		dbCalls.createEmployee(req,res);
+	});
+
+router.route('/employee/:id')
+	.get(function(req,res){
+		dbCalls.findEmployee(req,res);
+	});
 module.exports = router;

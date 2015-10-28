@@ -1,27 +1,37 @@
 <div ng-controller="viewEmployeeController" ng-init="initialize()">
-	<div class = 'container' >
+	
+	<div class = 'container'>
+		<div ui-view></div>
+
+		
+		<div class = 'row'>
+			<div class = 'col-md-offset-10 col-md-2'>
+				<a ui-sref = 'employee.create' class='btn btn-primary' ng-hide = 'showCreateForm' ng-click='showCreate()'>Add New Employee</a>	
+			</div>
+		</div>
 	
 		<div class = 'col-md-12'>
 		<table class='table table-striped'>
 			<thead>
-				<th>Id</th>
 				<th>First Name</th>
 				<th>Last Name</th>
-				
-				
+				<th>E-Mail</th>
+				<th>Access Level</th>
+				<th>Active</th>
 			</thead>
-				<tr ng-repeat='employee in employees'>
-					<td>{{employee._id}}</td>
+				<tr  ng-click = "updateEmployee(employee)" ng-repeat='employee in employees'>
 					<td>{{employee.firstname}}</td>
 					<td>{{employee.lastname}}</td>
+					<td>{{employee.email}}</td>
+					<td>{{employee.accesslevelname}}</td>
+					<td>{{employee.active}}</td>
 				</tr>
 
 		</table>
 	</div>
-		<div class = 'col-md-3'>
-			<md-button name='Add' class = 'btn btn-success' ng-click='showAddForm($event)'>Add New Employee </md-button>
-		</div>
+	
 		
 	</div>
+
 
 </div>

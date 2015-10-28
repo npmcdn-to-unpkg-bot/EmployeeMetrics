@@ -1,2 +1,2 @@
-angular.module('myApp', ['ui.router','ngMaterial',
+angular.module('myApp', ['ui.router',
 	'competitionMatrices' , 'employeeModule']);
