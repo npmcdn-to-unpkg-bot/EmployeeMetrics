@@ -40,4 +40,9 @@ dbCalls.createEmployee = function(req,res){
 dbCalls.findEmployee = function(req,res){
 	db.model.findEmployee(req,res);
 }
+
+dbCalls.updateEmployee = function(req,res){
+	db.model.updateEmployee(req,res);
+}
+
 module.exports = dbCalls;

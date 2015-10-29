@@ -38,7 +38,6 @@ employeeApp.controller('viewEmployeeController', ['$scope', '$state', 'EmployeeS
 	$scope.updateEmployee = function(employee){
 		if($scope.showCreateForm == false)
 		{
-			console.log(employee);
 			$scope.showCreateForm = true;
 			$state.go('employee.update', {'id': employee._id});
 			

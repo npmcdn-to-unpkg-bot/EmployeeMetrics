@@ -177,15 +177,31 @@ var updateTrainingMatrix = function(req, res){
 	var endDate = moment(startDate).add(1,'months');
 	//Update the old information with the new one 
 	EmployeeCategory.update(
-		{'employeeId' : db.employeeId, 'categoryId' : db.categoryId, 'date':{$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}}, //Query where to update
-		{$set: {'Results' : db.Results, 'employeeIdId': db.employeeId , 'categoryId': db.categoryId, 'date': db.date, 'table' : db.table}}, //sValues to change
-		function(err,data){
-			//If an error appear or not it set response and send a message to the client
-			if(err){
-				response = {'error': true, 'message' : 'Something really bad happened'};
-			}else{
-				response = {'error': false, 'message' : 'Data added'};
-			}
+			{
+				'employeeId' : db.employeeId, 
+				'categoryId' : db.categoryId, 
+				'date' 		 : {	
+									$gte: new Date(startDate._d).toISOString(), 
+									$lt: new Date(endDate._d).toISOString()
+								}
+			}, //Query where to update
+			{
+				$set: 
+				{
+					'Results' : db.Results, 
+					'employeeIdId': db.employeeId , 
+					'categoryId': db.categoryId, 
+					'date': db.date, 
+					'table' : db.table
+				}
+			}, //Values to change
+			function(err,data){
+				//If an error appear or not it set response and send a message to the client
+				if(err){
+					response = {'error': true, 'message' : 'Something really bad happened'};
+				}else{
+					response = {'error': false, 'message' : 'Data added'};
+				}
 
 			res.send(response);
 	});
@@ -259,6 +275,31 @@ var createEmployee = function(req,res){
 	res.send(response);
 }
 
+var updateEmployee = function(req,res){
+	var response = {};
+	var db = req.body;
+	Employee.update({'_id' : db._id},
+					{
+						$set: 
+						{
+							'firstname' 	: db.firstname,
+							'lastaname'		: db.lastaname,
+							'accesslevel'	: db.accesslevel,
+							'email'			: db.email,
+							'active'		: db.active,
+							'password'		: db.password
+						}
+					},function(err,data){
+						//If an error appear or not it set response and send a message to the client
+						if(err){
+							response = {'error': true, 'message' : 'Something really bad happened'};
+						}else{
+							response = {'error': false, 'message' : 'Data added'};
+						}
+
+						res.send(response);
+					});
+}
 
 //Exports all schemas created
 module.exports.model = {
@@ -282,5 +323,6 @@ module.exports.model = {
 	updateTrainingMatrix 	: updateTrainingMatrix,
 	addScoreTrainingMatrix 	: addScoreTrainingMatrix,
 	findEmployee 			: findEmployee,
-	createEmployee			: createEmployee
+	createEmployee			: createEmployee,
+	updateEmployee			: updateEmployee
 };

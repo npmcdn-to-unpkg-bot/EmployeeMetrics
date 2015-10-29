@@ -70,5 +70,8 @@ router.route('/employee')
 router.route('/employee/:id')
 	.get(function(req,res){
 		dbCalls.findEmployee(req,res);
+	})
+	.post(function(req,res){
+		dbCalls.updateEmployee(req,res);
 	});
 module.exports = router;

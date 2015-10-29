@@ -21,21 +21,23 @@ employeeApp.controller('updateEmployeeController', ['$scope','$state', '$statePa
 	$scope.initialize = function(){
 		var id = $state.params.id
 		EmployeeServices.GetEmployee(id).then(function(response){
-			console.log(response);
 			$scope.employee = response[0];
+			$scope.employee.accesslevel = parseInt(response[0].accesslevel);
 		});
 
 
 	}
 
-	$scope.saveEmployee = function(){
+	$scope.showMeTest = function(number){
 		
-		/*EmployeeServices.SaveEmployee(employee).then(function(response){
-			console.log('data updated' + response);
+	}
+
+	$scope.updateEmployee = function(){
+		
+		EmployeeServices.UpdateEmployee($scope.employee).then(function(response){
 			$state.go('employee',	{}	, {	reload: true });	
 			
-			
-		});*/
+		});
 		
 			
 	}

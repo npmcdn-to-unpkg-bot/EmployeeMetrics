@@ -1,6 +1,9 @@
+
 <form name= 'employeeForm' ng-controller = 'updateEmployeeController' class = 'form-group' ng-init='initialize()' novalidate>
 	
+	<div class='col-md-7'>
 	<h2>Update Employee</h2>
+	</div>
 	<div class = 'col-md-7'>
 		<div class = 'form-group' ng-class ="{ 'has-error' : employeeForm.firstname.$invalid && !employeeForm.firstname.$pristine }">
 			<label  for = 'firstname' >Firstname:</label>
@@ -36,7 +39,8 @@
 	<div class = 'col-md-7'>
 		<div class = 'form-group'>
 			<label for = 'accesslevel'>Access level:</label>
-			<select class = 'form-control' name = 'accesslevel' ng-model = 'employee.accesslevel' ng-options='access.id as access.name for access in accesslevels track by access.id' required>
+			<select class = 'form-control' name = 'accesslevel' ng-model = 'employee.accesslevel' ng-options='access.id as access.name for access in accesslevels' required>
+
 			</select>
 		</div>
 	</div>
@@ -46,9 +50,10 @@
 				<input type='checkbox' class = 'checkbox' ng-model= 'employee.active' >
 			</div>
 	</div>
-	<div class = 'col-md-12'>
+	<div class = 'col-md-7'>
 		<div class = 'form-group'>
-			<button class = 'btn btn-primary' ng-disabled = 'employeeForm.$invalid' ng-click = 'saveEmployee()'>Update employee</button>
+			<button class = 'btn btn-primary' ng-disabled = 'employeeForm.$invalid' ng-click = 'updateEmployee()'>Update employee</button>
 		</div>
 	</div>
+
 </form>

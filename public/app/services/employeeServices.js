@@ -36,11 +36,22 @@ function EmployeeServices($http, $q){
 		});
 		return deferred.promise;
 	}
+
+	var _updateEmployee = function(data){
+		var deferred = $q.defer();
+		$http.post('/employee/'+data._id, data, {id: data._id}).success(function(data){
+			deferred.resolve(data);
+		}).error(function(data){
+			deferred.resolve(data);
+		});
+		return deferred.promise;
+	}
 	
 
 	EmployeeServices.GetEmployees	= _getEmployees;
 	EmployeeServices.SaveEmployee 	= _saveEmployee;
 	EmployeeServices.GetEmployee	= _getEmployee;
+	EmployeeServices.UpdateEmployee = _updateEmployee;
 
 	return EmployeeServices;
 
