@@ -19,6 +19,20 @@ router.get('/', function(req,res){
 });
 
 
+router.route('/authenticate')
+	.post(function(req,res){
+		dbCalls.authenticate(req,res);
+	});
+
+router.route('/validate')
+	.post(function(req,res){
+		dbCalls.validate(req,res);
+	});
+
+router.route('/getaccess')
+	.get(function(req,res){
+		dbCalls.getaccess(req,res);
+	});
 
 
 //Routes all the information in categories

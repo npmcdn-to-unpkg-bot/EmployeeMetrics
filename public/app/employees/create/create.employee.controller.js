@@ -2,7 +2,7 @@
 
 var employeeApp = angular.module('employeeModule');
 
-employeeApp.controller('createEmployeeController', ['$scope','$state','EmployeeServices' , function($scope, $state, EmployeeServices){
+employeeApp.controller('createEmployeeController', ['$scope', '$rootScope','$state','EmployeeServices' , function($scope, $rootScope,$state, EmployeeServices){
 	$scope.employee = {};
 	
 	$scope.accesslevels = [{
@@ -19,16 +19,18 @@ employeeApp.controller('createEmployeeController', ['$scope','$state','EmployeeS
 	}];
 
 	$scope.initialize = function(){
+		$rootScope.validate();
 		$scope.employee.accesslevel = 0;
 		$scope.employee.active = true;
 
 	}
 
 	$scope.saveEmployee = function(){
+		$rootScope.validate();
 		var employee = $scope.employee;
 		EmployeeServices.SaveEmployee(employee).then(function(response){
 			console.log('data saved' + response);
-			$state.go('employee',	{}	,{	reload: true	});	
+			$state.go('app.employee',	{}	,{	reload: true	});	
 			
 			
 		});

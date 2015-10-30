@@ -5,20 +5,20 @@ employeeApp.config(function($stateProvider){
 	
 	$stateProvider
 
-		.state('employee',{
+		.state('app.employee',{
 			url: '/employee',
 			templateUrl	: 'app/employees/view/view.employee.tmpl.html',
 			controller 	: 'viewEmployeeController'
 			
 		})
 
-		.state('employee.create',{
+		.state('app.employee.create',{
 			url: '/create',
 			templateUrl	: 'app/employees/create/create.employee.tmpl.html',
 			controller 	: 'createEmployeeController'
 		})
 
-		.state('employee.update',{
+		.state('app.employee.update',{
 			url: '/update/:id',
 			templateUrl	: 'app/employees/update/update.employee.tmpl.html',
 			controller 	: 'updateEmployeeController'

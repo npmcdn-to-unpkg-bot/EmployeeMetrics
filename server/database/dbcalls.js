@@ -45,4 +45,16 @@ dbCalls.updateEmployee = function(req,res){
 	db.model.updateEmployee(req,res);
 }
 
+dbCalls.authenticate = function(req,res){
+	db.model.authenticate(req,res);
+}
+
+dbCalls.validate = function(req,res){
+	db.model.validate(req,res);
+}
+
+dbCalls.getaccess = function(req,res){
+	db.model.getaccess(req,res);
+};
+
 module.exports = dbCalls;

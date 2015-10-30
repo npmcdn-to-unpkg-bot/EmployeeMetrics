@@ -3,7 +3,7 @@ var competitionMatricesModule = angular.module('competitionMatrices');
 
 
 //Creates the controllero for getMongo controller
-competitionMatricesModule.controller('technologyMatrixController', ['$scope', 'CompetitionMatrixServices', function($scope, CompetitionMatrixServices){
+competitionMatricesModule.controller('technologyMatrixController', ['$scope', '$rootScope', 'CompetitionMatrixServices', function($scope,$rootScope, CompetitionMatrixServices){
 
 	//Here it will be stored all the information for people
 	$scope.people= {};
@@ -20,6 +20,7 @@ competitionMatricesModule.controller('technologyMatrixController', ['$scope', 'C
 
 	//depending on the person selected it will show all the categories that person has been graded
 	$scope.getPeopleCategories = function(params){
+		$rootScope.validate();
 		$scope.params = params;
 		$scope.params.table = $scope.categories[0].table;
 		CompetitionMatrixServices.GetPeopleCategories(params).then(function(data){
@@ -58,7 +59,7 @@ competitionMatricesModule.controller('technologyMatrixController', ['$scope', 'C
 
 	//Add new documents to the people-categories collection
 	$scope.addToMongo = function(){
-
+		$rootScope.validate();
 		$scope.ShowButton = false;
 		//Sends all the categories
 		for(var i = 0; i<$scope.categories.length;i++){
@@ -74,7 +75,7 @@ competitionMatricesModule.controller('technologyMatrixController', ['$scope', 'C
 
 	//Update the documents in people catagories with the new data
 	$scope.updateToMongo = function(){
-		
+		$rootScope.validate();
 		for(var i = 0; i<$scope.peopleCategories.length;i++){
 			
 			//Update all the categories of the person selected by sending the most recent information 
@@ -89,6 +90,7 @@ competitionMatricesModule.controller('technologyMatrixController', ['$scope', 'C
 
 	//On Index load this fucntion is called to and gets all the information from people and categories
 	$scope.initialize = function(){
+		$rootScope.validate();
 		$scope.categories = {};
 		$scope.people = {};
 		CompetitionMatrixServices.GetPeople().then(function(response){
@@ -113,6 +115,7 @@ competitionMatricesModule.controller('technologyMatrixController', ['$scope', 'C
 	//This function is to get the correct name for the categories
 	//This function is not being used
 	$scope.getCategoryName = function(id){
+		$rootScope.validate();
 		for (var i = 0; i<$scope.categories.length;i++)
 		{
 			if(id == $scope.categories[i]._id)

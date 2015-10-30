@@ -2,7 +2,7 @@
 
 var employeeApp = angular.module('employeeModule');
 
-employeeApp.controller('updateEmployeeController', ['$scope','$state', '$stateParams','EmployeeServices' ,function($scope, $state, $stateParams, EmployeeServices){
+employeeApp.controller('updateEmployeeController', ['$scope', '$rootScope', '$state', '$stateParams','EmployeeServices' ,function($scope, $rootScope, $state, $stateParams, EmployeeServices){
 	$scope.employee = {};
 	
 	$scope.accesslevels = [{
@@ -19,6 +19,7 @@ employeeApp.controller('updateEmployeeController', ['$scope','$state', '$statePa
 	}];
 
 	$scope.initialize = function(){
+		$rootScope.validate();
 		var id = $state.params.id
 		EmployeeServices.GetEmployee(id).then(function(response){
 			$scope.employee = response[0];
@@ -28,14 +29,10 @@ employeeApp.controller('updateEmployeeController', ['$scope','$state', '$statePa
 
 	}
 
-	$scope.showMeTest = function(number){
-		
-	}
-
 	$scope.updateEmployee = function(){
-		
+		$rootScope.validate();
 		EmployeeServices.UpdateEmployee($scope.employee).then(function(response){
-			$state.go('employee',	{}	, {	reload: true });	
+			$state.go('app.employee',	{}	, {	reload: true });	
 			
 		});
 		

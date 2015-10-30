@@ -2,6 +2,8 @@ var mongoose 	= 	require('mongoose');
 var moment 		=  	require('moment')
 var ObjectId 	= 	mongoose.Types.ObjectId;
 var crypto 		= 	require('crypto');
+var expressJwt 	= 	require('express-jwt');
+var jwt 		=	require('jsonwebtoken');
 
 var key = 'c0n.3E,!;36Rde|0m0Nos.20.yE.15';
 
@@ -301,6 +303,63 @@ var updateEmployee = function(req,res){
 					});
 }
 
+var authenticate = function(req,res){
+	var response={};
+	var db = req.body;
+	var token = {};
+	db.password = req.body.password;
+	
+	Employee.findOne({'email': req.body.email},function(err, data){
+		if(err){
+			response = {'error': true, 'message' : 'Something really bad happened'};
+			res.send(response);
+		}else{
+			if(data == null){
+				token = null;
+				res.send(token);
+			}else{
+				
+				if (decrypt(data.password,key) == db.password){
+					response = {'error': false, 'message' : 'User and password'};
+					var sendData = {};
+					
+					sendData.firstname = data.firstname;
+					sendData.accesslevel = data.accesslevel;
+					sendData.lastname = data.lastname;
+					sendData.email = data.email;
+					token = jwt.sign(sendData, key, {expiresIn :'4h'});
+					
+					res.send(token);
+				}else{
+					res.send(token);
+				}
+			}
+		}
+		
+	});
+}
+
+var validate = function(req,res){
+	
+	var token = req.body.token;
+	
+	jwt.verify(token,key,function(err, decoded){
+		if(err){
+			res.send(false);
+		}
+		else{
+			res.send(true);
+		};
+
+	});	
+
+}
+
+
+var getaccess = function(req,res){
+	var decode = jwt.decode(req.query.token);
+	res.send(decode.accesslevel.toString());
+}
 //Exports all schemas created
 module.exports.model = {
 	//Exporting schemas models
@@ -324,5 +383,8 @@ module.exports.model = {
 	addScoreTrainingMatrix 	: addScoreTrainingMatrix,
 	findEmployee 			: findEmployee,
 	createEmployee			: createEmployee,
-	updateEmployee			: updateEmployee
+	updateEmployee			: updateEmployee,
+	authenticate 			: authenticate,
+	validate				: validate,
+	getaccess				: getaccess
 };

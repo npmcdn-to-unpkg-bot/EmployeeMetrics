@@ -1,7 +1,7 @@
 'use strict'
 var employeeApp = angular.module('employeeModule');
 
-employeeApp.controller('viewEmployeeController', ['$scope', '$state', 'EmployeeServices', function($scope, $state ,EmployeeServices){
+employeeApp.controller('viewEmployeeController', ['$scope', '$rootScope', '$state', 'EmployeeServices', function($scope, $rootScope, $state ,EmployeeServices){
 	$scope.employees = {};
 	$scope.showCreateForm = false;
 	
@@ -18,6 +18,8 @@ employeeApp.controller('viewEmployeeController', ['$scope', '$state', 'EmployeeS
 		'name' : 'Administrator'
 	}];
 	$scope.initialize = function(){
+		$rootScope.validate();
+		
 		EmployeeServices.GetEmployees().then(function(response){
 			$scope.employees = response;
 			for (var i = 0 ; i < $scope.employees.length; i++){
@@ -28,18 +30,21 @@ employeeApp.controller('viewEmployeeController', ['$scope', '$state', 'EmployeeS
 
 	$scope.showCreate = function()
 	{
+		$rootScope.validate();
 		$scope.showCreateForm = true;
 	}
 
 	var showAccessLevel = function(number){
+		
 		return $scope.accesslevels[number].name
 	}
 	
 	$scope.updateEmployee = function(employee){
+		$rootScope.validate();
 		if($scope.showCreateForm == false)
 		{
 			$scope.showCreateForm = true;
-			$state.go('employee.update', {'id': employee._id});
+			$state.go('app.employee.update', {'id': employee._id});
 			
 		}
 	}
