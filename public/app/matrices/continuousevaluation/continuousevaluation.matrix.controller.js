@@ -3,7 +3,7 @@ var competitionMatricesModule = angular.module('competitionMatrices');
 
 
 //Creates the controllero for getMongo controller
-competitionMatricesModule.controller('continuousEvaluationMatrixController', ['$scope', '$rootScope','$filter', 'CompetitionMatrixServices', function($scope, $rootScope, $filter, CompetitionMatrixServices){
+competitionMatricesModule.controller('continuousEvaluationMatrixController', ['$scope', '$rootScope','$state', '$window','$filter', 'CompetitionMatrixServices','AppServices', 'EmployeeServices', function($scope, $rootScope, $state, $window, $filter, CompetitionMatrixServices, AppServices, EmployeeServices){
 
 	//Here it will be stored all the information for people
 	$scope.people= {};
@@ -17,6 +17,8 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController', ['$
 	$scope.ratings = [1,2,3];
 	//This decides which button will show
 	$scope.ShowButton=false;
+
+	$scope.userAccess = NaN;
 
 	//depending on the person selected it will show all the categories that person has been graded
 	$scope.getPeopleCategories = function(params){
@@ -94,13 +96,41 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController', ['$
 		$rootScope.validate();
 		$scope.categories = {};
 		$scope.people = {};
-		CompetitionMatrixServices.GetPeople().then(function(response){
-			$scope.people = response;
-		});
+
+		var token = {
+			token: $window.sessionStorage.token
+		};
+		//console.log(token);
+		AppServices.GetAccess(token).then(function(access){
+			switch(parseInt(access)){
+				case 0:
+					EmployeeServices.GetEmployee(token).then(function(response){
+						$scope.people = response;
+					});
+					break;
+				
+				case 1: 
+					CompetitionMatrixServices.GetPeople().then(function(response){
+						$scope.people = response;
+					});
+					break;
+				
+				case 2:
+				default:
+					$state.go('logout');
+					break;
+					
+			}
+		})
+
+
+		
 		CompetitionMatrixServices.GetContinuousEvaluationCategories().then(function(response){
 			$scope.categories = response;
 		});
 		$scope.params.date = new Date();
+
+
 	}
 
 	//This function triggers if any value of a specific row changes 
@@ -124,6 +154,8 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController', ['$
 				return $scope.categories[i].name;
 		}
 	}
+
+
 }]);
 
 

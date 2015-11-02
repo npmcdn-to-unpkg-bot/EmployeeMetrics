@@ -52,6 +52,8 @@ app.controller('appController',['$scope','$rootScope', '$state' , '$window', 'Ap
 		});
 	}
 
+	
+
 	$scope.initialize = function(){
 		$scope.getAccess();
 	}

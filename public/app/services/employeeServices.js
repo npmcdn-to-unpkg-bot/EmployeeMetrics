@@ -9,6 +9,7 @@ function EmployeeServices($http, $q){
 
 	var _getEmployees = function(){
 		var deferred = $q.defer(); 
+		
 		$http.get('/employees').success(function(data){
 			deferred.resolve(data);
 		}).error(function(data){
@@ -17,9 +18,20 @@ function EmployeeServices($http, $q){
 		return deferred.promise;
 	}
 
-	var _getEmployee = function(id){
+	var _getEmployeesOnly = function(){
+		var deferred = $q.defer(); 
+		$http.get('/employeesonly').success(function(data){
+			deferred.resolve(data);
+		}).error(function(data){
+			deferred.resolve(data);
+		});		
+		return deferred.promise;
+	}
+
+	var _getEmployee = function(params){
 		var deferred = $q.defer();
-		$http.get('/employee/' + id, {id: id}).success(function(data){
+		
+		$http.get('/employee', {params: params}).success(function(data){
 			deferred.resolve(data);
 		}).error(function(data){
 			deferred.resolve(data);
@@ -49,8 +61,10 @@ function EmployeeServices($http, $q){
 	
 
 	EmployeeServices.GetEmployees	= _getEmployees;
+	EmployeeServices.GetEmployeesOnly = _getEmployeesOnly;
 	EmployeeServices.SaveEmployee 	= _saveEmployee;
 	EmployeeServices.GetEmployee	= _getEmployee;
+	
 	EmployeeServices.UpdateEmployee = _updateEmployee;
 
 	return EmployeeServices;

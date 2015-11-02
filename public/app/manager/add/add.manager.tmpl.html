@@ -1,0 +1,11 @@
+		<div class = 'container' ng-init='initialize()'>
+		<form class='form form-inline'>
+			<div class = 'col-md-4'>
+				<label for = 'name' />Select Employee
+				<select class = 'form-control' name = 'name' id='nameSelector' ng-model='employeeSelected.id' ng-options='employee._id as employee.firstname+ " " + employee.lastname for employee in employees'>
+					
+				</select>
+			</div>
+			<a class = 'btn btn-default' ng-click='addToManager()'>Add employee</a>
+			</form>
+		</div>

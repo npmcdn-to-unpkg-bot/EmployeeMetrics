@@ -64,6 +64,11 @@ router.route('/employees')
 		dbCalls.addScoreTrainingMatrix(req,res);
 	});
 
+router.route('/employeesonly')
+	//Get Employees data
+	.get(function(req, res){
+		dbCalls.findEmployeesOnly(req,res);
+	});
 
 //Routes to get all results between categories and people
 router.route('/employees/:id')
@@ -77,15 +82,35 @@ router.route('/employees/:id')
 	});
 
 router.route('/employee')
+	.get(function(req,res){
+		dbCalls.findEmployee(req,res);
+	})
 	.post(function(req,res){
 		dbCalls.createEmployee(req,res);
 	});
 
 router.route('/employee/:id')
-	.get(function(req,res){
-		dbCalls.findEmployee(req,res);
-	})
 	.post(function(req,res){
 		dbCalls.updateEmployee(req,res);
 	});
+
+router.route('/employee/:token')
+	.get(function(req,res){
+		dbCalls.findEmployee(req,res);
+	});
+
+router.route('/managers')
+	.get(function(req,res){
+		dbCalls.findManagers(req,res);
+	});
+
+router.route('/manager')
+	.post(function(req,res){
+		dbCalls.addEmployeeToManager(req,res);
+	})
+router.route('/employee-managers')
+	.get(function(req,res){
+		dbCalls.findEmployeesUnderManager(req,res);
+	});
+
 module.exports = router;

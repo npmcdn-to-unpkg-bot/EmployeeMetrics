@@ -20,13 +20,12 @@ employeeApp.controller('updateEmployeeController', ['$scope', '$rootScope', '$st
 
 	$scope.initialize = function(){
 		$rootScope.validate();
-		var id = $state.params.id
-		EmployeeServices.GetEmployee(id).then(function(response){
+		
+
+		EmployeeServices.GetEmployee($state.params).then(function(response){
 			$scope.employee = response[0];
 			$scope.employee.accesslevel = parseInt(response[0].accesslevel);
 		});
-
-
 	}
 
 	$scope.updateEmployee = function(){

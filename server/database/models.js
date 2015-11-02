@@ -68,8 +68,18 @@ var employeeCategorySchema = new mongoSchema({
 		]
 });
 
+
 //Creates employeeCategory from employeeCategorySchema
 var EmployeeCategory = mongoose.model('employees.categories', employeeCategorySchema);
+
+var employeeManagerSchema =  new mongoSchema({
+	'_id' 			: mongoSchema.ObjectId,
+	'employeeId' 	: {type: mongoSchema.ObjectId, ref: 'Employee'},
+	'managerId'		: {type: mongoSchema.ObjectId, ref: 'Employee'},
+	'status'		: Boolean
+});
+
+var EmployeeManager = mongoose.model('employeemanager', employeeManagerSchema);
 
 
 var findEmployees = function(req,res)
@@ -84,6 +94,19 @@ var findEmployees = function(req,res)
 		}
 	});
 
+}
+
+var findEmployeesOnly = function(req,res){
+	employeesWithNoManager();
+	Employee.find({'accesslevel': 0, 'active' : true}, function(err,data){
+		if (err){
+			response = {'error': true, 'message': 'error fetching data from employees'};
+			res.json(response);
+		}else{
+			res.json(data);
+		
+		}
+	});
 }
 
 
@@ -237,20 +260,39 @@ var addScoreTrainingMatrix = function(req,res){
 
 var findEmployee = function(req,res){
 	var response ={}
-	var id = req.params.id;
 	
-	//console.log(req.params);
-	Employee.find({'_id': id}, function(err,data){
-		if (err){
-			//If an error happens it sends information about the error to the client
-			response = {'error': true, 'message': 'error fetching the employee ' + req.params.id};
-			res.json(response);
-		}else
-		{
-			//Sends to the client the deata retrieved
-			res.json(data);
-		}
-	})
+	var id = req.query.id;
+	var token = req.query.token;
+	
+	if(!token){
+	
+		Employee.find({'_id': id}, function(err,data){
+			if (err){
+				//If an error happens it sends information about the error to the client
+				response = {'error': true, 'message': 'error fetching the employee ' + req.query.id};
+				res.json(response);
+			}else
+			{
+				
+				//Sends to the client the deata retrieved
+				res.json(data);
+			}
+		})
+	}else{
+		var token = jwt.decode(req.query.token);
+		
+		Employee.find({'_id': token._id}, function(err, data){
+			if (err){
+				//If an error happens it sends information about the error to the client
+				response = {'error': true, 'message': 'error fetching the employee ' + token._id};
+				res.json(response);
+			}else
+			{
+				//Sends to the client the deata retrieved
+				res.json(data);
+			}
+		});
+	}
 	
 }
 
@@ -323,6 +365,7 @@ var authenticate = function(req,res){
 					response = {'error': false, 'message' : 'User and password'};
 					var sendData = {};
 					
+					sendData._id	= data._id;
 					sendData.firstname = data.firstname;
 					sendData.accesslevel = data.accesslevel;
 					sendData.lastname = data.lastname;
@@ -360,17 +403,106 @@ var getaccess = function(req,res){
 	var decode = jwt.decode(req.query.token);
 	res.send(decode.accesslevel.toString());
 }
+
+var findManagers = function(req,res){
+	Employee.find({'accesslevel': 1, 'active': true}, function(err,data){
+		if (err){
+			response = {'error': true, 'message': 'error fetching data from employees'};
+			res.json(response);
+		}else{
+			res.json(data);
+		
+		}
+	});
+}
+
+var findEmployeesUnderManager = function(req,res){
+	var managerId = req.query.id;
+	EmployeeManager.find({'managerId' : managerId, 'status' : true}, function(err,data){
+		if (err){
+			response = {'error': true, 'message': 'error fetching data from employees'};
+			res.json(response);
+		}else{
+			res.json(data);
+		
+		}
+	});
+}
+
+function employeesWithNoManager(){
+	var employees = {};
+	var employeeManager = {};
+	EmployeeManager.find({'status':true}, function(err,data){
+		if (err){
+			response = {'error': true, 'message': 'error fetching data from employees'};
+			res.json(response);
+		}else{
+			employeeManager = data;
+			
+			Employee.find({'accesslevel': 0}, function(err,data){
+				if (err){
+					response = {'error': true, 'message': 'error fetching data from employees'};
+					res.json(response);
+				}else{
+					employees = data;
+					console.log('----------Employees-----------');
+					console.log(employees);
+					console.log('----------Employees-Manager-----------');
+					console.log(employeeManager);
+					for (var i = 0 ; i<employees.length;i++){
+						for (var j = 0; j < employeeManager.length; j++){
+							console.log(employees[i]._id, employeeManager[j].employeeId);
+							if (employees[i]._id.toString() == employeeManager[j].employeeId.toString()){
+								console.log('entered');
+								employees.splice(i,1);
+							}
+						};
+					}
+					console.log('----------Result-----------');
+					console.log(employees);
+					
+				}
+			});
+		}
+	});
+	
+}
+
+var addEmployeeToManager = function(req,res){
+	
+	var response = {};
+	var db = new EmployeeManager();
+	db._id = mongoose.Types.ObjectId();
+	db.employeeId = req.body.employeeId;
+	db.managerId = req.body.managerId;
+	db.status = true;
+	
+	console.log(db);
+	db.save(function(err){
+	//if an error is or not saves a different response and sends it to the client
+		if (err){
+			response = {'error': true, 'message' : 'Something really bad happened'};
+		}else
+		{
+			response = {'error': false, 'message' : 'Data added'};
+		}
+	});
+	res.send(response);
+
+}
+
 //Exports all schemas created
 module.exports.model = {
 	//Exporting schemas models
 	Employee : Employee,
 	Category : Category,
 	EmployeeCategory : EmployeeCategory,
+	EmployeeManager : EmployeeManager,
 
 	//Exporting functionalities needed
 	
 	findEmployees : findEmployees,
-	
+	findEmployeesOnly : findEmployeesOnly,
 	//Finding categories for the different tables
 	findCategoriesContinuousEvaluationMatrix : findCategoriesContinuousEvaluationMatrix,
 	findCategoriesTechnologyMatrix : findCategoriesTechnologyMatrix,
@@ -386,5 +518,8 @@ module.exports.model = {
 	updateEmployee			: updateEmployee,
 	authenticate 			: authenticate,
 	validate				: validate,
-	getaccess				: getaccess
+	getaccess				: getaccess,
+	findManagers			: findManagers,
+	findEmployeesUnderManager: findEmployeesUnderManager,
+	addEmployeeToManager 	: addEmployeeToManager
 };

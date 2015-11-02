@@ -21,6 +21,10 @@ dbCalls.findEmployees = function(req,res){
 	db.model.findEmployees(req,res);
 }
 
+dbCalls.findEmployeesOnly = function(req,res){
+	db.model.findEmployeesOnly(req,res);
+}
+
 dbCalls.addScoreTrainingMatrix = function(req, res){
 	db.model.addScoreTrainingMatrix(req,res);
 }
@@ -56,5 +60,20 @@ dbCalls.validate = function(req,res){
 dbCalls.getaccess = function(req,res){
 	db.model.getaccess(req,res);
 };
+
+dbCalls.findManagers = function(req,res)
+{
+	db.model.findManagers(req,res);
+}
+
+dbCalls.addEmployeeToManager = function(req,res){
+	db.model.addEmployeeToManager(req,res);
+}
+
+dbCalls.findEmployeesUnderManager = function(req,res){
+	db.model.findEmployeesUnderManager(req,res);
+}
+
+
 
 module.exports = dbCalls;

@@ -6,16 +6,19 @@
 		</li>
 
 		<li>
-			<a ui-sref = 'app.training'>Training Matrix</a>
+			<a ui-sref = 'app.training' ng-hide = 'admin'>Training Matrix</a>
 		</li>
 		<li>
-			<a ui-sref = 'app.technologymatrix'>Technology Matrix</a>
+			<a ui-sref = 'app.technologymatrix' ng-hide = 'admin'>Technology Matrix</a>
 		</li>
 		<li>
-			<a ui-sref = 'app.continuous-evaluation'>Continuous Evaluation</a>
+			<a ui-sref = 'app.continuous-evaluation' ng-hide = 'admin'>Continuous Evaluation</a>
 		</li>
 		<li>
 			<a ui-sref = 'app.employee' ng-hide='employee || manager'>System Data</a>
+		</li>
+		<li>
+			<a ui-sref = 'app.manager' ng-show='admin'>Assign Manager</a>
 		</li>
 		<li>
 			<a ui-sref = 'logout'>Log out</a>
