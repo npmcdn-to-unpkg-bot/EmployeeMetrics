@@ -21,7 +21,7 @@
 				<tr ng-repeat = 'employee in managerEmployee'>
 					<td>{{employee.firstname}}</td>
 					<td>{{employee.lastname}}</td>
-					<td><input type='checkbox' ng-model ='employee.status' ></a></td>	
+					<td><button class = 'btn btn-danger' ng-click='setToInactive(employee.employeeId)'>X</a></td>	
 				</tr>
 
 		</table>

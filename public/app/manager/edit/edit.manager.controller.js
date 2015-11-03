@@ -39,6 +39,7 @@ managerModule.controller('editManagerController', ['$scope', '$rootScope', '$sta
 	}
 
 	$scope.addEmployeeToManager = function(){
+		$rootScope.validate();
 		$state.go('app.manager-edit.add', {params: $state.params.id});
 	}
 
@@ -50,7 +51,12 @@ managerModule.controller('editManagerController', ['$scope', '$rootScope', '$sta
 		});
 	}
 
-	$scope.employeeInactive = function(employeeId){
-
+	$scope.setToInactive = function(employeeId){
+		var params = {};
+		params.employeeId = employeeId;
+		params.managerId = $state.params.id;
+		ManagerServices.SetToInactive(params).then(function(response){
+			$state.go('app.manager-edit',{params: $state.params.id}, {	reload: true });
+		});
 	}
 }]);

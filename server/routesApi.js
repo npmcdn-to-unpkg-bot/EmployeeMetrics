@@ -113,4 +113,12 @@ router.route('/employee-managers')
 		dbCalls.findEmployeesUnderManager(req,res);
 	});
 
+router.route('/managers-employees')
+	.get(function(req,res){
+		dbCalls.findEmployeesWithNoManager(req,res);
+	})
+	.post(function(req,res){
+		dbCalls.setToInactive(req,res);
+	})
+
 module.exports = router;

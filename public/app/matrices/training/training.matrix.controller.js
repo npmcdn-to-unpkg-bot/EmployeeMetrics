@@ -3,7 +3,7 @@ var competitionMatricesModule = angular.module('competitionMatrices');
 
 
 //Creates the controllero for getMongo controller
-competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$rootScope', '$filter', '$window','CompetitionMatrixServices', function($scope,$rootScope, $filter, $window ,CompetitionMatrixServices){
+competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$rootScope', '$state', '$window', 'CompetitionMatrixServices', 'AppServices' ,'EmployeeServices', 'ManagerServices', function($scope,$rootScope,$state, $window, CompetitionMatrixServices, AppServices, EmployeeServices, ManagerServices){
 
 	//Here it will be stored all the information for people
 	$scope.people= {};
@@ -33,7 +33,7 @@ competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$ro
 					$scope.peopleCategories[i] = {};
 					$scope.peopleCategories[i].employeeId = params.employeeId;
 					$scope.peopleCategories[i].categoryId = $scope.categories[i]._id;		
-					$scope.peopleCategories[i].Results = [	1,	1,	1,	1 ];
+					$scope.peopleCategories[i].Results = [ ];
 					$scope.resultChanged(i);
 					var date = moment($scope.params.date).format("MM/DD/YYYY");
 					$scope.peopleCategories[i].date = moment().toDate(date);
@@ -66,11 +66,12 @@ competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$ro
 			//Post the information stored in $scope.peoplecategories
 			$scope.peopleCategories[i].date = $scope.params.date;
 			$scope.peopleCategories[i].table = $scope.categories[i].table;
+			$scope.peopleCategories[i].token = $window.sessionStorage.token;
 			CompetitionMatrixServices.AddToMongo($scope.peopleCategories[i]).then(function(data){
 				
 			});
 		}
-		
+		$state.go('app.training','',{reload: true});
 	}
 
 	//Update the documents in people catagories with the new data
@@ -80,21 +81,56 @@ competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$ro
 			
 			//Update all the categories of the person selected by sending the most recent information 
 			//stored in $scope.peopleCategories
+			$scope.peopleCategories[i].token = $window.sessionStorage.token;
 			CompetitionMatrixServices.UpdateToMongo($scope.peopleCategories[i]).then(function(data){
 				
 
 			});
 		}
-		$scope.ShowButton = false;	
+		$scope.ShowButton = false;
+		$state.go('app.training','',{reload: true});	
 	};
+
+	function findPerson(employeesFromManager,i){
+		EmployeeServices.GetEmployee(employeesFromManager[i]).then(function(response){
+			$scope.people[i] = response[0];
+			
+		});
+	}
 
 	//On Index load this fucntion is called to and gets all the information from people and categories
 	$scope.initialize = function(){
 		$rootScope.validate();
 		$scope.categories = {};
 		$scope.people = {};
-		CompetitionMatrixServices.GetPeople().then(function(response){
-			$scope.people = response;
+
+		var token = {
+			token: $window.sessionStorage.token
+		};
+		//console.log(token);
+		AppServices.GetAccess(token).then(function(access){
+			switch(parseInt(access)){
+				case 0:
+					EmployeeServices.GetEmployee(token).then(function(response){
+						$scope.people = response;
+
+					});
+					break;
+				
+				case 1: 
+					ManagerServices.GetEmployeeUnderManger(token).then(function(response){
+						for (var i = 0; i<response.length;i++){
+							findPerson(response,i);
+						}
+					});
+					break;
+				
+				case 2:
+				default:
+					$state.go('logout');
+					break;
+					
+			}
 		});
 		CompetitionMatrixServices.GetTrainingCategories().then(function(response){
 			$scope.categories = response;

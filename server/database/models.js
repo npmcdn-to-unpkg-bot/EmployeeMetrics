@@ -57,6 +57,7 @@ var Category = mongoose.model('Category', categorySchema);
 var employeeCategorySchema = new mongoSchema({
 	'_id'			: 	mongoSchema.ObjectId,
 	'employeeId'	: 	{type: mongoSchema.ObjectId, ref: 'Employee'},
+	'managerId'		: 	{type: mongoSchema.ObjectId, ref: 'Employee'},
 	'categoryId'	: 	{type: mongoSchema.ObjectId, ref: 'Category'},
 	'date'			: 	Date,
 	'table'			: 	Number,
@@ -97,7 +98,7 @@ var findEmployees = function(req,res)
 }
 
 var findEmployeesOnly = function(req,res){
-	employeesWithNoManager();
+	
 	Employee.find({'accesslevel': 0, 'active' : true}, function(err,data){
 		if (err){
 			response = {'error': true, 'message': 'error fetching data from employees'};
@@ -191,6 +192,14 @@ var findEmployeesCategoriesMatrix = function(req, res){
 var updateTrainingMatrix = function(req, res){
 	var response={};
 	var db = new EmployeeCategory();
+
+	var token = jwt.decode(req.body.token);
+	
+	if(token._id.toString() == req.body.employeeId.toString()){
+		db.managerId = null;
+	}else{
+		db.managerId = token._id;
+	}
 	//Sets new information to be saved
 	db.employeeId = req.body.employeeId
 	db.categoryId = req.body.categoryId;
@@ -204,6 +213,7 @@ var updateTrainingMatrix = function(req, res){
 	EmployeeCategory.update(
 			{
 				'employeeId' : db.employeeId, 
+				'managerId'	 : db.managerId,
 				'categoryId' : db.categoryId, 
 				'date' 		 : {	
 									$gte: new Date(startDate._d).toISOString(), 
@@ -236,6 +246,14 @@ var addScoreTrainingMatrix = function(req,res){
 	var response={};
 	//creates a new document for EmployeeCategory
 	var db = new EmployeeCategory();
+	var token = jwt.decode(req.body.token);
+	
+	if(token._id.toString() == req.body.employeeId.toString()){
+		db.managerId = null;
+	}else{
+		db.managerId = token._id;
+	}
+
 	//Saves all new information to be saved
 	db._id = mongoose.Types.ObjectId();		//Generates ObjectId
 	db.employeeId = req.body.employeeId;
@@ -243,6 +261,7 @@ var addScoreTrainingMatrix = function(req,res){
 	db.Results = req.body.Results;
 	db.table = parseInt(req.body.table);
 	db.date = req.body.date;
+	
 	
 	//Calss the save functiont to mongo
 	db.save(function(err){
@@ -261,7 +280,8 @@ var addScoreTrainingMatrix = function(req,res){
 var findEmployee = function(req,res){
 	var response ={}
 	
-	var id = req.query.id;
+	var id = req.query.id || req.query.employeeId;
+
 	var token = req.query.token;
 	
 	if(!token){
@@ -418,48 +438,55 @@ var findManagers = function(req,res){
 
 var findEmployeesUnderManager = function(req,res){
 	var managerId = req.query.id;
+	var token = req.query.token;
+	
+	if (token){
+		var token = jwt.decode(req.query.token);
+		managerId = token._id;
+	}
 	EmployeeManager.find({'managerId' : managerId, 'status' : true}, function(err,data){
 		if (err){
 			response = {'error': true, 'message': 'error fetching data from employees'};
 			res.json(response);
 		}else{
 			res.json(data);
-		
 		}
 	});
 }
 
-function employeesWithNoManager(){
+
+
+var findEmployeesWithNoManager = function(req,res){
 	var employees = {};
 	var employeeManager = {};
-	EmployeeManager.find({'status':true}, function(err,data){
+	var employeesAux = {};
+	EmployeeManager.find({'status':true}).sort({'employeeId' : 'ascending'}).exec(function(err,data){
 		if (err){
 			response = {'error': true, 'message': 'error fetching data from employees'};
 			res.json(response);
 		}else{
 			employeeManager = data;
 			
-			Employee.find({'accesslevel': 0}, function(err,data){
+			Employee.find({'accesslevel': 0, 'active' : true}, function(err,data){
 				if (err){
 					response = {'error': true, 'message': 'error fetching data from employees'};
 					res.json(response);
 				}else{
 					employees = data;
-					console.log('----------Employees-----------');
-					console.log(employees);
-					console.log('----------Employees-Manager-----------');
-					console.log(employeeManager);
-					for (var i = 0 ; i<employees.length;i++){
+					employeesAux = data;
+					for (var i = 0 ; i < employees.length;i++){
 						for (var j = 0; j < employeeManager.length; j++){
-							console.log(employees[i]._id, employeeManager[j].employeeId);
+							
+							
 							if (employees[i]._id.toString() == employeeManager[j].employeeId.toString()){
-								console.log('entered');
-								employees.splice(i,1);
+								
+								employeesAux.splice(i,1);
+								
 							}
-						};
+						}
 					}
-					console.log('----------Result-----------');
-					console.log(employees);
+					
+					res.json(employeesAux);
 					
 				}
 			});
@@ -477,7 +504,6 @@ var addEmployeeToManager = function(req,res){
 	db.managerId = req.body.managerId;
 	db.status = true;
 	
-	console.log(db);
 	db.save(function(err){
 	//if an error is or not saves a different response and sends it to the client
 		if (err){
@@ -489,6 +515,23 @@ var addEmployeeToManager = function(req,res){
 	});
 	res.send(response);
 
+}
+
+var setToInactive = function(req,res){
+	var response = {};
+	var db = req.body;
+	
+	EmployeeManager.update({'employeeId': db.employeeId, 'managerId': db.managerId, 'status': true},{$set:{'status': false}}, function(err, data){
+		if (err){
+			response = {'error': true, 'message' : 'Something really bad happened'};
+			
+		}else
+		{
+			response = {'error': false, 'message' : 'Data modified'};
+			
+		}
+	});
+	res.send(response);
 }
 
 //Exports all schemas created
@@ -520,6 +563,8 @@ module.exports.model = {
 	validate				: validate,
 	getaccess				: getaccess,
 	findManagers			: findManagers,
-	findEmployeesUnderManager: findEmployeesUnderManager,
-	addEmployeeToManager 	: addEmployeeToManager
+	findEmployeesUnderManager	: findEmployeesUnderManager,
+	findEmployeesWithNoManager	: findEmployeesWithNoManager,
+	addEmployeeToManager 	: addEmployeeToManager,
+	setToInactive  			: setToInactive
 };

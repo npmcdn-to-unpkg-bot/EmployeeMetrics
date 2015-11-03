@@ -8,7 +8,7 @@ managerModule.controller('addManagerController', ['$scope', '$rootScope', '$stat
 
 	$scope.initialize = function(){
 		$rootScope.validate();
-		EmployeeServices.GetEmployeesOnly().then(function(response){
+		ManagerServices.GetEmployeesWithNoManager().then(function(response){
 			console.log(response);
 			$scope.employees = response;
 		});

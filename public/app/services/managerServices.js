@@ -49,10 +49,33 @@ function ManagerServices($http, $q){
 		return deferred.promise;	
 
 	}
+	var _getEmployeesWithNoManager = function(){
+		var deferred = $q.defer();
+		$http.get('/managers-employees').success(function(data){
+			deferred.resolve(data);
+		}).error(function(data){
+			deferred.resolve(data);
+		});		
+		return deferred.promise;	
+
+	}
+
+	var _setToInactive = function(params){
+		var deferred = $q.defer();
+		$http.post('/managers-employees', params).success(function(data){
+			deferred.resolve(data);
+		}).error(function(data){
+			deferred.resolve(data);
+		});		
+		return deferred.promise;	
+
+	}
 
 
 	ManagerServices.GetManagers 			= _getManagers;
 	ManagerServices.AddEmployeeToManager  	= _addEmployeeToManager;
-	ManagerServices.GetEmployeeUnderManger	=	_getEmployeeUnderManger
+	ManagerServices.GetEmployeeUnderManger	=	_getEmployeeUnderManger;
+	ManagerServices.GetEmployeesWithNoManager = _getEmployeesWithNoManager;
+	ManagerServices.SetToInactive			= _setToInactive;
 	return ManagerServices;
 }

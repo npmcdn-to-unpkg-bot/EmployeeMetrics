@@ -70,8 +70,16 @@ dbCalls.addEmployeeToManager = function(req,res){
 	db.model.addEmployeeToManager(req,res);
 }
 
+dbCalls.findEmployeesWithNoManager = function(req,res){
+	db.model.findEmployeesWithNoManager(req,res);
+}
+
 dbCalls.findEmployeesUnderManager = function(req,res){
 	db.model.findEmployeesUnderManager(req,res);
+}
+
+dbCalls.setToInactive	=	function(req,res){
+	db.model.setToInactive(req,res);
 }
 
 
