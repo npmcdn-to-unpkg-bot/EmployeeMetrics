@@ -24,6 +24,7 @@ competitionMatricesModule.controller('technologyMatrixController', ['$scope', '$
 		$rootScope.validate();
 		$scope.params = params;
 		$scope.params.table = $scope.categories[0].table;
+		$scope.params.token = $window.sessionStorage.token;
 		CompetitionMatrixServices.GetPeopleCategories(params).then(function(data){
 
 			if (data.length == 0){

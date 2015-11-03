@@ -26,8 +26,10 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController',
 	$scope.getPeopleCategories = function(params){
 		$scope.params = params;
 		$scope.params.table = $scope.categories[0].table;
+		$scope.params.token = $window.sessionStorage.token;
 		$rootScope.validate();
 		CompetitionMatrixServices.GetPeopleCategories(params).then(function(data){
+
 
 			if (data.length == 0){
 				$scope.ShowButton = true;
@@ -37,7 +39,7 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController',
 					$scope.peopleCategories[i] = {};
 					$scope.peopleCategories[i].employeeId = params.employeeId;
 					$scope.peopleCategories[i].categoryId = $scope.categories[i]._id;		
-					$scope.peopleCategories[i].Results = [ ];
+					$scope.peopleCategories[i].Results = [];
 					$scope.resultChanged(i);
 					var date = moment($scope.params.date).format("MM/DD/YYYY");
 					$scope.peopleCategories[i].date = moment().toDate(date);
@@ -111,7 +113,7 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController',
 		var token = {
 			token: $window.sessionStorage.token
 		};
-		//console.log(token);
+		
 		AppServices.GetAccess(token).then(function(access){
 			switch(parseInt(access)){
 				case 0:
