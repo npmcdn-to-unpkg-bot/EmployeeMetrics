@@ -82,6 +82,12 @@ dbCalls.setToInactive	=	function(req,res){
 	db.model.setToInactive(req,res);
 }
 
+dbCalls.findEmployeesCategoresFromManager = function(req,res){
+	db.model.findEmployeesCategoresFromManager(req,res);
+}
 
+dbCalls.findEmployeesCategoresFromEmployee = function(req,res){
+	db.model.findEmployeesCategoresFromEmployee(req,res);
+}
 
 module.exports = dbCalls;

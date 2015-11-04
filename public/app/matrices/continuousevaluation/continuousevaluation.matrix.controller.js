@@ -28,7 +28,7 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController',
 		$scope.params.table = $scope.categories[0].table;
 		$scope.params.token = $window.sessionStorage.token;
 		$rootScope.validate();
-		CompetitionMatrixServices.GetPeopleCategories(params).then(function(data){
+		CompetitionMatrixServices.GetPeopleCategories($scope.params).then(function(data){
 
 
 			if (data.length == 0){

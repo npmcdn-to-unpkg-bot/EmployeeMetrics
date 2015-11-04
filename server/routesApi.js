@@ -8,11 +8,6 @@ var dbCalls		=	require('./database/dbcalls');
 
 
 
-/*router.get('/trainingmatrix', function(req,res){
-	
-	res.sendFile(path.join(__dirname,"../public/views/training.matrix.tmpl.html"));
-});*/
-
 //Gets index.html whenever we call localhost
 router.get('/', function(req,res){
 	res.sendFile(path.join(__dirname,"../index.html"));
@@ -120,5 +115,16 @@ router.route('/managers-employees')
 	.post(function(req,res){
 		dbCalls.setToInactive(req,res);
 	})
+
+router.route('/managerdashboard')
+	.get(function(req,res){
+		dbCalls.findEmployeesCategoresFromManager(req,res);
+	});
+
+router.route('/userdashboard')
+	.get(function(req,res){
+		dbCalls.findEmployeesCategoresFromEmployee(req,res);
+	})
+
 
 module.exports = router;

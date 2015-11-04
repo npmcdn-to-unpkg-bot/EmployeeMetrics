@@ -10,7 +10,7 @@ app.controller('authLoginController',['$scope','$rootScope', '$state' , '$window
 			if (data != '' && data !=null)
 			{	
 				$window.sessionStorage.token = data;
-				$state.go('app');
+				$state.go('app.dashboard');
 			}else{
 				$window.sessionStorage.token=null;
 				$scope.message = false;

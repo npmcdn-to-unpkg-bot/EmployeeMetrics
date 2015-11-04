@@ -182,6 +182,10 @@ var findEmployeesCategoriesMatrix = function(req, res){
 	
 	//gets token from the query
 	var token = jwt.decode(req.query.token);
+	if (req.query.employeeId == undefined){
+
+		req.query.employeeId = token._id;
+	}
 
 	//set date to 1
 	startDate.date(1);
@@ -318,7 +322,7 @@ var addScoreTrainingMatrix = function(req,res){
 
 //this function finds an specific employee
 var findEmployee = function(req,res){
-	var response ={}
+	var response ={};
 	
 	//assign to id either the requested id or employeeId
 	var id = req.query.id || req.query.employeeId;
@@ -599,6 +603,92 @@ var setToInactive = function(req,res){
 	res.send(response);
 }
 
+var findEmployeesCategoresFromManager = function(req,res){
+	var response = {};	
+	
+	
+	//gets the date from the query
+	var endDate  = moment(new Date());
+	
+	//gets token from the query
+	var token = jwt.decode(req.query.token);
+	
+	//set date to 1
+	endDate.date(1);
+	var startDate = moment(endDate).subtract(1,'months');
+
+	EmployeeManager.findOne(
+		{
+			'employeeId' : token._id,
+			'status': true
+		},
+		function(err,data){
+			if(err){
+				response = {'error': true, 'message' : 'Something really bad happened'};
+				res.json(response);
+			}else{
+
+				var managerId = data.managerId;
+
+				//Find all the documents in EmployeeCategory which employeeId is equal the the id pass through url
+				EmployeeCategory.find({	'employeeId' : token._id, 
+												'table': parseInt(req.query.table),
+												'managerId': managerId,
+												'date': {$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}}, 
+												function(err,data){
+					if (err){
+						//If an error happens it sends information about the error to the client
+						response = {'error': true, 'message': 'error fetching data from Employees Categories on employeeId: ' + req.query.employeeId};
+						res.json(response);
+					}else
+					{
+						//Sends to the client the deata retrieved
+						res.json(data);
+						
+					}
+				
+			});
+		}
+
+	});
+}
+
+var findEmployeesCategoresFromEmployee = function(req,res){
+	var response = {};	
+	
+	
+	//gets the date from the query
+	var endDate  = moment(new Date());
+	
+	//gets token from the query
+	var token = jwt.decode(req.query.token);
+	
+	//set date to 1
+	endDate.date(1);
+	var startDate = moment(endDate).subtract(1,'months');
+
+		//Find all the documents in EmployeeCategory which employeeId is equal the the id pass through url
+		EmployeeCategory.find({	'employeeId' : token._id, 
+										'table': parseInt(req.query.table),
+										'managerId': null,
+										'date': {$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}}, 
+										function(err,data){
+			if (err){
+				//If an error happens it sends information about the error to the client
+				response = {'error': true, 'message': 'error fetching data from Employees Categories on employeeId: ' + req.query.employeeId};
+				res.json(response);
+			}else
+			{
+				//Sends to the client the deata retrieved
+				res.json(data);
+				
+			}
+		
+	});
+}
+
+
+
 //Exports all schemas created
 module.exports.model = {
 	//Exporting schemas models
@@ -618,6 +708,8 @@ module.exports.model = {
 
 	//Finding relations between employees and categories for the three tables
 	findEmployeesCategoriesMatrix : findEmployeesCategoriesMatrix,
+	findEmployeesCategoresFromManager : findEmployeesCategoresFromManager,
+	findEmployeesCategoresFromEmployee : findEmployeesCategoresFromEmployee,
 	
 	updateTrainingMatrix 	: updateTrainingMatrix,
 	addScoreTrainingMatrix 	: addScoreTrainingMatrix,
