@@ -121,10 +121,12 @@ competitionMatricesModule.controller('technologyMatrixController', ['$scope', '$
 					break;
 				
 				case 1: 
+					
 					ManagerServices.GetEmployeeUnderManger(token).then(function(response){
 						for (var i = 0; i<response.length;i++){
 							findPerson(response,i);
 						}
+						
 					});
 					break;
 				

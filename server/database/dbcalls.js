@@ -90,4 +90,7 @@ dbCalls.findEmployeesCategoresFromEmployee = function(req,res){
 	db.model.findEmployeesCategoresFromEmployee(req,res);
 }
 
+dbCalls.changePassword = function(req,res){
+	db.model.changePassword(req,res);
+}
 module.exports = dbCalls;

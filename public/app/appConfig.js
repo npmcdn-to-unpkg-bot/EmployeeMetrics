@@ -22,8 +22,19 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 			url: '/app',
 			templateUrl	: 'app/auth/app.tmpl.html',
 			controller 	: 'appController'
-			
-			
+	
+		})
+
+		.state('app.password',{
+			url: '/app/changepassword/',
+			templateUrl: '/app/auth/changepassword/auth.changepassword.tmpl.html',
+			controller: 'changePasswordController'
+		})
+
+		.state('app.forcepassword',{
+			url: '/app/changepassword/:id',
+			templateUrl: '/app/auth/changepassword/auth.changepassword.tmpl.html',
+			controller: 'changePasswordController'
 		});
 
 		$urlRouterProvider.when('', 'login');

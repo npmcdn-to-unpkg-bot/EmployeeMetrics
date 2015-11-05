@@ -1,7 +1,21 @@
 <div class = 'container' ng-controller = 'viewDashboardController'>
 	<div ng-init='initialize()'>
+
 		<h1>Dashboard</h1>
 		<h3>Welcome {{employee.firstname+' ' + employee.lastname}}</h3>
+		<!--<div class = 'col-md-3 control-group'>
+			<label for = 'date'>Choose month</label>
+			<input class = 'form-control' type = 'date' name = 'date' ng-model='params.date'></input>
+		</div>-->
+		<form class = 'form form-inline'>
+			<div class = 'col-md-6 form-group'>
+				<label for = 'date'>Choose month - year</label>
+				<select ng-model ='date.month' ng-change='dateChange()' class = 'form-control' ng-options='month as month for month in select.month'></select>
+
+			
+				<select ng-model ='date.year' ng-change='dateChange()' class = 'form-control' ng-options = 'year as year for year in select.year'></select>	
+			</div>
+		</form>
 		<div class='col-md-12'>
 			<h4>Manager Results</h4>
 
@@ -25,8 +39,10 @@
 			<h4>User Results</h4>
 			<div class = 'col-md-4'>
 				<center><h4>Technology Matrix</h4></center>
-				<canvas id="technologyUserChart" width="auto" height="300"></canvas>
-				<div id = 'technologyUserLegend'></div>
+				
+					<canvas  id="technologyUserChart" width="300" height="300"></canvas>
+					<div id = 'technologyUserLegend'></div>
+					
 			</div>
 			<div class = 'col-md-4'>
 				<center><h4>Training Matrix</h4></center>
@@ -71,11 +87,7 @@
 		</div>
 
 		<div class = 'col-md-12' style="margin-bottom: 100px;"> </div>
-		<!--
-		<input type='text' ng-model = 'totals[0]' disabled></input>
-		<input type='text' ng-model = 'totals[1]' disabled></input>
-		<input type='text' ng-model = 'totals[2]' disabled></input>
-		-->
+		
 
 	</div>
 

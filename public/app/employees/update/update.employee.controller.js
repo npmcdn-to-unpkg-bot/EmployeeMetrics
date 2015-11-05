@@ -34,8 +34,11 @@ employeeApp.controller('updateEmployeeController', ['$scope', '$rootScope', '$st
 			$state.go('app.employee',	{}	, {	reload: true });	
 			
 		});
-		
-			
+	}
+
+	$scope.changePassword = function(params){
+		$rootScope.validate();
+		$state.go('app.forcepassword',{id: params});
 	}
 
 }]);

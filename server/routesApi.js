@@ -124,7 +124,10 @@ router.route('/managerdashboard')
 router.route('/userdashboard')
 	.get(function(req,res){
 		dbCalls.findEmployeesCategoresFromEmployee(req,res);
-	})
+	});
 
-
+router.route('/password')
+	.post(function(req,res){
+		dbCalls.changePassword(req,res);
+	});
 module.exports = router;

@@ -28,14 +28,6 @@
 			<p ng-show='employeeForm.email.$invalid && !employeeForm.email.$pristine' class='help-block'>Enter a valid e-mail</p>
 		</div>
 	</div>
-	<div class = 'col-md-7' ng-class ="{ 'has-error' : employeeForm.password.$invalid && !employeeForm.password.$pristine }">
-		<div class = 'form-group'>
-			<label for = 'password' >Password: </label>
-			<input class = 'form-control' type='password' name='password' ng-model = 'employee.password' ng-minlength="8" required></input>
-			<p ng-show='employeeForm.password.$invalid && !employeeForm.password.$pristine' class='help-block'>Please enter a password</p>
-			<p ng-show="employeeForm.password.$error.minlength" class="help-block">your password is too short.</p>
-		</div>
-	</div>
 	<div class = 'col-md-7'>
 		<div class = 'form-group'>
 			<label for = 'accesslevel'>Access level:</label>
@@ -49,6 +41,11 @@
 				<label for ='active'>Active</label>
 				<input type='checkbox' class = 'checkbox' ng-model= 'employee.active' >
 			</div>
+	</div>
+	<div class = 'col-md-7'>
+		<div class = 'form-group'>
+			<button ng-click = 'changePassword(employee._id)' class='btn btn-default'>Change Password</a>
+		</div>
 	</div>
 	<div class = 'col-md-7'>
 		<div class = 'form-group'>

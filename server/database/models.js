@@ -111,6 +111,7 @@ var findEmployeesOnly = function(req,res){
 			response = {'error': true, 'message': 'error fetching data from employees'};
 			res.json(response);
 		}else{
+			console.log('this');
 			res.json(data);
 		
 		}
@@ -534,7 +535,7 @@ var findEmployeesWithNoManager = function(req,res){
 		}else{
 			employeeManager = data;
 			
-			Employee.find({'accesslevel': 0, 'active' : true}, function(err,data){
+			Employee.find({'accesslevel': {$lt:2} , 'active' : true}, function(err,data){
 				if (err){
 					response = {'error': true, 'message': 'error fetching data from employees'};
 					res.json(response);
@@ -570,17 +571,22 @@ var addEmployeeToManager = function(req,res){
 	db._id = mongoose.Types.ObjectId();
 	db.employeeId = req.body.employeeId;
 	db.managerId = req.body.managerId;
-	db.status = true;
 	
-	db.save(function(err){
-	//if an error is or not saves a different response and sends it to the client
-		if (err){
-			response = {'error': true, 'message' : 'Something really bad happened'};
-		}else
-		{
-			response = {'error': false, 'message' : 'Data added'};
-		}
-	});
+	db.status = true;
+	if (db.employeeId.toString() != db.managerId.toString()){
+		db.save(function(err){
+		//if an error is or not saves a different response and sends it to the client
+			if (err){
+				response = {'error': true, 'message' : 'Something really bad happened'};
+			}else
+			{
+				response = {'error': false, 'message' : 'Data added'};
+			}
+		});
+	}else{
+		response = {'error': true, 'message' : 'the employee cannot be its own manager'};
+		console.log(response);
+	}
 	res.send(response);
 
 }
@@ -590,7 +596,7 @@ var setToInactive = function(req,res){
 	var response = {};
 	var db = req.body;
 	
-	EmployeeManager.update({'employeeId': db.employeeId, 'managerId': db.managerId, 'status': true},{$set:{'status': false}}, function(err, data){
+	EmployeeManager.remove({'employeeId': db.employeeId, 'managerId': db.managerId}, function(err, data){
 		if (err){
 			response = {'error': true, 'message' : 'Something really bad happened'};
 			
@@ -607,16 +613,16 @@ var findEmployeesCategoresFromManager = function(req,res){
 	var response = {};	
 	
 	
-	//gets the date from the query
-	var endDate  = moment(new Date());
+	var startDate = moment(req.query.date);
+	
+	var endDate = moment(startDate).add(1, 'month');
+	
 	
 	//gets token from the query
 	var token = jwt.decode(req.query.token);
 	
 	//set date to 1
-	endDate.date(1);
-	var startDate = moment(endDate).subtract(1,'months');
-
+	
 	EmployeeManager.findOne(
 		{
 			'employeeId' : token._id,
@@ -657,15 +663,14 @@ var findEmployeesCategoresFromEmployee = function(req,res){
 	var response = {};	
 	
 	
-	//gets the date from the query
-	var endDate  = moment(new Date());
+	var startDate = moment(req.query.date);
+	
+	var endDate = moment(startDate).add(1, 'month');
 	
 	//gets token from the query
 	var token = jwt.decode(req.query.token);
 	
-	//set date to 1
-	endDate.date(1);
-	var startDate = moment(endDate).subtract(1,'months');
+
 
 		//Find all the documents in EmployeeCategory which employeeId is equal the the id pass through url
 		EmployeeCategory.find({	'employeeId' : token._id, 
@@ -684,6 +689,45 @@ var findEmployeesCategoresFromEmployee = function(req,res){
 				
 			}
 		
+	});
+}
+
+var changePassword = function(req,res){
+	var response = {};
+	var db = req.body;
+	var token = req.body.token;
+
+	if(token){
+		db.id = jwt.decode(token)._id;
+		
+	}
+
+	Employee.findOne({'_id': db.id}, function(err, user){
+		if(err){
+			response = {'error': true, 'message' : 'Something really bad happened'};
+			res.json(response);
+		}else{
+			
+			
+			
+			if(decrypt(user.password,key) == db.oldPassword){ 
+				
+				Employee.update({'_id' : user.id, 'password': encrypt(db.oldPassword,key)},{$set:{password : encrypt(db.newPassword,key)}}, function(err, data){
+					if(err){
+						response = {'error': true,'message': 'no user found'};
+						res.json(response);
+					}else{
+						response = {'error': false,'message': 'Password changed'};
+						res.json(response);
+				
+					}
+				});
+				
+			}else{
+				response = {'error' : true, 'message': 'old password not match'};	
+				res.json(response);
+			}
+		}
 	});
 }
 
@@ -723,5 +767,6 @@ module.exports.model = {
 	findEmployeesUnderManager	: findEmployeesUnderManager,
 	findEmployeesWithNoManager	: findEmployeesWithNoManager,
 	addEmployeeToManager 	: addEmployeeToManager,
-	setToInactive  			: setToInactive
+	setToInactive  			: setToInactive,
+	changePassword 			: changePassword
 };

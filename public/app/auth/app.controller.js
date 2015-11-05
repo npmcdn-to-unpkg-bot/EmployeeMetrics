@@ -1,6 +1,6 @@
 var app = angular.module('myApp');
 
-app.controller('appController',['$scope','$rootScope', '$state' , '$window', 'AppServices', function($scope, $rootScope, $state, $window, AppServices){
+app.controller('appController',['$scope','$rootScope', '$state' , '$window', 'AppServices','EmployeeServices', function($scope, $rootScope, $state, $window, AppServices,EmployeeServices){
 	$scope.loginForm = {};
 	
 	
@@ -9,6 +9,8 @@ app.controller('appController',['$scope','$rootScope', '$state' , '$window', 'Ap
 	$scope.employee	= false;
 	$scope.manager	= false;
 	$scope.admin	= false;
+
+	$scope.personLoged = {};
 
 	$rootScope.validate = function(){
 		
@@ -52,10 +54,19 @@ app.controller('appController',['$scope','$rootScope', '$state' , '$window', 'Ap
 		});
 	}
 
-	
+	$scope.getPersonFromToken = function(){
+		var token = {
+			token: $window.sessionStorage.token
+		}
+		EmployeeServices.GetEmployee(token).then(function(response){
+			console.log(response[0]);
+			$scope.personLoged = response[0];
+		});
+	}
 
 	$scope.initialize = function(){
 		$scope.getAccess();
+		$scope.getPersonFromToken();
 	}
 
 }]);

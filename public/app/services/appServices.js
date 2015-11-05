@@ -38,9 +38,20 @@ function AppServices($http, $q , $window){
 		return deferred.promise;	
 	}
 
+	var _changePassword = function(data){
+		var deferred = $q.defer();
+		$http.post('/password', data).success(function(data){
+				deferred.resolve(data);
+			}).error(function(data){
+				deferred.resolve(data);
+			});
+		return deferred.promise;
+	}
+
 	AppServices.Login = _login;
 	AppServices.ValidateToken = _validateToken;
 	AppServices.GetAccess = _getAccess;
+	AppServices.ChangePassword = _changePassword;
 
 	return AppServices;
 
