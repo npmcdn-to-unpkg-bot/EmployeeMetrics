@@ -12,7 +12,7 @@
 				<div class = 'col-md-7 form-group'>
 					<label for = 'date'>Choose month - year</label>
 					<select ng-model ='date.month' ng-change='dateChange(personSelected)' class = 'form-control' ng-options='month as month for month in select.month'></select>	
-					<input ng-model ='date.year' ng-change='dateChange(personSelected)' min='2000' max= '2050' size='8' class = 'form-control' type='number'></input>	
+					<select ng-model ='date.year' ng-change='dateChange(personSelected)' class = 'form-control' ng-options = 'year as year for year in select.year'></select>	
 				</div>
 
 				<div ng-if='isManager' class = 'col-md-7 form-group'>
@@ -27,7 +27,7 @@
 
 				<div class = 'col-md-4' >
 					<center><h4>Technology Matrix</h4></center>
-					<canvas id="technologyManagerChart" width="300" height="300" ng-disabled='emptyManagerTechChart'></canvas>
+					<canvas id="technologyManagerChart" ng-disabled='emptyManagerTechChart'></canvas>
 					<div id = 'technologyManagerLegend'></div>
 				</div>
 				<div class = 'col-md-4'>

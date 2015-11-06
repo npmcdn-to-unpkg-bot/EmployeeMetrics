@@ -15,3 +15,7 @@
     margin-right: 5px;
 }
 
+div canvas {
+	height: 370px;
+	width: 370px;
+}
