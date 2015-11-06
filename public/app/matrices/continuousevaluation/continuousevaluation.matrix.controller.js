@@ -3,9 +3,7 @@ var competitionMatricesModule = angular.module('competitionMatrices');
 
 
 //Creates the controllero for getMongo controller
-competitionMatricesModule.controller('continuousEvaluationMatrixController', 
-	['$scope', '$rootScope','$state', '$window','$filter', 'CompetitionMatrixServices','AppServices', 'EmployeeServices','ManagerServices', 
-	function($scope, $rootScope, $state, $window, $filter, CompetitionMatrixServices, AppServices, EmployeeServices, ManagerServices){
+competitionMatricesModule.controller('continuousEvaluationMatrixController', 	['$scope', '$rootScope','$state', '$window','$filter', 'CompetitionMatrixServices','AppServices', 'EmployeeServices','ManagerServices', 	function($scope, $rootScope, $state, $window, $filter, CompetitionMatrixServices, AppServices, EmployeeServices, ManagerServices){
 
 	//Here it will be stored all the information for people
 	$scope.people= {};
@@ -20,14 +18,22 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController',
 	//This decides which button will show
 	$scope.ShowButton=false;
 
-	$scope.userAccess = NaN;
+	$scope.date = {};
+
+	$scope.select = {};
+	$scope.select.year = [];
+	$scope.select.month = ['January', 'February', 'March', 'April', 'May', 'Jun', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 	//depending on the person selected it will show all the categories that person has been graded
 	$scope.getPeopleCategories = function(params){
+		$rootScope.validate();
+		
+		var month = moment().month($scope.date.month);
+		params.date = moment({y: $scope.date.year, M: month.month(), d: 15}).toISOString();
+
 		$scope.params = params;
 		$scope.params.table = $scope.categories[0].table;
 		$scope.params.token = $window.sessionStorage.token;
-		$rootScope.validate();
 		CompetitionMatrixServices.GetPeopleCategories($scope.params).then(function(data){
 
 
@@ -41,8 +47,6 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController',
 					$scope.peopleCategories[i].categoryId = $scope.categories[i]._id;		
 					$scope.peopleCategories[i].Results = [];
 					$scope.resultChanged(i);
-					var date = moment($scope.params.date).format("MM/DD/YYYY");
-					$scope.peopleCategories[i].date = moment().toDate(date);
 					
 				}
 			}else{
@@ -53,9 +57,6 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController',
 				for (var i = 0; i < $scope.categories.length; i++){
 					
 					$scope.resultChanged(i);
-					//Creates a variable to set the date in a way that is available to read for the input box
-					var date = moment($scope.peopleCategories[i].date).format("MM/DD/YYYY");
-					$scope.peopleCategories[i].date = moment().toDate(date);
 						
 				}
 			}
@@ -67,8 +68,11 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController',
 	$scope.addToMongo = function(){
 		$rootScope.validate();
 		$scope.ShowButton = false;
+		var month = moment().month($scope.date.month);
+		var params = {};
+		params.date = moment({y: $scope.date.year, M: month.month(), d: 15}).toISOString();
+		$scope.params = params;
 		//Sends all the categories
-
 		for(var i = 0; i<$scope.categories.length;i++){
 			//Post the information stored in $scope.peoplecategories
 			$scope.peopleCategories[i].date = $scope.params.date;
@@ -84,6 +88,10 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController',
 	//Update the documents in people catagories with the new data
 	$scope.updateToMongo = function(){
 		$rootScope.validate();
+		var month = moment().month($scope.date.month);
+		var params = {};
+		params.date = moment({y: $scope.date.year, M: month.month(), d: 15 }).toISOString();
+		$scope.params = params;
 		for(var i = 0; i<$scope.peopleCategories.length;i++){
 			
 			//Update all the categories of the person selected by sending the most recent information 
@@ -110,6 +118,18 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController',
 		$scope.categories = {};
 		$scope.people = {};
 
+		for(var i=0;i<=50;i++){
+			$scope.select.year[i]=2000+i;
+		}
+
+		//this operations are to set a default date
+		var today = new Date();
+		var month = moment(today).month();
+		var year = moment(today).year();
+		
+		$scope.date.month = $scope.select.month[month];
+		$scope.date.year = year;
+
 		var token = {
 			token: $window.sessionStorage.token
 		};
@@ -129,6 +149,10 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController',
 							findPerson(response,i);
 						}
 					});
+					
+					EmployeeServices.GetEmployee(token).then(function(response){
+							$scope.people[$scope.people.length] = response[0];
+						});
 					break;
 				
 				case 2:
@@ -144,8 +168,6 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController',
 		CompetitionMatrixServices.GetContinuousEvaluationCategories().then(function(response){
 			$scope.categories = response;
 		});
-		$scope.params.date = new Date();
-
 
 	}
 

@@ -59,7 +59,6 @@ app.controller('appController',['$scope','$rootScope', '$state' , '$window', 'Ap
 			token: $window.sessionStorage.token
 		}
 		EmployeeServices.GetEmployee(token).then(function(response){
-			console.log(response[0]);
 			$scope.personLoged = response[0];
 		});
 	}

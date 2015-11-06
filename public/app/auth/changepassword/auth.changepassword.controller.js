@@ -23,10 +23,10 @@ app.controller('changePasswordController',['$scope','$rootScope', '$state' , '$w
 			{
 				params.token = $window.sessionStorage.token;
 			}
-			console.log(params)
+			
 			AppServices.ChangePassword(params).then(function(response){
 				if(response.error == true){
-					console.log(response.message);
+					//if there is an error
 				}else{
 					$state.go('app.dashboard');
 				}

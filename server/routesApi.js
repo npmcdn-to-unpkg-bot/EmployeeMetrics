@@ -130,4 +130,5 @@ router.route('/password')
 	.post(function(req,res){
 		dbCalls.changePassword(req,res);
 	});
+
 module.exports = router;

@@ -12,8 +12,9 @@
 					<h2 align = 'center'>Continous Evaluation Matrix Competition</h2>
 			</div>
 			<div class = 'col-md-3'>
-				<label for = 'date'>Date
-				<input type = 'date' class='form-control' name = 'date' id='datePicker' ng-change='getPeopleCategories(params)' ng-model = 'params.date'  />
+				<label for = 'date'>Choose month - year</label>
+				<select ng-model ='date.month' ng-change='getPeopleCategories(params)' class = 'form-control' ng-options='month as month for month in select.month'></select>	
+				<select ng-model ='date.year' ng-change='getPeopleCategories(params)' class = 'form-control' ng-options = 'year as year for year in select.year'></select>	
 			</div>
 		</form>
 			<div class = 'col-md-12'>

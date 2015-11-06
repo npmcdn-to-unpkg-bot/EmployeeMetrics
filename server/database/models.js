@@ -111,7 +111,7 @@ var findEmployeesOnly = function(req,res){
 			response = {'error': true, 'message': 'error fetching data from employees'};
 			res.json(response);
 		}else{
-			console.log('this');
+			
 			res.json(data);
 		
 		}
@@ -178,9 +178,6 @@ var findCategoriesContinuousEvaluationMatrix = function(req,res){
 var findEmployeesCategoriesMatrix = function(req, res){
 	var response = {};	
 	
-	//gets the date from the query
-	var startDate  = moment(req.query.date);
-	
 	//gets token from the query
 	var token = jwt.decode(req.query.token);
 	if (req.query.employeeId == undefined){
@@ -188,8 +185,8 @@ var findEmployeesCategoriesMatrix = function(req, res){
 		req.query.employeeId = token._id;
 	}
 
-	//set date to 1
-	startDate.date(1);
+	
+	
 	//compares the employeeId requested with the user asking for this employee
 	if(req.query.employeeId.toString() == token._id.toString()){
 		//if it is the user sets managerId to null
@@ -198,9 +195,18 @@ var findEmployeesCategoriesMatrix = function(req, res){
 		//if it is the manager sets the manager id with the token._id information
 		managerId = token._id;
 	}
+
+	
+	//gets the date from the query
+	var startDate  = moment(req.query.date);
+	//set date to 1
+	startDate.date(1);
+	
 	
 	//setrs the end date to compare on the query
 	var endDate = moment(startDate).add(1,'months');
+
+	
 		
 	//Find all the documents in EmployeeCategory which employeeId is equal the the id pass through url
 	EmployeeCategory.find({	'employeeId' : req.query.employeeId, 
@@ -239,15 +245,18 @@ var updateTrainingMatrix = function(req, res){
 		//if it is the manager sets the manager id with the token._id information
 		db.managerId = token._id;
 	}
+
 	//Sets new information to be saved
 	db.employeeId = req.body.employeeId
 	db.categoryId = req.body.categoryId;
 	db.Results = req.body.Results;
 	db.date = req.body.date;
 	db.table = parseInt(req.body.table);
+
 	var startDate  = moment(req.body.date);
 	startDate.date(1);
 	var endDate = moment(startDate).add(1,'months');
+	
 	//Update the old information with the new one 
 	EmployeeCategory.update(
 			{
@@ -272,6 +281,7 @@ var updateTrainingMatrix = function(req, res){
 				//If an error appear or not it set response and send a message to the client
 				if(err){
 					response = {'error': true, 'message' : 'Something really bad happened'};
+
 				}else{
 					response = {'error': false, 'message' : 'Data added'};
 				}
@@ -437,8 +447,8 @@ var authenticate = function(req,res){
 			res.send(response);
 		}else{
 			if(data == null){
-				token = null;
-				res.send(token);
+				response = {'error': true, 'message': 'User and password not valid'}
+				res.send(response);
 			}else{
 				//decrypts the password to see if are equal
 				if (decrypt(data.password,key) == db.password){
@@ -455,7 +465,8 @@ var authenticate = function(req,res){
 					sendData.email = data.email;
 					//creates token encrypting it using the key mentioned above
 					token = jwt.sign(sendData, key, {expiresIn :'4h'});
-					res.send(token);
+					response = {'error': false, 'message': token};
+					res.send(response);
 				}else{
 					response = {'error': true, 'message' : 'User and password not valid'};
 					res.send(response);
@@ -585,7 +596,7 @@ var addEmployeeToManager = function(req,res){
 		});
 	}else{
 		response = {'error': true, 'message' : 'the employee cannot be its own manager'};
-		console.log(response);
+		
 	}
 	res.send(response);
 
@@ -611,7 +622,8 @@ var setToInactive = function(req,res){
 
 var findEmployeesCategoresFromManager = function(req,res){
 	var response = {};	
-	
+	var token = {};
+	var id = null;
 	
 	var startDate = moment(req.query.date);
 	
@@ -619,13 +631,18 @@ var findEmployeesCategoresFromManager = function(req,res){
 	
 	
 	//gets token from the query
-	var token = jwt.decode(req.query.token);
 	
-	//set date to 1
-	
+	if (req.query._id){
+		id = req.query._id;
+	}else{
+		token = jwt.decode(req.query.token);
+		id = token._id
+	}
+
+	//if the person loged is manager
 	EmployeeManager.findOne(
 		{
-			'employeeId' : token._id,
+			'employeeId' : id,
 			'status': true
 		},
 		function(err,data){
@@ -633,47 +650,56 @@ var findEmployeesCategoresFromManager = function(req,res){
 				response = {'error': true, 'message' : 'Something really bad happened'};
 				res.json(response);
 			}else{
+				//If there is no data
+				if (data == null){
+					response = null;
+					res.send(response);
+				}else{
+					var managerId = data.managerId;
 
-				var managerId = data.managerId;
-
-				//Find all the documents in EmployeeCategory which employeeId is equal the the id pass through url
-				EmployeeCategory.find({	'employeeId' : token._id, 
-												'table': parseInt(req.query.table),
-												'managerId': managerId,
-												'date': {$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}}, 
-												function(err,data){
-					if (err){
-						//If an error happens it sends information about the error to the client
-						response = {'error': true, 'message': 'error fetching data from Employees Categories on employeeId: ' + req.query.employeeId};
-						res.json(response);
-					}else
-					{
-						//Sends to the client the deata retrieved
-						res.json(data);
-						
-					}
-				
-			});
+					//Find all the documents in EmployeeCategory which employeeId is equal the the id pass through url
+					EmployeeCategory.find({	'employeeId' : id, 
+													'table': parseInt(req.query.table),
+													'managerId': managerId,
+													'date': {$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}}, 
+													function(err,data){
+						if (err){
+							//If an error happens it sends information about the error to the client
+							response = {'error': true, 'message': 'error fetching data from Employees Categories on employeeId: ' + req.query.employeeId};
+							res.json(response);
+						}else
+						{
+							//Sends to the client the deata retrieved
+							res.json(data);
+							
+						}
+				});
+			}
 		}
-
 	});
 }
 
 var findEmployeesCategoresFromEmployee = function(req,res){
 	var response = {};	
-	
+	var token = {};
+	var id = null;
 	
 	var startDate = moment(req.query.date);
 	
 	var endDate = moment(startDate).add(1, 'month');
 	
 	//gets token from the query
-	var token = jwt.decode(req.query.token);
 	
+	if (req.query._id){
+		id = req.query._id;
+	}else{
+		token = jwt.decode(req.query.token);
+		id = token._id
+	}
 
 
 		//Find all the documents in EmployeeCategory which employeeId is equal the the id pass through url
-		EmployeeCategory.find({	'employeeId' : token._id, 
+		EmployeeCategory.find({	'employeeId' : id, 
 										'table': parseInt(req.query.table),
 										'managerId': null,
 										'date': {$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}}, 

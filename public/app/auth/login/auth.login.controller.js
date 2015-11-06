@@ -7,20 +7,24 @@ app.controller('authLoginController',['$scope','$rootScope', '$state' , '$window
 	$scope.sendLogin = function(){
 	
 		AppServices.Login($scope.loginForm).then(function(data){
-			if (data != '' && data !=null)
+			
+			if (data.error == false)
 			{	
-				$window.sessionStorage.token = data;
+				$window.sessionStorage.token = data.message;
 				$state.go('app.dashboard');
 			}else{
 				$window.sessionStorage.token=null;
+				delete $window.sessionStorage.token;
 				$scope.message = false;
 				$scope.message = true;
+				
 			}
 		});
 	}
 
 	$scope.initialize = function(){
-
+		$window.sessionStorage.token=null;
+		delete $window.sessionStorage.token;
 	}
 
 }]);
