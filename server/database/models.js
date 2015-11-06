@@ -253,8 +253,11 @@ var updateTrainingMatrix = function(req, res){
 	db.date = req.body.date;
 	db.table = parseInt(req.body.table);
 
+	//set start date equals to req.body.date
 	var startDate  = moment(req.body.date);
+	//sets day to 1
 	startDate.date(1);
+	//sets enddate to one month after start date for example 10/01/2015 to 11/01/2015
 	var endDate = moment(startDate).add(1,'months');
 	
 	//Update the old information with the new one 
@@ -285,7 +288,7 @@ var updateTrainingMatrix = function(req, res){
 				}else{
 					response = {'error': false, 'message' : 'Data added'};
 				}
-
+			//send response to the client
 			res.send(response);
 	});
 }
@@ -388,7 +391,10 @@ var createEmployee = function(req,res){
 	//this value is encrypted using the function encrypt defined above
 	db.password = encrypt(req.body.password, key);
 
+	//gets access level as number
 	db.accesslevel = parseInt(req.body.accesslevel);
+
+	//set if the new user is active or not
 	db.active = req.body.active;
 	
 	//saves the employee in the database
@@ -401,14 +407,16 @@ var createEmployee = function(req,res){
 			response = {'error': false, 'message' : 'Data added'};
 		}
 	});
-
+	//sends response
 	res.send(response);
 }
 
 //this function updates information about the employee
 var updateEmployee = function(req,res){
 	var response = {};
+	//makes db equal to the request body
 	var db = req.body;
+	//if the id matches with an existent id it updates the inroamtion
 	Employee.update({'_id' : db._id},
 					{
 						$set: 
@@ -418,7 +426,6 @@ var updateEmployee = function(req,res){
 							'accesslevel'	: db.accesslevel,
 							'email'			: db.email,
 							'active'		: db.active,
-							'password'		: db.password
 						}
 					},function(err,data){
 						//If an error appear or not it set response and send a message to the client
@@ -427,7 +434,7 @@ var updateEmployee = function(req,res){
 						}else{
 							response = {'error': false, 'message' : 'Data added'};
 						}
-
+						//sends response
 						res.send(response);
 					});
 }
@@ -497,12 +504,15 @@ var validate = function(req,res){
 
 //this function helps to send the accesslevel of the user from the token
 var getaccess = function(req,res){
+	//decodes the token
 	var decode = jwt.decode(req.query.token);
+	//sends the accesslevel
 	res.send(decode.accesslevel.toString());
 }
 
 //find all managers that are active
 var findManagers = function(req,res){
+	//Show all employees with access level equal to 1
 	Employee.find({'accesslevel': 1, 'active': true}, function(err,data){
 		if (err){
 			response = {'error': true, 'message': 'error fetching data from employees'};
@@ -516,13 +526,16 @@ var findManagers = function(req,res){
 
 //finds employees that are under the manager sent through the request
 var findEmployeesUnderManager = function(req,res){
+
 	var managerId = req.query.id;
 	var token = req.query.token;
 	
+	//gets the manager ID from the token
 	if (token){
 		var token = jwt.decode(req.query.token);
 		managerId = token._id;
 	}
+	//finds all employees under the manger id requested
 	EmployeeManager.find({'managerId' : managerId, 'status' : true}, function(err,data){
 		if (err){
 			response = {'error': true, 'message': 'error fetching data from employees'};
@@ -539,26 +552,29 @@ var findEmployeesWithNoManager = function(req,res){
 	var employees = {};
 	var employeeManager = {};
 	var employeesAux = {};
+	//finds all relationship manager employees equal to true in ascending order
 	EmployeeManager.find({'status':true}).sort({'employeeId' : 'ascending'}).exec(function(err,data){
 		if (err){
 			response = {'error': true, 'message': 'error fetching data from employees'};
 			res.json(response);
 		}else{
 			employeeManager = data;
-			
+			//find all employees with accesslevel less than 2 and active
 			Employee.find({'accesslevel': {$lt:2} , 'active' : true}, function(err,data){
 				if (err){
 					response = {'error': true, 'message': 'error fetching data from employees'};
 					res.json(response);
 				}else{
+
 					employees = data;
 					employeesAux = data;
+					//inspect the employees and employeesAux array
 					for (var i = 0 ; i < employees.length;i++){
 						for (var j = 0; j < employeeManager.length; j++){
-							
-							
+			
+							//compares which employees already are assigned to a manager
 							if (employees[i]._id.toString() == employeeManager[j].employeeId.toString()){
-								
+								//it takes out those elements giving back only the employees with no managers
 								employeesAux.splice(i,1);
 								
 							}
@@ -578,13 +594,16 @@ var findEmployeesWithNoManager = function(req,res){
 var addEmployeeToManager = function(req,res){
 	
 	var response = {};
+	//creates a new employeeManager model
 	var db = new EmployeeManager();
+	//gets all the information
 	db._id = mongoose.Types.ObjectId();
 	db.employeeId = req.body.employeeId;
 	db.managerId = req.body.managerId;
-	
 	db.status = true;
+	//checks if the user is not assigning the user as manager as himself
 	if (db.employeeId.toString() != db.managerId.toString()){
+		//if not saves the information
 		db.save(function(err){
 		//if an error is or not saves a different response and sends it to the client
 			if (err){
@@ -602,7 +621,7 @@ var addEmployeeToManager = function(req,res){
 
 }
 
-//set status to false... CHANGE TO REMOVE
+//Removes employee from manager
 var setToInactive = function(req,res){
 	var response = {};
 	var db = req.body;
@@ -625,13 +644,12 @@ var findEmployeesCategoresFromManager = function(req,res){
 	var token = {};
 	var id = null;
 	
+
 	var startDate = moment(req.query.date);
-	
 	var endDate = moment(startDate).add(1, 'month');
 	
 	
 	//gets token from the query
-	
 	if (req.query._id){
 		id = req.query._id;
 	}else{

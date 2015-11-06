@@ -115,6 +115,7 @@ competitionMatricesModule.controller('viewDashboardController',
 		}
 
 	function getContinuousEvaluationChart(id){
+		$rootScope.validate();
 		CompetitionMatrixServices.GetContinuousEvaluationCategories().then(function(response){
 			$scope.continuousCategory = response;
 			var ManagerMatrixDataSet = [];
@@ -204,6 +205,7 @@ competitionMatricesModule.controller('viewDashboardController',
 
 			///Gets information for user Chart
 			DashboardServices.GetUserDashboard(params).then(function(employeeCategories){
+				$rootScope.validate();
 				var myLineChart = null;
 				if (employeeCategories.length==0){
 					//add in case of there is no data
@@ -274,6 +276,7 @@ competitionMatricesModule.controller('viewDashboardController',
 	}
 
 	function getTrainingEvaluationChart(id){
+			$rootScope.validate();
 			CompetitionMatrixServices.GetTrainingCategories().then(function(response){
 			$scope.trainingCategory = response;
 			var ManagerMatrixDataSet = [];
@@ -426,6 +429,7 @@ competitionMatricesModule.controller('viewDashboardController',
 	}
 
 	function getTechnologyEvaluationChart(id){
+		$rootScope.validate();
 		CompetitionMatrixServices.GetTechnologyCategories().then(function(response){
 			$scope.technologyCategory = response;
 			var ManagerMatrixDataSet = [];
