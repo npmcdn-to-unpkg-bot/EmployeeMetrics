@@ -1,30 +1,34 @@
 <div class = 'container' ng-init='initialize()'>
 	
-	<div class = 'col-md-offset-4 col-md-4'>
+	<div class = 'col-sm-offset-2 col-sm-8'>
 		<h2>Employees Evaluation System Login</h2>
 	</div>
-	<div class='col-md-offset-4 col-md-4 col-md-offset-4'>
-		<form name = 'login' class = 'form-group' ng-controller = 'authLoginController' novalidate>
+	<div class='col-sm-12'>
+		<form name = 'login' class = 'form-horizontal' ng-controller = 'authLoginController' novalidate>
 			
 			<div class = 'form-group' name='email' ng-class ="{ 'has-error' : login.email.$invalid && !login.email.$pristine }">
-				<label for = 'email'>User: </label>
-				<input name='email' type = 'email' class = 'form-control' placeholder = 'you@email.com' ng-model = 'loginForm.email' required></input>
-				<p ng-show='login.email.$invalid && !login.email.$pristine' class='help-block'>Enter a valid e-mail</p>
+				<label class='control-label col-sm-3' for = 'email'>User: </label>
+				<div class='col-sm-4'>
+					<input name='email' type = 'email' class = 'form-control' placeholder = 'you@email.com' size='30' ng-model = 'loginForm.email' required></input>
+					<p ng-show='login.email.$invalid && !login.email.$pristine' class='help-block'>Enter a valid e-mail</p>
+				</div>
 			</div>
 			
 
 			<div class = 'form-group' name = 'password' ng-class ="{ 'has-error' : login.password.$invalid && !login.password.$pristine }">
-				<label for = 'password'>Password: </label>
-				<input name='password' type = 'password' class = 'form-control' ng-model = 'loginForm.password' required></input>
-				<p ng-show='login.password.$invalid && !login.password.$pristine' class='help-block'>Password is required</p>
-			</div>
-			
-			<div class = 'form-group'>
-				<p ng-show='message' class='help-block'>User and password do not match please try again</p>
+				<label class='control-label col-sm-3' for = 'password'>Password: </label>	
+				<div class='col-sm-4'>
+					<input name='password' type = 'password' class = 'form-control' ng-model = 'loginForm.password' required></input>
+					<p ng-show='login.password.$invalid && !login.password.$pristine' class='help-block'>Password is required</p>
+				</div>
 			</div>
 
-			<div class = 'form-group'>
-				<button ng-click= 'sendLogin()' ng-disabled = 'login.$invalid' class = 'btn btn-default'>Log in</button>
+			<div ng-show='message' class ='form-group'>
+				<p class='help-block col-sm-offset-3'>User and password do not match please try again</p>
+			</div>
+
+			<div class = 'form-group '>
+				<button ng-click= 'sendLogin()' ng-disabled = 'login.$invalid' class = 'col-sm-offset-7 btn btn-default'>Log in</button>
 			</div>
 		</form>
 	</div>

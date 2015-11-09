@@ -21,11 +21,17 @@
     "crypto-js": "^3.1.5",
     "express": "^4.13.3",
     "express-jwt": "^3.1.0",
+    "jasmine": "^2.3.2",
+    "jasmine-node": "^1.14.5",
     "jquery": "^2.1.4",
     "jsonwebtoken": "^5.4.1",
     "moment": "^2.10.6",
     "mongodb": "^2.0.46",
     "mongoose": "^4.1.12",
-    "mongoskin": "^2.0.3"
+    "mongoskin": "^2.0.3",
+    "request": "^2.65.0"
+  },
+  "devDependencies": {
+    "jasmine": "^2.3.2"
   }
 }

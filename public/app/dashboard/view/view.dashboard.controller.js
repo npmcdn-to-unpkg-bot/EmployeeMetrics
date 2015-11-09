@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 var dashboardModule = angular.module('dashboardModule');
 
 
@@ -55,9 +55,10 @@ competitionMatricesModule.controller('viewDashboardController',
 
 			//this operations are to set a default date
 			var today = new Date();
+			today = moment(today).subtract(1,'month')
 			var month = moment(today).month();
 			var year = moment(today).year();
-			month--;
+			
 			$scope.date.month = $scope.select.month[month];
 			$scope.date.year = year;
 
@@ -492,6 +493,7 @@ competitionMatricesModule.controller('viewDashboardController',
 							scaleStartValue : 1,
 							data: employeeCategories[i].Results
 						}
+
 						$scope.totals.manager[0] += parseInt(employeeCategories[i].Results[0]) + 
 								parseInt(employeeCategories[i].Results[1]) +
 								parseInt(employeeCategories[i].Results[2]) +
@@ -547,7 +549,7 @@ competitionMatricesModule.controller('viewDashboardController',
 					
 					$scope.emptyUserTechChart = false;
 
-
+					$scope.totals.user[0] = 0;
 					var total=0;
 					for (var i=0; i< $scope.technologyCategory.length;i++){
 						UserMatrixDataSet[i] = {
@@ -578,7 +580,6 @@ competitionMatricesModule.controller('viewDashboardController',
 					}
 
 					var ctx = document.getElementById("technologyUserChart").getContext("2d");
-					
 					var myLineChart = new Chart(ctx).Line(data, options);
 					document.getElementById("technologyUserLegend").innerHTML = myLineChart.generateLegend();
 					

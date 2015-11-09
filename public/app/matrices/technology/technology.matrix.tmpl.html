@@ -1,14 +1,14 @@
 <div ng-controller="technologyMatrixController" ng-init="initialize()">
 		<div class = 'container' >
 		<form class='form form-inline'>
-			<div class = 'col-md-3'>
-				<label for = 'name' />Your name
+			<div class = 'col-md-2'>
+				<label for = 'name'>Select Employee</label>
 				<select class = 'form-control' name = 'name' id='nameSelector' ng-change='getPeopleCategories(params)' ng-model='params.employeeId'>
 					<option ng-repeat="person in people" value='{{person._id}}'>{{person.firstname + ' ' + person.lastname}}</option>
 
 				</select>
 			</div>
-			<div class = 'col-md-6'>
+			<div class = 'col-md-offset-1 col-md-6'>
 					<h2 align = 'center'>Technology Matrix Competition</h2>
 			</div>
 			<div class = 'col-md-3'>

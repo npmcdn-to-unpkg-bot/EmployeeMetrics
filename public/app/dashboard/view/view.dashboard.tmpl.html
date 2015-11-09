@@ -8,24 +8,33 @@
 			<input class = 'form-control' type = 'date' name = 'date' ng-model='params.date'></input>
 		</div>-->
 		<div ng-hide='isAdmin'>
-			<form class = 'form form-inline' >
-				<div class = 'col-md-7 form-group'>
-					<label for = 'date'>Choose month - year</label>
-					<select ng-model ='date.month' ng-change='dateChange(personSelected)' class = 'form-control' ng-options='month as month for month in select.month'></select>	
-					<select ng-model ='date.year' ng-change='dateChange(personSelected)' class = 'form-control' ng-options = 'year as year for year in select.year'></select>	
-				</div>
-
-				<div ng-if='isManager' class = 'col-md-7 form-group'>
-					<label for = 'users'>Choose person to see</label>
-					<select ng-model ='personSelected._id' name = 'user' ng-change='personChange(personSelected._id)'  class = 'form-control'>
+			<form class = 'form form-vertical' >
+				<div ng-if='isManager' class = 'form-group'>
+					<label class = 'col-md-2' for = 'users'>Choose person to see</label>
+					<div class='col-md-2'>
+					<select ng-model ='personSelected._id' name = 'user' ng-change='personChange(personSelected._id)' class = 'col-md-3 form-control'>
 						<option ng-repeat="person in people" value='{{person._id}}'>{{person.firstname + ' ' + person.lastname}}</option>
 					</select>
 				</div>
+				</div>
+
+				<div class = 'form-group col-md-6'>
+					<label class='col-md-4' for = 'date'>Choose month - year</label>
+					<div class='col-md-4'>
+						<select ng-model ='date.month' ng-change='dateChange(personSelected)' class = 'form-control' ng-options='month as month for month in select.month'></select>	
+					</div>
+					
+					<div class='col-md-3'>
+						<select ng-model ='date.year' ng-change='dateChange(personSelected)' class = 'form-control' ng-options = 'year as year for year in select.year'></select>	
+					</div>
+					
+				</div>
+
 			</form>
 			<div class='col-md-12'>
 				<h4>Manager Results</h4>
 
-				<div class = 'col-md-4' >
+				<div class = 'col-md-4'>
 					<center><h4>Technology Matrix</h4></center>
 					<canvas id="technologyManagerChart" ng-disabled='emptyManagerTechChart'></canvas>
 					<div id = 'technologyManagerLegend'></div>

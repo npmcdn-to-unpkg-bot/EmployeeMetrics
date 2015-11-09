@@ -1,55 +1,84 @@
 
-<form name= 'employeeForm' ng-controller = 'updateEmployeeController' class = 'form-group' ng-init='initialize()' novalidate>
+<form name= 'employeeForm' ng-controller = 'updateEmployeeController' class = 'form form-horizontal' ng-init='initialize()' novalidate>
 	
-	<div class='col-md-7'>
-	<h2>Update Employee</h2>
+	<div class='col-md-12'>
+		<h2>Update employee</h2>
 	</div>
-	<div class = 'col-md-7'>
+	<div class = 'col-md-12'>
 		<div class = 'form-group' ng-class ="{ 'has-error' : employeeForm.firstname.$invalid && !employeeForm.firstname.$pristine }">
-			<label  for = 'firstname' >Firstname:</label>
-			<input class = 'form-control' type='text' name='firstname' id = 'firstname' placeholder = 'for example: John' ng-model = 'employee.firstname' ng-minlength="3" required></input>
-			<p ng-show='employeeForm.firstname.$invalid && !employeeForm.firstname.$pristine' class='help-block'>Your name is required</p>
-		    <p ng-show="employeeForm.firstname.$error.minlength" class="help-block">your name is too short.</p>
-		</div>
-	</div>
-
-	<div class = 'col-md-7'>
-		<div class = 'form-group' ng-class ="{ 'has-error' : employeeForm.lastname.$invalid && !employeeForm.lastname.$pristine }">
-		<label  for = 'lastname'>Lastname: </label>
-		<input class = 'form-control' type='text' name='lastname' placeholder = 'for example: Doe' ng-model = 'employee.lastname' ng-minlength="3" required></input>
-		<p ng-show='employeeForm.lastname.$invalid && !employeeForm.lastname.$pristine' class='help-block'>Your lastname is required</p>
-		<p ng-show="employeeForm.lastname.$error.minlength" class="help-block">your lastname is too short.</p>
-		</div>	
-	</div>	
-	<div class = 'col-md-7' ng-class ="{ 'has-error' : employeeForm.email.$invalid && !employeeForm.email.$pristine }">
-		<div class = 'form-group'>
-			<label for = 'email' >E-Mail: </label>
-			<input class = 'form-control' type='email' name ='email' placeholder = 'john.doe@email.com' ng-model = 'employee.email' required> </input>
-			<p ng-show='employeeForm.email.$invalid && !employeeForm.email.$pristine' class='help-block'>Enter a valid e-mail</p>
-		</div>
-	</div>
-	<div class = 'col-md-7'>
-		<div class = 'form-group'>
-			<label for = 'accesslevel'>Access level:</label>
-			<select class = 'form-control' name = 'accesslevel' ng-model = 'employee.accesslevel' ng-options='access.id as access.name for access in accesslevels' required>
-
-			</select>
-		</div>
-	</div>
-	<div class = 'col-md-7'>
-			<div class = 'form-group'>
-				<label for ='active'>Active</label>
-				<input type='checkbox' class = 'checkbox' ng-model= 'employee.active' >
+			<div class='col-md-2'>
+				<label  for = 'firstname' >Firstname:</label>
 			</div>
-	</div>
-	<div class = 'col-md-7'>
-		<div class = 'form-group'>
-			<button ng-click = 'changePassword(employee._id)' class='btn btn-default'>Change Password</a>
+			<div class='col-md-6'>
+				<input class = 'form-control' type='text' name='firstname' id = 'firstname' placeholder = 'for example: John' ng-model = 'employee.firstname' ng-minlength="3" required></input>
+			</div>
+			<div class='col-md-12'>
+				<p ng-show='employeeForm.firstname.$invalid && !employeeForm.firstname.$pristine' class='help-block'>Your name is required</p>
+			    <p ng-show="employeeForm.firstname.$error.minlength" class="help-block">your name is too short.</p>
+			</div>
 		</div>
 	</div>
-	<div class = 'col-md-7'>
+
+	<div class = 'col-md-12'>
+		<div class = 'form-group' ng-class ="{ 'has-error' : employeeForm.lastname.$invalid && !employeeForm.lastname.$pristine }">
+			<div class='col-md-2'>
+				<label  for = 'lastname'>Lastname: </label>
+			</div>
+			<div class='col-md-6'>
+				<input class = 'form-control' type='text' name='lastname' placeholder = 'for example: Doe' ng-model = 'employee.lastname' ng-minlength="3" required></input>
+			</div>
+			<div class='col-md-12'>
+				<p ng-show='employeeForm.lastname.$invalid && !employeeForm.lastname.$pristine' class='help-block'>Your lastname is required</p>
+				<p ng-show="employeeForm.lastname.$error.minlength" class="help-block">your lastname is too short.</p>
+			</div>	
+		</div>
+	</div>	
+	<div class = 'col-md-12'>
+		<div class = 'form-group' ng-class ="{ 'has-error' : employeeForm.email.$invalid && !employeeForm.email.$pristine }">
+			<div class = 'col-md-2'>
+				<label for = 'email' >E-Mail: </label>
+			</div>
+			<div class = 'col-md-6'>
+				<input class = 'form-control' type='email' name ='email' placeholder = 'john.doe@email.com' ng-model = 'employee.email' required> </input>
+			</div>
+			<div class = 'col-md-12'>
+				<p ng-show='employeeForm.email.$invalid && !employeeForm.email.$pristine' class='help-block'>Enter a valid e-mail</p>
+			</div>
+			
+		</div>
+	</div>
+
+	<div class = 'col-md-12'>
 		<div class = 'form-group'>
-			<button class = 'btn btn-primary' ng-disabled = 'employeeForm.$invalid' ng-click = 'updateEmployee()'>Update employee</button>
+			<div class = 'col-md-2'>
+				<label for = 'accesslevel'>Access level:</label>
+			</div>
+			<div class = 'col-md-6'>
+				<select class = 'form-control' name = 'accesslevel' ng-model = 'employee.accesslevel' ng-options='access.id as access.name for access in accesslevels' required></select>
+			</div>
+		</div>
+	</div>
+
+	<div class = 'col-md-12'>
+		<div class = 'form-group'>
+			<div class='col-md-2'>
+				<label for ='active'>Active</label>
+			</div>
+			<div class='col-md-6'>
+				<input type='checkbox' class = 'checkbox' ng-model= 'employee.active'></input>
+			</div>
+		</div>
+	</div>
+	<div class = 'col-md-12'>
+		<div class = 'col-md-offset-4 col-md-2'>
+				<div class = 'form-group'>
+					<button ng-click = 'changePassword(employee._id)' class='btn btn-default'>Change Password</button>
+				</div>
+		</div>
+		<div class = 'col-md-2'>
+			<div class = 'form-group'>
+				<button class = 'btn btn-primary' ng-disabled = 'employeeForm.$invalid' ng-click = 'updateEmployee()'>Update employee</button>
+			</div>
 		</div>
 	</div>
 
