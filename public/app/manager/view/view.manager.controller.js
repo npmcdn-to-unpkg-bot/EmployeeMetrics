@@ -18,7 +18,6 @@ managerModule.controller('viewManagerController', ['$scope', '$rootScope', '$sta
 		'name' : 'Administrator'
 	}];
 	$scope.initialize = function(){
-		$rootScope.validate();
 		
 		ManagerServices.GetManagers().then(function(response){
 			$scope.managers = response;
@@ -30,7 +29,6 @@ managerModule.controller('viewManagerController', ['$scope', '$rootScope', '$sta
 
 	$scope.showCreate = function()
 	{
-		$rootScope.validate();
 		$scope.showCreateForm = true;
 	}
 
@@ -40,7 +38,6 @@ managerModule.controller('viewManagerController', ['$scope', '$rootScope', '$sta
 	}
 	
 	$scope.employeesUnderManager = function(manager){
-		$rootScope.validate();
 		$state.go('app.manager-edit', {'id': manager._id});
 		
 	}

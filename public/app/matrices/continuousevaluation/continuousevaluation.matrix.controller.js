@@ -26,17 +26,18 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController', 	['
 
 	//depending on the person selected it will show all the categories that person has been graded
 	$scope.getPeopleCategories = function(params){
-		$rootScope.validate();
-		
+				
 		var month = moment().month($scope.date.month);
 		params.date = moment({y: $scope.date.year, M: month.month(), d: 15}).toISOString();
 
 		$scope.params = params;
+
 		$scope.params.table = $scope.categories[0].table;
-		$scope.params.token = $window.sessionStorage.token;
+		
+		
 		CompetitionMatrixServices.GetPeopleCategories($scope.params).then(function(data){
 
-
+			
 			if (data.length == 0){
 				$scope.ShowButton = true;
 				for (var i=0;i<$scope.categories.length; i++)
@@ -66,7 +67,7 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController', 	['
 
 	//Add new documents to the people-categories collection
 	$scope.addToMongo = function(){
-		$rootScope.validate();
+		
 		$scope.ShowButton = false;
 		var month = moment().month($scope.date.month);
 		var params = {};
@@ -77,7 +78,7 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController', 	['
 			//Post the information stored in $scope.peoplecategories
 			$scope.peopleCategories[i].date = $scope.params.date;
 			$scope.peopleCategories[i].table = $scope.categories[i].table;
-			$scope.peopleCategories[i].token = $window.sessionStorage.token;
+			
 			CompetitionMatrixServices.AddToMongo($scope.peopleCategories[i]).then(function(data){
 				
 			});
@@ -87,7 +88,7 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController', 	['
 
 	//Update the documents in people catagories with the new data
 	$scope.updateToMongo = function(){
-		$rootScope.validate();
+		
 		var month = moment().month($scope.date.month);
 		var params = {};
 		params.date = moment({y: $scope.date.year, M: month.month(), d: 15 }).toISOString();
@@ -96,7 +97,7 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController', 	['
 			
 			//Update all the categories of the person selected by sending the most recent information 
 			//stored in $scope.peopleCategories
-			$scope.peopleCategories[i].token = $window.sessionStorage.token;
+			
 			CompetitionMatrixServices.UpdateToMongo($scope.peopleCategories[i]).then(function(data){
 				
 
@@ -114,7 +115,7 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController', 	['
 	}
 	//On Index load this fucntion is called to and gets all the information from people and categories
 	$scope.initialize = function(){
-		$rootScope.validate();
+		
 		$scope.categories = {};
 		$scope.people = {};
 
@@ -130,27 +131,24 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController', 	['
 		$scope.date.month = $scope.select.month[month];
 		$scope.date.year = year;
 
-		var token = {
-			token: $window.sessionStorage.token
-		};
 		
-		AppServices.GetAccess(token).then(function(access){
-			switch(parseInt(access)){
+		AppServices.GetAccess().then(function(data){
+			switch(parseInt(data.access)){
 				case 0:
-					EmployeeServices.GetEmployee(token).then(function(response){
-						$scope.people = response;
-
+					EmployeeServices.GetEmployee().then(function(response){
+						$scope.people[0] = response;
+						
 					});
 					break;
 				
 				case 1: 
-					ManagerServices.GetEmployeeUnderManger(token).then(function(response){
+					ManagerServices.GetEmployeeUnderManger().then(function(response){
 						for (var i = 0; i<response.length;i++){
 							findPerson(response,i);
 						}
 					});
 					
-					EmployeeServices.GetEmployee(token).then(function(response){
+					EmployeeServices.GetEmployee().then(function(response){
 							$scope.people[$scope.people.length] = response[0];
 						});
 					break;
@@ -185,7 +183,7 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController', 	['
 	//This function is to get the correct name for the categories
 	//This function is not being used
 	$scope.getCategoryName = function(id){
-		$rootScope.validate();
+		
 		for (var i = 0; i<$scope.categories.length;i++)
 		{
 			if(id == $scope.categories[i]._id)

@@ -26,7 +26,7 @@ competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$ro
 
 	//depending on the person selected it will show all the categories that person has been graded
 	$scope.getPeopleCategories = function(params){
-		$rootScope.validate();
+		
 
 		var month = moment().month($scope.date.month);
 		params.date = moment({y: $scope.date.year, M: month.month(), d: 15}).toISOString();
@@ -66,7 +66,7 @@ competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$ro
 
 	//Add new documents to the people-categories collection
 	$scope.addToMongo = function(){
-		$rootScope.validate();
+		
 		$scope.ShowButton = false;
 		
 		var month = moment().month($scope.date.month);
@@ -88,7 +88,7 @@ competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$ro
 
 	//Update the documents in people catagories with the new data
 	$scope.updateToMongo = function(){
-		$rootScope.validate();
+		
 		var month = moment().month($scope.date.month);
 		var params = {};
 		params.date = moment({y: $scope.date.year, M: month.month(), d: 15 }).toISOString();
@@ -116,7 +116,7 @@ competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$ro
 
 	//On Index load this fucntion is called to and gets all the information from people and categories
 	$scope.initialize = function(){
-		$rootScope.validate();
+		
 		$scope.categories = {};
 		$scope.people = {};
 
@@ -183,7 +183,7 @@ competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$ro
 	//This function is to get the correct name for the categories
 	//This function is not being used
 	$scope.getCategoryName = function(id){
-		$rootScope.validate();
+		
 		for (var i = 0; i<$scope.categories.length;i++)
 		{
 			if(id == $scope.categories[i]._id)

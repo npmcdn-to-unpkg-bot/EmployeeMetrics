@@ -17,20 +17,10 @@ function AppServices($http, $q , $window){
 			});
 		return deferred.promise;
 		}
-	
-	var _validateToken = function(data){
-		var deferred = $q.defer();
-		$http.post('/validate', data).success(function(data){
-				deferred.resolve(data);
-			}).error(function(data){
-				deferred.resolve(data);
-			});
-		return deferred.promise;
-	}
 
-	var _getAccess = function(data){
+	var _getAccess = function(){
 		var deferred = $q.defer();
-		$http.get('/getaccess', {params: data}).success(function(data){
+		$http.get('/getaccess').success(function(data){
 				deferred.resolve(data);
 			}).error(function(data){
 				deferred.resolve(data);
@@ -48,10 +38,20 @@ function AppServices($http, $q , $window){
 		return deferred.promise;
 	}
 
+	var _logout = function(){
+		var deferred = $q.defer();
+		$http.post('/logout').success(function(data){
+				deferred.resolve(data);
+			}).error(function(data){
+				deferred.resolve(data);
+			});
+		return deferred.promise;
+	}
+
 	AppServices.Login = _login;
-	AppServices.ValidateToken = _validateToken;
 	AppServices.GetAccess = _getAccess;
 	AppServices.ChangePassword = _changePassword;
+	AppServices.Logout 			= _logout;
 
 	return AppServices;
 

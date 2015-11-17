@@ -8,7 +8,7 @@ app.controller('changePasswordController',['$scope','$rootScope', '$state' , '$w
 
 	$scope.initialize = function()
 	{
-		$rootScope.validate();
+		
 		
 	}
 
@@ -28,7 +28,8 @@ app.controller('changePasswordController',['$scope','$rootScope', '$state' , '$w
 				if(response.error == true){
 					//if there is an error
 				}else{
-					$state.go('app.dashboard');
+					if (response != 'Unauthorized')
+						$state.go('app.dashboard');
 				}
 
 			});

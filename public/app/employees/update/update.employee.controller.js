@@ -19,7 +19,7 @@ employeeApp.controller('updateEmployeeController', ['$scope', '$rootScope', '$st
 	}];
 
 	$scope.initialize = function(){
-		$rootScope.validate();
+		
 		
 
 		EmployeeServices.GetEmployee($state.params).then(function(response){
@@ -29,7 +29,7 @@ employeeApp.controller('updateEmployeeController', ['$scope', '$rootScope', '$st
 	}
 
 	$scope.updateEmployee = function(){
-		$rootScope.validate();
+		
 		EmployeeServices.UpdateEmployee($scope.employee).then(function(response){
 			$state.go('app.employee',	{}	, {	reload: true });	
 			
@@ -37,7 +37,7 @@ employeeApp.controller('updateEmployeeController', ['$scope', '$rootScope', '$st
 	}
 
 	$scope.changePassword = function(params){
-		$rootScope.validate();
+		
 		$state.go('app.forcepassword',{id: params});
 	}
 

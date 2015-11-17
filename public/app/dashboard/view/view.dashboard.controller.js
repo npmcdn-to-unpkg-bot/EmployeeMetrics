@@ -3,10 +3,10 @@ var dashboardModule = angular.module('dashboardModule');
 
 
 competitionMatricesModule.controller('viewDashboardController', 
-	['$scope', '$rootScope','$state', '$window','$filter', 'CompetitionMatrixServices','AppServices', 'EmployeeServices','ManagerServices', 'DashboardServices', 
-	function($scope, $rootScope, $state, $window, $filter, CompetitionMatrixServices, AppServices, EmployeeServices, ManagerServices, DashboardServices){
+	['$scope','$state', '$filter', 'CompetitionMatrixServices','AppServices', 'EmployeeServices','ManagerServices', 'DashboardServices', 
+	function($scope, $state, $filter, CompetitionMatrixServices, AppServices, EmployeeServices, ManagerServices, DashboardServices){
 		$scope.employee = {};
-		$scope.token = $window.sessionStorage.token;
+		
 		$scope.continuousCategory = {};
 		$scope.trainingCategory = {};
 		$scope.technologyCategory= {};
@@ -47,7 +47,7 @@ competitionMatricesModule.controller('viewDashboardController',
 	
 
 		$scope.initialize = function(){
-			$rootScope.validate();
+			
 			
 			for(var i=0;i<=50;i++){
 				$scope.select.year[i]=2000+i;
@@ -64,58 +64,70 @@ competitionMatricesModule.controller('viewDashboardController',
 
 			
 
-			//get the token from the window session storage
-			var token = { token: $window.sessionStorage.token};
 			
-			EmployeeServices.GetEmployee(token).then(function(data){
-				$scope.employee = data[0];
+			
+			EmployeeServices.GetEmployee().then(function(data){
+				$scope.employee = data;
+				
+				AppServices.GetAccess().then(function(data){
+					
+					switch(parseInt(data.access)){
+						case 0:
+							$scope.isManager = false;
+							$scope.isAdmin	= false;
+
+							//Chart for continuous evaluation
+							getContinuousEvaluationChart();
+							getTechnologyEvaluationChart();
+							getTrainingEvaluationChart();
+							
+							break;
+						
+						case 1: 
+							$scope.isManager = true;
+							$scope.isAdmin	= false;
+							
+							var params = {
+								'_id' : $scope.employee._id
+							}
+							
+							ManagerServices.GetEmployeeUnderManger(params).then(function(response){
+								for (var i = 0; i<response.length;i++){
+									findPerson(response,i);
+								}
+								
+							});
+						
+							EmployeeServices.GetEmployee().then(function(response){
+								
+								$scope.people[$scope.people.length] = $scope.employee;
+
+							});
+							getContinuousEvaluationChart();
+							getTechnologyEvaluationChart();
+							getTrainingEvaluationChart();
+							break;
+						
+						case 2:
+							$scope.isManager = false;
+							$scope.isAdmin	= true;
+							break;
+						default:
+							break;
+							
+					}
+				});
+				
 			});
 
 
 			
 			//Charts Options
-
-			AppServices.GetAccess(token).then(function(access){
-				switch(parseInt(access)){
-					case 0:
-						$scope.isManager = false;
-						$scope.isAdmin	= false;
-						//Chart for continuous evaluation
-						getContinuousEvaluationChart();
-						getTechnologyEvaluationChart();
-						getTrainingEvaluationChart();
-						
-						break;
-					
-					case 1: 
-						$scope.isManager = true;
-						$scope.isAdmin	= false;
-						ManagerServices.GetEmployeeUnderManger(token).then(function(response){
-							for (var i = 0; i<response.length;i++){
-								findPerson(response,i);
-							}
-						});
-					
-						EmployeeServices.GetEmployee(token).then(function(response){
-							$scope.people[$scope.people.length] = response[0];
-						});
-						getContinuousEvaluationChart();
-						getTechnologyEvaluationChart();
-						getTrainingEvaluationChart();
-						break;
-					
-					case 2:
-						$scope.isManager = false;
-						$scope.isAdmin	= true;
-						break;
-					default:
-						break;
-						
-				}
-			});
+			
 		}
 
 	function getContinuousEvaluationChart(id){
+		
 		CompetitionMatrixServices.GetContinuousEvaluationCategories().then(function(response){
 			$scope.continuousCategory = response;
 			var ManagerMatrixDataSet = [];
@@ -125,13 +137,12 @@ competitionMatricesModule.controller('viewDashboardController',
 			var month = moment().month($scope.date.month);
 			params.date = moment({y: $scope.date.year, M: month.month() }).toISOString();
 			
-			
-			params.token = $window.sessionStorage.token;
-			params.table = $scope.continuousCategory[0].table;
-			
 			if (id){
 				params._id = id;
 			}
+			
+			params.table = $scope.continuousCategory[0].table;
+			
 			//Gets information for manager Dashboard
 			DashboardServices.GetManagerDashboard(params).then(function(employeeCategories){
 				var myLineChart = null;
@@ -284,7 +295,7 @@ competitionMatricesModule.controller('viewDashboardController',
 			var month = moment().month($scope.date.month);
 			params.date = moment({y: $scope.date.year, M: month.month() }).toISOString();
 			
-			params.token = $window.sessionStorage.token;
+			
 			params.table = $scope.trainingCategory[0].table;
 
 			if (id){
@@ -437,14 +448,14 @@ competitionMatricesModule.controller('viewDashboardController',
 			var month = moment().month($scope.date.month);
 			params.date = moment({y: $scope.date.year, M: month.month() }).toISOString();
 
-			params.token = $window.sessionStorage.token;
+			
 			params.table = $scope.technologyCategory[0].table;
 			
 			if (id){
 				params._id = id;
 			}
 
-			//console.log(params);
+			
 
 
 			DashboardServices.GetManagerDashboard(params).then(function(employeeCategories){

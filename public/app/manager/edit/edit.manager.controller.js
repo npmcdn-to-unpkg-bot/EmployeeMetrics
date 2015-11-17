@@ -8,7 +8,7 @@ managerModule.controller('editManagerController', ['$scope', '$rootScope', '$sta
 	$scope.employees = {};
 
 	$scope.initialize = function(){
-		$rootScope.validate();
+		
 		var params = {'id': $state.params.id};
 
 		EmployeeServices.GetEmployee(params).then(function(response){
@@ -39,7 +39,7 @@ managerModule.controller('editManagerController', ['$scope', '$rootScope', '$sta
 	}
 
 	$scope.addEmployeeToManager = function(){
-		$rootScope.validate();
+		
 		$state.go('app.manager-edit.add', {params: $state.params.id});
 	}
 

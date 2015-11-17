@@ -1,44 +1,60 @@
-var myApp = angular.module('myApp');
+(function(){
+	var myApp = angular.module('myApp');
 
 
-myApp.config(function($stateProvider, $urlRouterProvider){
-	
-	$stateProvider
-
-		.state('login',{
-			url: '/login',
-			templateUrl	: 'app/auth/login/auth.login.tmpl.html',
-			controller 	: 'authLoginController'
-			
-		})
-
-		.state('logout',{
-			url: '/logout',
-			templateUrl: 'app/auth/logout/auth.logout.tmpl.html',
-			controller : 'authLogoutController' 
-		})
-
-		.state('app', {
-			url: '/app',
-			templateUrl	: 'app/auth/app.tmpl.html',
-			controller 	: 'appController'
-	
-		})
-
-		.state('app.password',{
-			url: '/app/changepassword/',
-			templateUrl: '/app/auth/changepassword/auth.changepassword.tmpl.html',
-			controller: 'changePasswordController'
-		})
-
-		.state('app.forcepassword',{
-			url: '/app/changepassword/:id',
-			templateUrl: '/app/auth/changepassword/auth.changepassword.tmpl.html',
-			controller: 'changePasswordController'
-		});
-
+	myApp.config(function($stateProvider, $urlRouterProvider, $httpProvider){
+		
 		$urlRouterProvider.when('', 'login');
+		$stateProvider
+
+			.state('login',{
+				url: '/login',
+				templateUrl	: 'app/auth/login/auth.login.tmpl.html',
+				controller 	: 'authLoginController'
+				
+			})
+
+			.state('logout',{
+				url: '/logout',
+				templateUrl: 'app/auth/logout/auth.logout.tmpl.html',
+				controller : 'authLogoutController' 
+			})
+
+			.state('app', {
+				url: '/app',
+				templateUrl	: 'app/auth/app.tmpl.html',
+				controller 	: 'appController'
+		
+			})
+
+			.state('app.password',{
+				url: '/changepassword',
+				templateUrl: '/app/auth/changepassword/auth.changepassword.tmpl.html',
+				controller: 'changePasswordController'
+			})
+
+			.state('app.forcepassword',{
+				url: '/app/changepassword/:id',
+				templateUrl: '/app/auth/changepassword/auth.changepassword.tmpl.html',
+				controller: 'changePasswordController'
+			});
 
 
-
-});
+			//this function intercepts all calls to the server and checks for a 401 status code 
+			//if true it sends the user to the login page
+		$httpProvider.interceptors.push(function($q, $location) {
+	      	return {
+	        	response: function(response) {
+		          	// do something on success
+		          	return response;
+	        	},
+	        	responseError: function(response) {
+		          	if (response.status === 401){
+		      			$location.url('/login');
+		          	}
+		          	return $q.reject(response);
+	        	}
+	      	}
+	    });
+	});
+})();

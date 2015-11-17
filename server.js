@@ -2,7 +2,6 @@
 var express			=	require ('express');
 var app				= 	express();
 var bodyParser		=	require('body-parser');
-var api 			=	require('./server/routesApi');
 var cookieParser 	= 	require('cookie-parser');
 var session 		= 	require('express-session');
 var morgan 			= 	require('morgan');
@@ -26,7 +25,7 @@ app.use(session({ secret: 'K1ng15#@C71u5ioZ', resave: false, saveUninitialized: 
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', api);
+require('./server/routesApi')(app, passport);
 
 app.listen(3000, function(){
 	console.log('Listening to PORT 3000');

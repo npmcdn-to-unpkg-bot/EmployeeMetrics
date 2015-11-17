@@ -19,14 +19,14 @@ employeeApp.controller('createEmployeeController', ['$scope', '$rootScope','$sta
 	}];
 
 	$scope.initialize = function(){
-		$rootScope.validate();
+		
 		$scope.employee.accesslevel = 0;
 		$scope.employee.active = true;
 
 	}
 
 	$scope.saveEmployee = function(){
-		$rootScope.validate();
+		
 		var employee = $scope.employee;
 		EmployeeServices.SaveEmployee(employee).then(function(response){
 			console.log('data saved' + response);

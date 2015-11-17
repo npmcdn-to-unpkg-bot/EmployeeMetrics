@@ -18,7 +18,7 @@ employeeApp.controller('viewEmployeeController', ['$scope', '$rootScope', '$stat
 		'name' : 'Administrator'
 	}];
 	$scope.initialize = function(){
-		$rootScope.validate();
+		
 		
 		EmployeeServices.GetEmployees().then(function(response){
 			$scope.employees = response;
@@ -30,7 +30,7 @@ employeeApp.controller('viewEmployeeController', ['$scope', '$rootScope', '$stat
 
 	$scope.showCreate = function()
 	{
-		$rootScope.validate();
+		
 		$scope.showCreateForm = true;
 	}
 
@@ -40,7 +40,7 @@ employeeApp.controller('viewEmployeeController', ['$scope', '$rootScope', '$stat
 	}
 	
 	$scope.updateEmployee = function(employee){
-		$rootScope.validate();
+		
 		if($scope.showCreateForm == false)
 		{
 			$scope.showCreateForm = true;

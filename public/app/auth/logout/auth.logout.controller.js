@@ -5,8 +5,9 @@ app.controller('authLogoutController',['$scope','$rootScope', '$state' , '$windo
 	$scope.initialize = function(){
 
 		
-		$window.sessionStorage.token = null;
-		delete $window.sessionStorage.token;
+		AppServices.Logout().then(function(response){});
+
+		
 
 
 	}

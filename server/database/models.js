@@ -1,14 +1,51 @@
+'use strict'
+
 var mongoose 	= 	require('mongoose');
 var moment 		=  	require('moment')
 var ObjectId 	= 	mongoose.Types.ObjectId;
+
+var passport 	=	require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 var Employee 	= 	require('../models/employee');
 var Category 	= 	require('../models/category');
 var EmployeeCategory = require('../models/employeecategory');
 var EmployeeManager = require('../models/employeeManager');
 
+
+
 var passconfig = require('../config/passconfig');
 var key = passconfig.key;
+
+
+passport.use('login',new LocalStrategy(
+	{
+		usernameField: 'email',
+		passwordField: 'password'
+	},
+	function(username, password,done){
+		
+		Employee.findOne({'email': username}, function(err,data){
+			if(err){
+				return done(err);
+			}else{
+				if(!data){ 	return done(null, false, {	message: 'Incorrect username'});	}
+				if (password != passconfig.decrypt(data.password,key)){	return done(null, false, {message: 'Incorrect password'}); 	}	
+				return done(null,data);
+			}
+		});
+			
+	}
+
+));
+
+passport.serializeUser(function(user,done){
+	done(null,user);
+});
+
+passport.deserializeUser(function(user, done){
+	done(null, user);
+});
 
 
 
@@ -57,7 +94,7 @@ var findCategoriesTrainingMatrix = function(req,res){
 			//Sends to the client the deata retrieved
 			res.json(data);
 		}
-
+req.logout();
 	});
 }
 
@@ -102,23 +139,23 @@ var findCategoriesContinuousEvaluationMatrix = function(req,res){
 //it takse into consideration date, and user
 var findEmployeesCategoriesMatrix = function(req, res){
 	var response = {};	
-	
+	var managerId = null;
 	//gets token from the query
-	var token = jwt.decode(req.query.token);
+	
 	if (req.query.employeeId == undefined){
 
-		req.query.employeeId = token._id;
+		req.query.employeeId = req.user._id;
 	}
 
 	
 	
 	//compares the employeeId requested with the user asking for this employee
-	if(req.query.employeeId.toString() == token._id.toString()){
+	if(req.query.employeeId.toString() == req.user._id.toString()){
 		//if it is the user sets managerId to null
 		managerId = null;
 	}else{
 		//if it is the manager sets the manager id with the token._id information
-		managerId = token._id;
+		managerId = req.user._id;
 	}
 
 	
@@ -159,16 +196,13 @@ var updateTrainingMatrix = function(req, res){
 	//Creates new employeeCategory for validation on the server side
 	var db = new EmployeeCategory();
 
-	//decodes the token got it from the body
-	var token = jwt.decode(req.body.token);
-	
 	//compares the employeeId requested with the user asking for this employee
-	if(token._id.toString() == req.body.employeeId.toString()){
+	if(req.user._id.toString() == req.body.employeeId.toString()){
 		//if it is the user sets managerId to null
 		db.managerId = null;
 	}else{
 		//if it is the manager sets the manager id with the token._id information
-		db.managerId = token._id;
+		db.managerId = req.user._id;
 	}
 
 	//Sets new information to be saved
@@ -220,16 +254,15 @@ var addScoreTrainingMatrix = function(req,res){
 	//creates a new document for EmployeeCategory
 	var db = new EmployeeCategory();
 	
-	//decodes the token got it from the body
-	var token = jwt.decode(req.body.token);
+	
 	
 	//compares the employeeId requested with the user asking for this employee
-	if(token._id.toString() == req.body.employeeId.toString()){
+	if(req.user._id.toString() == req.body.employeeId.toString()){
 		//if it is the user sets managerId to null
 		db.managerId = null;
 	}else{
 		//if it is the manager sets the manager id with the token._id information
-		db.managerId = token._id;
+		db.managerId = req.user._id;
 	}
 
 	//Saves all new information to be saved
@@ -264,10 +297,10 @@ var findEmployee = function(req,res){
 	var id = req.query.id || req.query.employeeId;
 
 	//gets the token from the query
-	var token = req.query.token;
+	
 	
 	//if there is no token
-	if(!token){
+	if(id){
 		//look for the id using the id variable
 		Employee.find({'_id': id}, function(err,data){
 			if (err){
@@ -281,21 +314,12 @@ var findEmployee = function(req,res){
 			}
 		})
 	}else{
-		//decode token
-		var token = jwt.decode(req.query.token);
+		var data = req.user;
+		delete data.password;
 		
-		//look for the employee using the id in the token
-		Employee.find({'_id': token._id}, function(err, data){
-			if (err){
-				//If an error happens it sends information about the error to the client
-				response = {'error': true, 'message': 'error fetching the employee ' + token._id};
-				res.json(response);
-			}else
-			{
-				//Sends to the client the deata retrieved
-				res.json(data);
-			}
-		});
+		
+		res.send(data);
+
 	}
 	
 }
@@ -389,7 +413,7 @@ var authenticate = function(req,res){
 					sendData.lastname = data.lastname;
 					sendData.email = data.email;
 					//creates token encrypting it using the key mentioned above
-					token = jwt.sign(sendData, key, {expiresIn :'4h'});
+					//token = jwt.sign(sendData, key, {expiresIn :'4h'});
 					response = {'error': false, 'message': token};
 					res.send(response);
 				}else{
@@ -422,8 +446,8 @@ var validate = function(req,res){
 
 //this function helps to send the accesslevel of the user from the token
 var getaccess = function(req,res){
-	var decode = jwt.decode(req.query.token);
-	res.send(decode.accesslevel.toString());
+	
+	res.send({'access': req.user.accesslevel});
 }
 
 //find all managers that are active
@@ -441,13 +465,10 @@ var findManagers = function(req,res){
 
 //finds employees that are under the manager sent through the request
 var findEmployeesUnderManager = function(req,res){
-	var managerId = req.query.id;
-	var token = req.query.token;
+	console.log(req.query);
+
+	var managerId = req.query._id;
 	
-	if (token){
-		var token = jwt.decode(req.query.token);
-		managerId = token._id;
-	}
 	EmployeeManager.find({'managerId' : managerId, 'status' : true}, function(err,data){
 		if (err){
 			response = {'error': true, 'message': 'error fetching data from employees'};
@@ -556,13 +577,13 @@ var findEmployeesCategoresFromManager = function(req,res){
 	
 	
 	//gets token from the query
-	
 	if (req.query._id){
 		id = req.query._id;
 	}else{
-		token = jwt.decode(req.query.token);
-		id = token._id
+		
+		id = req.user._id
 	}
+	
 
 	//if the person loged is manager
 	EmployeeManager.findOne(
@@ -595,8 +616,8 @@ var findEmployeesCategoresFromManager = function(req,res){
 						}else
 						{
 							//Sends to the client the data retrieved
-							res.json(data);
 							
+							res.json(data);
 						}
 				});
 			}
@@ -618,8 +639,8 @@ var findEmployeesCategoresFromEmployee = function(req,res){
 	if (req.query._id){
 		id = req.query._id;
 	}else{
-		token = jwt.decode(req.query.token);
-		id = token._id
+		
+		id = req.user._id
 	}
 
 
@@ -661,7 +682,7 @@ var changePassword = function(req,res){
 			
 			
 			
-			if(decrypt(user.password,key) == db.oldPassword){ 
+			if(passconfig.decrypt(user.password,key) == db.oldPassword){ 
 				
 				Employee.update({'_id' : user.id},{$set:{password : passconfig.encrypt(db.newPassword,key)}}, function(err, data){
 					if(err){
