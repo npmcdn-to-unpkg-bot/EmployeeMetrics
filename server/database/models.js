@@ -1,91 +1,16 @@
 var mongoose 	= 	require('mongoose');
 var moment 		=  	require('moment')
 var ObjectId 	= 	mongoose.Types.ObjectId;
-var crypto 		= 	require('crypto');
-var expressJwt 	= 	require('express-jwt');
-var jwt 		=	require('jsonwebtoken');
 
-//This is the key usde for password and token encryption 
-//DO NOT MODIFY
-var key = 'c0n.3E,!;36Rde|0m0Nos.20.yE.15';
+var Employee 	= 	require('../models/employee');
+var Category 	= 	require('../models/category');
+var EmployeeCategory = require('../models/employeecategory');
+var EmployeeManager = require('../models/employeeManager');
 
-//this function encrypts the password
-function encrypt(data,key){
-	var cipher = crypto.createCipher('aes256', key);
-	var crypted = cipher.update(data, 'utf-8', 'hex');
-	crypted += cipher.final('hex');
-	return crypted;
-}
-
-//this function decrypts the password
-function decrypt(data,key){
-	var decipher = crypto.createDecipher('aes256', key);
-    var decrypted = decipher.update(data, 'hex', 'utf-8');
-    decrypted += decipher.final('utf-8');
-    return decrypted;
-}
+var passconfig = require('../config/passconfig');
+var key = passconfig.key;
 
 
-//Connects to the database people in mongoDB
-mongoose.connect('mongodb://localhost:27017/people');
-
-//Saves the schema object into mongoSchema
-var mongoSchema = mongoose.Schema;
-
-//Creates employee Schema
-var employeeSchema = new mongoSchema({
-	'_id'			: mongoSchema.ObjectId,
-	'firstname'		: String,
-	'lastname'		: String,
-	'email'			: String,
-	'password'		: String,
-	'accesslevel'	: Number,
-	'active'		: Boolean
-});
-
-//Creates employee from employeeSchema
-var Employee = mongoose.model('Employee', employeeSchema);
-
-//Creates categorySchema
-var categorySchema = new mongoSchema({
-	'_id'	: 	mongoSchema.ObjectId,
-	'name'	: 	String,
-	'table'	: 	Number
-});
-
-//Creates category from CategorySchema
-var Category = mongoose.model('Category', categorySchema);
-
-//Creates employee caetegory schema
-var employeeCategorySchema = new mongoSchema({
-	'_id'			: 	mongoSchema.ObjectId,
-	'employeeId'	: 	{type: mongoSchema.ObjectId, ref: 'Employee'},
-	'managerId'		: 	{type: mongoSchema.ObjectId, ref: 'Employee'},
-	'categoryId'	: 	{type: mongoSchema.ObjectId, ref: 'Category'},
-	'date'			: 	Date,
-	'table'			: 	Number,
-	'Results'		: 	[
-			Number, 
-			Number, 
-			Number, 
-			Number	
-		]
-});
-
-
-//Creates employeeCategory from employeeCategorySchema
-var EmployeeCategory = mongoose.model('employees.categories', employeeCategorySchema);
-
-//creates employee manager schema
-var employeeManagerSchema =  new mongoSchema({
-	'_id' 			: mongoSchema.ObjectId,
-	'employeeId' 	: {type: mongoSchema.ObjectId, ref: 'Employee'},
-	'managerId'		: {type: mongoSchema.ObjectId, ref: 'Employee'},
-	'status'		: Boolean
-});
-
-//creates employee manager from employeeManagerSchema
-var EmployeeManager = mongoose.model('employeemanager', employeeManagerSchema);
 
 //this function find all employees regardless their access level
 var findEmployees = function(req,res)
@@ -386,7 +311,7 @@ var createEmployee = function(req,res){
 	db.lastname = req.body.lastname;
 	db.email = req.body.email;
 	//this value is encrypted using the function encrypt defined above
-	db.password = encrypt(req.body.password, key);
+	db.password = passconfig.encrypt(req.body.password, key);
 
 	db.accesslevel = parseInt(req.body.accesslevel);
 	db.active = req.body.active;
@@ -451,7 +376,7 @@ var authenticate = function(req,res){
 				res.send(response);
 			}else{
 				//decrypts the password to see if are equal
-				if (decrypt(data.password,key) == db.password){
+				if (passconfig.decrypt(data.password,key) == db.password){
 					//if equal sends data
 
 					//creates the object that it is going to contain all the information
@@ -738,7 +663,7 @@ var changePassword = function(req,res){
 			
 			if(decrypt(user.password,key) == db.oldPassword){ 
 				
-				Employee.update({'_id' : user.id, 'password': encrypt(db.oldPassword,key)},{$set:{password : encrypt(db.newPassword,key)}}, function(err, data){
+				Employee.update({'_id' : user.id},{$set:{password : passconfig.encrypt(db.newPassword,key)}}, function(err, data){
 					if(err){
 						response = {'error': true,'message': 'no user found'};
 						res.json(response);
@@ -761,11 +686,6 @@ var changePassword = function(req,res){
 
 //Exports all schemas created
 module.exports.model = {
-	//Exporting schemas models
-	Employee : Employee,
-	Category : Category,
-	EmployeeCategory : EmployeeCategory,
-	EmployeeManager : EmployeeManager,
 
 	//Exporting functionalities needed
 	

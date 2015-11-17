@@ -235,7 +235,7 @@
 			"file": "server/routesApi.js",
 			"settings":
 			{
-				"buffer_size": 2956,
+				"buffer_size": 3137,
 				"line_ending": "Windows"
 			}
 		},
@@ -243,7 +243,7 @@
 			"file": "server.js",
 			"settings":
 			{
-				"buffer_size": 869,
+				"buffer_size": 990,
 				"line_ending": "Windows"
 			}
 		},
@@ -251,7 +251,7 @@
 			"file": "server/database/dbcalls.js",
 			"settings":
 			{
-				"buffer_size": 2237,
+				"buffer_size": 2238,
 				"line_ending": "Windows"
 			}
 		},
@@ -259,7 +259,7 @@
 			"file": "server/database/models.js",
 			"settings":
 			{
-				"buffer_size": 21828,
+				"buffer_size": 19627,
 				"line_ending": "Windows"
 			}
 		}
@@ -288,6 +288,14 @@
 	},
 	"file_history":
 	[
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/models/category.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/models/employeemanager.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/models/employeecategory.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/index.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/models/employee.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/conf/passconfig.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/conf/dbconf.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/styles/style.css",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/continuousevaluation/continuousevaluation.matrix.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/technology/technology.matrix.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/training/training.matrix.tmpl.html",
@@ -309,7 +317,6 @@
 		"/C/cygwin/home/Carlos.Danna/jasmineTest/spec/support/jasmine.json",
 		"/C/cygwin/home/Carlos.Danna/jasmineTest/spec.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/app.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/styles/style.css",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/login/auth.login.controller.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/login/auth.login.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/spec/databaseSpec",
@@ -320,7 +327,6 @@
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/routesApi.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/technology/technology.matrix.controller.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/app.controller.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/index.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/database/dbcalls.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/appServices.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/update/update.employee.controller.js",
@@ -421,6 +427,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"//Saves the schema object into mongoSchema\nvar mongoSchema = mongoose.Schema;\n\n\n//Creates employee caetegory schema\nvar employeeCategorySchema = new mongoSchema({\n	'_id'			: 	mongoSchema.ObjectId,\n	'employeeId'	: 	{type: mongoSchema.ObjectId, ref: 'Employee'},\n	'managerId'		: 	{type: mongoSchema.ObjectId, ref: 'Employee'},\n	'categoryId'	: 	{type: mongoSchema.ObjectId, ref: 'Category'},\n	'date'			: 	Date,\n	'table'			: 	Number,\n	'Results'		: 	[\n			Number, \n			Number, \n			Number, \n			Number	\n		]\n});\n\n\n//Creates employeeCategory from employeeCategorySchema\nvar EmployeeCategory = mongoose.model('employees.categories', employeeCategorySchema);",
+			"token",
 			">\n",
 			"	<div class = 'col-md-3'>\n				<div class = 'form-group'>\n					<button ng-click = 'changePassword(employee._id)' class='btn btn-default'>Change Password</button>\n				</div>\n		</div>\n		<div class = 'col-md-3'>\n			<div class = 'form-group'>\n				<button class = 'btn btn-primary' ng-disabled = 'employeeForm.$invalid' ng-click = 'updateEmployee()'>Update employee</button>\n			</div>\n		</div>",
 			"mode",
@@ -525,7 +533,6 @@
 	"groups":
 	[
 		{
-			"selected": 3,
 			"sheets":
 			[
 				{
@@ -533,15 +540,15 @@
 					"file": "server/routesApi.js",
 					"settings":
 					{
-						"buffer_size": 2956,
+						"buffer_size": 3137,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2788,
-								2822
+								423,
+								423
 							]
 						],
 						"settings":
@@ -550,7 +557,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1248.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -560,15 +567,15 @@
 					"file": "server.js",
 					"settings":
 					{
-						"buffer_size": 869,
+						"buffer_size": 990,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								795,
-								795
+								387,
+								387
 							]
 						],
 						"settings":
@@ -586,15 +593,15 @@
 					"file": "server/database/dbcalls.js",
 					"settings":
 					{
-						"buffer_size": 2237,
+						"buffer_size": 2238,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								489,
-								489
+								636,
+								636
 							]
 						],
 						"settings":
@@ -603,7 +610,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 585.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -613,15 +620,15 @@
 					"file": "server/database/models.js",
 					"settings":
 					{
-						"buffer_size": 21828,
+						"buffer_size": 19627,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								18654,
-								18654
+								1482,
+								1482
 							]
 						],
 						"settings":
@@ -630,7 +637,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 8043.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

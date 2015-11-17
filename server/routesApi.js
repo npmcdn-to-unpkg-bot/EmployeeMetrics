@@ -48,6 +48,17 @@ router.route('/categories/continuous')
 	});
 
 
+router.route('/matrix')
+	.get(function(req,res){
+		dbCalls.findEmployees(req,res);
+	})
+	.post(function(req,res){
+		dbCalls.addScoreTrainingMatrix(req,res);
+	})
+	.put(function(req,res){
+		dbCalls.updateTrainingMatrix(req,res);
+	});
+
 
 //Routes all information in Employees
 router.route('/employees')
@@ -83,27 +94,31 @@ router.route('/employee')
 	})
 	.post(function(req,res){
 		dbCalls.createEmployee(req,res);
-	});
-
-router.route('/employee/:id')
-	.post(function(req,res){
+	})
+	.put(function(req,res){
 		dbCalls.updateEmployee(req,res);
 	});
+
 
 router.route('/employee/:token')
 	.get(function(req,res){
 		dbCalls.findEmployee(req,res);
 	});
 
-router.route('/managers')
-	.get(function(req,res){
-		dbCalls.findManagers(req,res);
-	});
+
 
 router.route('/manager')
+	.get(function(req,res){
+		dbCalls.findManagers(req,res);
+	})
 	.post(function(req,res){
 		dbCalls.addEmployeeToManager(req,res);
 	})
+	.delete(function(req,res){
+		dbCalls.setToInactive(req,res);
+	});
+
+	
 router.route('/employee-managers')
 	.get(function(req,res){
 		dbCalls.findEmployeesUnderManager(req,res);
@@ -112,9 +127,6 @@ router.route('/employee-managers')
 router.route('/managers-employees')
 	.get(function(req,res){
 		dbCalls.findEmployeesWithNoManager(req,res);
-	})
-	.post(function(req,res){
-		dbCalls.setToInactive(req,res);
 	})
 
 router.route('/managerdashboard')
