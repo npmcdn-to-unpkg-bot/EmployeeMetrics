@@ -5,12 +5,13 @@ var moment 		=  	require('moment');
 var router		=	express.Router();
 var dbCalls		=	require('./database/dbcalls');
 
-
+//REDEFINE ALL THIS
 
 
 //Gets index.html whenever we call localhost
 router.get('/', function(req,res){
 	res.sendFile(path.join(__dirname,"../index.html"));
+
 });
 
 

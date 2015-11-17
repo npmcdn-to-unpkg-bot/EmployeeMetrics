@@ -669,7 +669,7 @@ var findEmployeesCategoresFromManager = function(req,res){
 							res.json(response);
 						}else
 						{
-							//Sends to the client the deata retrieved
+							//Sends to the client the data retrieved
 							res.json(data);
 							
 						}
