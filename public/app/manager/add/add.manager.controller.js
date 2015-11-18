@@ -1,15 +1,26 @@
 'use strict'
 var managerModule = angular.module('managerModule');
 
-managerModule.controller('addManagerController', ['$scope', '$rootScope', '$state', 'ManagerServices', 'EmployeeServices', function($scope, $rootScope, $state ,ManagerServices, EmployeeServices){
+managerModule.controller('addManagerController', ['$scope', '$rootScope', '$state', 'ManagerServices', 'EmployeeServices','AppServices', function($scope, $rootScope, $state ,ManagerServices, EmployeeServices, AppServices){
 	
 	$scope.employees = {};
 	$scope.employeeSelected = {};
 
 	$scope.initialize = function(){
-		
+		AppServices.GetAccess().then(function(data){
+			switch(parseInt(data.access)){
+				case 0:
+				case 1:
+					$state.go('logout');
+					break;
+				case 2:
+					
+					break;
+			}
+		});
+
 		ManagerServices.GetEmployeesWithNoManager().then(function(response){
-			console.log(response);
+			
 			$scope.employees = response;
 		});
 	}

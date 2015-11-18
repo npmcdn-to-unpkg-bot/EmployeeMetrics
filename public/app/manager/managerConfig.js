@@ -4,19 +4,19 @@ var managerModule = angular.module('managerModule');
 managerModule.config(function($stateProvider){
 	$stateProvider
 		.state('app.manager',{
-			url: '/manager/view',
+			url: '/manager',
 			templateUrl: 'app/manager/view/view.manager.tmpl.html',
 			controller: 'viewManagerController'
 		})
 
 		.state('app.manager-edit',{
-			url: '/manager/edit/:id',
+			url: '/edit/:id',
 			templateUrl: 'app/manager/edit/edit.manager.tmpl.html',
 			controller: 'editManagerController'
 		})
 
 		.state('app.manager-edit.add',{
-			url: '/manager/add/:id',
+			url: '/add/:id',
 			templateUrl: 'app/manager/add/add.manager.tmpl.html',
 			controller: 'addManagerController'
 		});

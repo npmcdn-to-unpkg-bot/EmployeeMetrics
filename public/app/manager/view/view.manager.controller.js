@@ -1,7 +1,7 @@
 'use strict'
 var managerModule = angular.module('managerModule');
 
-managerModule.controller('viewManagerController', ['$scope', '$rootScope', '$state', 'ManagerServices', function($scope, $rootScope, $state ,ManagerServices){
+managerModule.controller('viewManagerController', ['$scope', '$rootScope', '$state', 'ManagerServices', 'AppServices', function($scope, $rootScope, $state ,ManagerServices,AppServices){
 	$scope.managers = {};
 	$scope.showCreateForm = false;
 	
@@ -17,8 +17,19 @@ managerModule.controller('viewManagerController', ['$scope', '$rootScope', '$sta
 		'id' : 2,
 		'name' : 'Administrator'
 	}];
+
 	$scope.initialize = function(){
-		
+		AppServices.GetAccess().then(function(data){
+			switch(parseInt(data.access)){
+				case 0:
+				case 1:
+					$state.go('logout');
+					break;
+				case 2:
+					
+					break;
+			}
+		});
 		ManagerServices.GetManagers().then(function(response){
 			$scope.managers = response;
 			for (var i = 0 ; i < $scope.managers.length; i++){
@@ -34,11 +45,10 @@ managerModule.controller('viewManagerController', ['$scope', '$rootScope', '$sta
 
 	var showAccessLevel = function(number){
 		
-		return $scope.accesslevels[number].name
+		return $scope.accesslevels[number].name;
 	}
 	
 	$scope.employeesUnderManager = function(manager){
-		$state.go('app.manager-edit', {'id': manager._id});
-		
+		$state.go('app.manager-edit', {'id': manager._id});		
 	}
 }]);

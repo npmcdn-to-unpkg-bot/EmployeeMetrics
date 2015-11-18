@@ -1,2 +1,4 @@
-'use strict'
-var employeeModule = angular.module('employeeModule',['ui.router']);
+(function(){
+	'use strict'
+	var employeeModule = angular.module('employeeModule',['ui.router']);
+})();

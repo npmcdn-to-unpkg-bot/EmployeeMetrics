@@ -385,7 +385,7 @@ var updateEmployee = function(req,res){
 var authenticate = function(req,res){
 	var response={};
 	var db = req.body;
-	var token = {};
+	
 
 	db.password = req.body.password;
 	
@@ -414,7 +414,7 @@ var authenticate = function(req,res){
 					sendData.email = data.email;
 					//creates token encrypting it using the key mentioned above
 					//token = jwt.sign(sendData, key, {expiresIn :'4h'});
-					response = {'error': false, 'message': token};
+					response = {'error': false, 'message': 'changes made successfully'};
 					res.send(response);
 				}else{
 					response = {'error': true, 'message' : 'User and password not valid'};
@@ -426,23 +426,6 @@ var authenticate = function(req,res){
 	});
 }
 
-
-//this function validates if the token was tampered
-var validate = function(req,res){
-	
-	var token = req.body.token;
-	//this fuction compares the two tokens 
-	jwt.verify(token,key,function(err, decoded){
-		if(err){
-			res.send(false);
-		}
-		else{
-			res.send(true);
-		};
-
-	});	
-
-}
 
 //this function helps to send the accesslevel of the user from the token
 var getaccess = function(req,res){
@@ -465,9 +448,12 @@ var findManagers = function(req,res){
 
 //finds employees that are under the manager sent through the request
 var findEmployeesUnderManager = function(req,res){
-	console.log(req.query);
 
-	var managerId = req.query._id;
+	var managerId = req.user._id;
+	if(req.query.id)
+	{
+		managerId = req.query.id;
+	}
 	
 	EmployeeManager.find({'managerId' : managerId, 'status' : true}, function(err,data){
 		if (err){
@@ -548,18 +534,19 @@ var addEmployeeToManager = function(req,res){
 
 }
 
-//set status to false... CHANGE TO REMOVE
+//Removes relation manager employee
 var setToInactive = function(req,res){
 	var response = {};
-	var db = req.body;
+	var db = req.query;
 	
 	EmployeeManager.remove({'employeeId': db.employeeId, 'managerId': db.managerId}, function(err, data){
 		if (err){
 			response = {'error': true, 'message' : 'Something really bad happened'};
-			
+			console.log(response);
 		}else
 		{
 			response = {'error': false, 'message' : 'Data modified'};
+			console.log(response);
 			
 		}
 	});
@@ -568,7 +555,7 @@ var setToInactive = function(req,res){
 
 var findEmployeesCategoresFromManager = function(req,res){
 	var response = {};	
-	var token = {};
+	
 	var id = null;
 	
 	var startDate = moment(req.query.date);
@@ -627,7 +614,7 @@ var findEmployeesCategoresFromManager = function(req,res){
 
 var findEmployeesCategoresFromEmployee = function(req,res){
 	var response = {};	
-	var token = {};
+	
 	var id = null;
 	
 	var startDate = moment(req.query.date);
@@ -667,14 +654,14 @@ var findEmployeesCategoresFromEmployee = function(req,res){
 var changePassword = function(req,res){
 	var response = {};
 	var db = req.body;
-	var token = req.body.token;
 
-	if(token){
-		db.id = jwt.decode(token)._id;
-		
+	if(!req.body._id)
+	{
+		console.log('entered');
+		db._id = req.user._id;	
 	}
 
-	Employee.findOne({'_id': db.id}, function(err, user){
+	Employee.findOne({'_id': db._id}, function(err, user){
 		if(err){
 			response = {'error': true, 'message' : 'Something really bad happened'};
 			res.json(response);
@@ -728,7 +715,6 @@ module.exports.model = {
 	createEmployee			: createEmployee,
 	updateEmployee			: updateEmployee,
 	authenticate 			: authenticate,
-	validate				: validate,
 	getaccess				: getaccess,
 	findManagers			: findManagers,
 	findEmployeesUnderManager	: findEmployeesUnderManager,

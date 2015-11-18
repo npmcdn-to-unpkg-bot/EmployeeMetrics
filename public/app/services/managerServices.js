@@ -8,7 +8,7 @@ function ManagerServices($http, $q){
 
 	var _getManagers = function(){
 		var deferred = $q.defer(); 
-		$http.get('/managers').success(function(data){
+		$http.get('/manager').success(function(data){
 			deferred.resolve(data);
 		}).error(function(data){
 			deferred.resolve(data);
@@ -62,7 +62,7 @@ function ManagerServices($http, $q){
 
 	var _setToInactive = function(params){
 		var deferred = $q.defer();
-		$http.post('/managers-employees', params).success(function(data){
+		$http.delete('/manager', {params: params}).success(function(data){
 			deferred.resolve(data);
 		}).error(function(data){
 			deferred.resolve(data);

@@ -1,17 +1,28 @@
 'use strict'
 var managerModule = angular.module('managerModule');
 
-managerModule.controller('editManagerController', ['$scope', '$rootScope', '$state', 'ManagerServices', 'EmployeeServices', function($scope, $rootScope, $state ,ManagerServices, EmployeeServices){
+managerModule.controller('editManagerController', ['$scope', '$rootScope', '$state', 'ManagerServices', 'EmployeeServices','AppServices', function($scope, $rootScope, $state ,ManagerServices, EmployeeServices,AppServices){
 	
 	$scope.managerEmployee = {};
 	$scope.manager ={};
 	$scope.employees = {};
 
 	$scope.initialize = function(){
+		AppServices.GetAccess().then(function(data){
+			switch(parseInt(data.access)){
+				case 0:
+				case 1:
+					$state.go('logout');
+					break;
+				case 2:
+					
+					break;
+			}
+		});
 		
 		var params = {'id': $state.params.id};
-
 		EmployeeServices.GetEmployee(params).then(function(response){
+			
 			$scope.manager._id = response[0]._id;
 			$scope.manager.firstname = response[0].firstname;
 			$scope.manager.lastname = response[0].lastname;

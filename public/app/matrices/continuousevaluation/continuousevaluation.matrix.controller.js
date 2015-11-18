@@ -149,7 +149,7 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController', 	['
 					});
 					
 					EmployeeServices.GetEmployee().then(function(response){
-							$scope.people[$scope.people.length] = response[0];
+							$scope.people[$scope.people.length] = response;
 						});
 					break;
 				

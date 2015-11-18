@@ -2,7 +2,7 @@
 
 var employeeApp = angular.module('employeeModule');
 
-employeeApp.controller('createEmployeeController', ['$scope', '$rootScope','$state','EmployeeServices' , function($scope, $rootScope,$state, EmployeeServices){
+employeeApp.controller('createEmployeeController', ['$scope', '$rootScope','$state','EmployeeServices','AppServices' , function($scope, $rootScope,$state, EmployeeServices, AppServices){
 	$scope.employee = {};
 	
 	$scope.accesslevels = [{
@@ -19,7 +19,17 @@ employeeApp.controller('createEmployeeController', ['$scope', '$rootScope','$sta
 	}];
 
 	$scope.initialize = function(){
-		
+		AppServices.GetAccess().then(function(data){
+			switch(parseInt(data.access)){
+				case 0:
+				case 1:
+					$state.go('logout');
+					break;
+				case 2:
+					
+					break;
+			}
+		});
 		$scope.employee.accesslevel = 0;
 		$scope.employee.active = true;
 

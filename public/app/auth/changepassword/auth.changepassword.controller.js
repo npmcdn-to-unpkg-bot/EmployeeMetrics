@@ -18,11 +18,8 @@ app.controller('changePasswordController',['$scope','$rootScope', '$state' , '$w
 		params = $scope.password;
 		if ($scope.password.newPassword == $scope.password.repeatPassword){
 			$scope.noMatch = false;
-			params.id = $state.params.id;
-			if(params.id == undefined)
-			{
-				params.token = $window.sessionStorage.token;
-			}
+			params._id = $state.params.id;
+
 			
 			AppServices.ChangePassword(params).then(function(response){
 				if(response.error == true){

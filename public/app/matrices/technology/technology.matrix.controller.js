@@ -33,7 +33,7 @@ competitionMatricesModule.controller('technologyMatrixController', ['$scope', '$
 
 		$scope.params = params;
 		$scope.params.table = $scope.categories[0].table;
-		$scope.params.token = $window.sessionStorage.token;
+		
 		CompetitionMatrixServices.GetPeopleCategories(params).then(function(data){
 
 			if (data.length == 0){
@@ -78,7 +78,7 @@ competitionMatricesModule.controller('technologyMatrixController', ['$scope', '$
 			//Post the information stored in $scope.peoplecategories
 			$scope.peopleCategories[i].date = $scope.params.date;
 			$scope.peopleCategories[i].table = $scope.categories[i].table;
-			$scope.peopleCategories[i].token = $window.sessionStorage.token;
+			
 			CompetitionMatrixServices.AddToMongo($scope.peopleCategories[i]).then(function(data){
 				
 			});
@@ -98,7 +98,7 @@ competitionMatricesModule.controller('technologyMatrixController', ['$scope', '$
 			
 			//Update all the categories of the person selected by sending the most recent information 
 			//stored in $scope.peopleCategories
-			$scope.peopleCategories[i].token = $window.sessionStorage.token;
+			
 			CompetitionMatrixServices.UpdateToMongo($scope.peopleCategories[i]).then(function(data){
 				
 
@@ -133,28 +133,26 @@ competitionMatricesModule.controller('technologyMatrixController', ['$scope', '$
 		$scope.date.month = $scope.select.month[month];
 		$scope.date.year = year;
 
-		var token = {
-			token: $window.sessionStorage.token
-		};
 		//console.log(token);
-		AppServices.GetAccess(token).then(function(access){
-			switch(parseInt(access)){
+		AppServices.GetAccess().then(function(data){
+			
+			switch(parseInt(data.access)){
 				case 0:
-					EmployeeServices.GetEmployee(token).then(function(response){
-						$scope.people = response;
+					EmployeeServices.GetEmployee().then(function(response){
+						$scope.people[0] = response;
 
 					});
 					break;
 				
 				case 1: 
-						ManagerServices.GetEmployeeUnderManger(token).then(function(response){
+						ManagerServices.GetEmployeeUnderManger().then(function(response){
 							for (var i = 0; i<response.length;i++){
 								findPerson(response,i);
 							}
 						});
 
-						EmployeeServices.GetEmployee(token).then(function(response){
-							$scope.people[$scope.people.length] = response[0];
+						EmployeeServices.GetEmployee().then(function(response){
+							$scope.people[$scope.people.length] = response;
 						});
 					break;
 				

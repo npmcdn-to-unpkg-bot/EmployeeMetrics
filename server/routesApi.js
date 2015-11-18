@@ -32,10 +32,6 @@ module.exports = function(app, passport){
 			dbCalls.authenticate(req,res);
 		});
 
-	app.route('/validate')
-		.post(function(req,res){
-			dbCalls.validate(req,res);
-		});
 
 	app.route('/getaccess')
 		.get(loggedIn, function(req,res){
@@ -45,29 +41,29 @@ module.exports = function(app, passport){
 
 	//Routes all the information in categories
 	app.route('/categories/training')
-		.get(function(req, res){
+		.get(loggedIn,function(req, res){
 			dbCalls.findCategoriesTrainingMatrix(req,res);
 		});
 
 	app.route('/categories/technology')
-		.get(function(req, res){
+		.get(loggedIn,function(req, res){
 			dbCalls.findCategoriesTechnologyMatrix(req,res);
 		});
 
 	app.route('/categories/continuous')
-		.get(function(req, res){
+		.get(loggedIn,function(req, res){
 			dbCalls.findCategoriesContinuousEvaluationMatrix(req,res);
 		});
 
 
 	app.route('/matrix')
-		.get(function(req,res){
+		.get(loggedIn,function(req,res){
 			dbCalls.findEmployees(req,res);
 		})
-		.post(function(req,res){
+		.post(loggedIn,function(req,res){
 			dbCalls.addScoreTrainingMatrix(req,res);
 		})
-		.put(function(req,res){
+		.put(loggedIn,function(req,res){
 			dbCalls.updateTrainingMatrix(req,res);
 		});
 
@@ -75,69 +71,63 @@ module.exports = function(app, passport){
 	//Routes all information in Employees
 	app.route('/employees')
 		//Get Employees data
-		.get(function(req, res){
+		.get(loggedIn, function(req, res){
 			dbCalls.findEmployees(req,res);
 		})
 		//Post new information in employee categories
-		.post(function(req,res){
+		.post(loggedIn, function(req,res){
 			dbCalls.addScoreTrainingMatrix(req,res);
 		});
 
 	app.route('/employeesonly')
 		//Get Employees data
-		.get(function(req, res){
+		.get(loggedIn, function(req, res){
 			dbCalls.findEmployeesOnly(req,res);
 		});
 
 	//Routes to get all results between categories and people
 	app.route('/employees/:id')
 		//Gets information taking id as parameter
-		.get(function(req, res){
+		.get(loggedIn, function(req, res){
 			dbCalls.findEmployeesCategoriesMatrix(req,res);
 		})
 		//Post informatio taking id as parameter
-		.post(function(req, res){
+		.post(loggedIn, function(req, res){
 			dbCalls.updateTrainingMatrix(req,res);
 		});
 
 	app.route('/employee')
-		.get(function(req,res){
+		.get(loggedIn,function(req,res){
 			dbCalls.findEmployee(req,res);
 		})
-		.post(function(req,res){
+		.post(loggedIn, function(req,res){
 			dbCalls.createEmployee(req,res);
 		})
-		.put(function(req,res){
+		.put(loggedIn, function(req,res){
 			dbCalls.updateEmployee(req,res);
-		});
-
-
-	app.route('/employee/:token')
-		.get(function(req,res){
-			dbCalls.findEmployee(req,res);
 		});
 
 
 
 	app.route('/manager')
-		.get(function(req,res){
+		.get(loggedIn, function(req,res){
 			dbCalls.findManagers(req,res);
 		})
-		.post(function(req,res){
+		.post(loggedIn,function(req,res){
 			dbCalls.addEmployeeToManager(req,res);
 		})
-		.delete(function(req,res){
+		.delete(loggedIn, function(req,res){
 			dbCalls.setToInactive(req,res);
 		});
 
 		
 	app.route('/employee-managers')
-		.get(function(req,res){
+		.get(loggedIn, function(req,res){
 			dbCalls.findEmployeesUnderManager(req,res);
 		});
 
 	app.route('/managers-employees')
-		.get(function(req,res){
+		.get(loggedIn, function(req,res){
 			dbCalls.findEmployeesWithNoManager(req,res);
 		})
 

@@ -1,7 +1,7 @@
 'use strict'
 var employeeApp = angular.module('employeeModule');
 
-employeeApp.controller('viewEmployeeController', ['$scope', '$rootScope', '$state', 'EmployeeServices', function($scope, $rootScope, $state ,EmployeeServices){
+employeeApp.controller('viewEmployeeController', ['$scope', '$rootScope', '$state', 'EmployeeServices','AppServices', function($scope, $rootScope, $state ,EmployeeServices,AppServices){
 	$scope.employees = {};
 	$scope.showCreateForm = false;
 	
@@ -18,7 +18,16 @@ employeeApp.controller('viewEmployeeController', ['$scope', '$rootScope', '$stat
 		'name' : 'Administrator'
 	}];
 	$scope.initialize = function(){
-		
+		AppServices.GetAccess().then(function(data){
+			switch(parseInt(data.access)){
+				case 0:
+				case 1:
+					$state.go('logout');
+					break;
+				case 2:
+					break;
+			}
+		});
 		
 		EmployeeServices.GetEmployees().then(function(response){
 			$scope.employees = response;

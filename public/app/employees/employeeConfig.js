@@ -13,13 +13,13 @@ employeeApp.config(function($stateProvider){
 		})
 
 		.state('app.employee.create',{
-			url: '/employee/create',
+			url: '/create',
 			templateUrl	: 'app/employees/create/create.employee.tmpl.html',
 			controller 	: 'createEmployeeController'
 		})
 
 		.state('app.employee.update',{
-			url: '/employee/update/:id',
+			url: '/update/:id',
 			templateUrl	: 'app/employees/update/update.employee.tmpl.html',
 			controller 	: 'updateEmployeeController'
 			
