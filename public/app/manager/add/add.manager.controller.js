@@ -5,7 +5,7 @@ managerModule.controller('addManagerController', ['$scope', '$rootScope', '$stat
 	
 	$scope.employees = {};
 	$scope.employeeSelected = {};
-
+	
 	$scope.initialize = function(){
 		AppServices.GetAccess().then(function(data){
 			switch(parseInt(data.access)){
@@ -14,15 +14,15 @@ managerModule.controller('addManagerController', ['$scope', '$rootScope', '$stat
 					$state.go('logout');
 					break;
 				case 2:
+					ManagerServices.GetEmployeesWithNoManager().then(function(response){
+						
+						$scope.employees = response;
+					});
 					
 					break;
 			}
 		});
 
-		ManagerServices.GetEmployeesWithNoManager().then(function(response){
-			
-			$scope.employees = response;
-		});
 	}
 
 	$scope.addToManager = function(){

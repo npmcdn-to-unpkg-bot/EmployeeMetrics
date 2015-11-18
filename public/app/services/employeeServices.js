@@ -64,7 +64,6 @@ function EmployeeServices($http, $q){
 	EmployeeServices.GetEmployeesOnly = _getEmployeesOnly;
 	EmployeeServices.SaveEmployee 	= _saveEmployee;
 	EmployeeServices.GetEmployee	= _getEmployee;
-	
 	EmployeeServices.UpdateEmployee = _updateEmployee;
 
 	return EmployeeServices;

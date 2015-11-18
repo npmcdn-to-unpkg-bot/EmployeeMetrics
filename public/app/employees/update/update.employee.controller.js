@@ -26,16 +26,16 @@ employeeApp.controller('updateEmployeeController', ['$scope', '$rootScope', '$st
 					$state.go('logout');
 					break;
 				case 2:
+					EmployeeServices.GetEmployee($state.params).then(function(response){
+						$scope.employee = response[0];
+						$scope.employee.accesslevel = parseInt(response[0].accesslevel);
+					});
 					
 					break;
 			}
 		});
 		
 
-		EmployeeServices.GetEmployee($state.params).then(function(response){
-			$scope.employee = response[0];
-			$scope.employee.accesslevel = parseInt(response[0].accesslevel);
-		});
 	}
 
 	$scope.updateEmployee = function(){

@@ -88,22 +88,17 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController', 	['
 
 	//Update the documents in people catagories with the new data
 	$scope.updateToMongo = function(){
-		
-		var month = moment().month($scope.date.month);
-		var params = {};
-		params.date = moment({y: $scope.date.year, M: month.month(), d: 15 }).toISOString();
-		$scope.params = params;
+		$scope.ShowButton = false;	
+				
 		for(var i = 0; i<$scope.peopleCategories.length;i++){
 			
 			//Update all the categories of the person selected by sending the most recent information 
 			//stored in $scope.peopleCategories
-			
 			CompetitionMatrixServices.UpdateToMongo($scope.peopleCategories[i]).then(function(data){
 				
 
 			});
 		}
-		$scope.ShowButton = false;	
 		$state.go('app.continuous-evaluation','',{reload: true});
 	};
 
@@ -162,8 +157,9 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController', 	['
 		});
 
 
-		
-		CompetitionMatrixServices.GetContinuousEvaluationCategories().then(function(response){
+		var params = {};
+		params.table = 2;
+		CompetitionMatrixServices.GetMatrix(params).then(function(response){
 			$scope.categories = response;
 		});
 

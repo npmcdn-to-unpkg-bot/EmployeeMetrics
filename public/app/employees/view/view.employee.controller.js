@@ -17,6 +17,8 @@ employeeApp.controller('viewEmployeeController', ['$scope', '$rootScope', '$stat
 		'id' : 2,
 		'name' : 'Administrator'
 	}];
+
+
 	$scope.initialize = function(){
 		AppServices.GetAccess().then(function(data){
 			switch(parseInt(data.access)){
@@ -25,16 +27,17 @@ employeeApp.controller('viewEmployeeController', ['$scope', '$rootScope', '$stat
 					$state.go('logout');
 					break;
 				case 2:
+					EmployeeServices.GetEmployees().then(function(response){
+						
+						$scope.employees = response;
+						for (var i = 0 ; i < $scope.employees.length; i++){
+							$scope.employees[i].accesslevelname = showAccessLevel($scope.employees[i].accesslevel);
+						}
+					});
 					break;
 			}
 		});
 		
-		EmployeeServices.GetEmployees().then(function(response){
-			$scope.employees = response;
-			for (var i = 0 ; i < $scope.employees.length; i++){
-				$scope.employees[i].accesslevelname = showAccessLevel($scope.employees[i].accesslevel);
-			}
-		});
 	}
 
 	$scope.showCreate = function()

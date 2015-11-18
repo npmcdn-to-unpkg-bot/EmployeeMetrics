@@ -26,16 +26,17 @@ managerModule.controller('viewManagerController', ['$scope', '$rootScope', '$sta
 					$state.go('logout');
 					break;
 				case 2:
-					
+					ManagerServices.GetManagers().then(function(response){
+						$scope.managers = response;
+						for (var i = 0 ; i < $scope.managers.length; i++){
+							$scope.managers[i].accesslevelname = showAccessLevel($scope.managers[i].accesslevel);
+						}
+					});
+						
 					break;
 			}
 		});
-		ManagerServices.GetManagers().then(function(response){
-			$scope.managers = response;
-			for (var i = 0 ; i < $scope.managers.length; i++){
-				$scope.managers[i].accesslevelname = showAccessLevel($scope.managers[i].accesslevel);
-			}
-		});
+		
 	}
 
 	$scope.showCreate = function()

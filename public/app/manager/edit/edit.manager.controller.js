@@ -16,35 +16,35 @@ managerModule.controller('editManagerController', ['$scope', '$rootScope', '$sta
 					break;
 				case 2:
 					
-					break;
-			}
-		});
-		
-		var params = {'id': $state.params.id};
-		EmployeeServices.GetEmployee(params).then(function(response){
-			
-			$scope.manager._id = response[0]._id;
-			$scope.manager.firstname = response[0].firstname;
-			$scope.manager.lastname = response[0].lastname;
-		});
-		
-		ManagerServices.GetEmployeeUnderManger(params).then(function(response){
-			
-			if (response.length == 0){
-				$scope.managerEmployee = {};	
-			}else{
-				$scope.managerEmployee = response;
-				
-		
-				for(var i = 0; i < $scope.managerEmployee.length;i++){
+					var params = {'id': $state.params.id};
+					EmployeeServices.GetEmployee(params).then(function(response){
+						
+						$scope.manager._id = response[0]._id;
+						$scope.manager.firstname = response[0].firstname;
+						$scope.manager.lastname = response[0].lastname;
+					});
 					
+					ManagerServices.GetEmployeeUnderManger(params).then(function(response){
+						
+						if (response.length == 0){
+							$scope.managerEmployee = {};	
+						}else{
+							$scope.managerEmployee = response;
+							
+					
+							for(var i = 0; i < $scope.managerEmployee.length;i++){
+								
 
-					var employeeParams = {'id' : $scope.managerEmployee[i].employeeId};
+								var employeeParams = {'id' : $scope.managerEmployee[i].employeeId};
+								
+								getEmployeesName(employeeParams,i);
+								
+								
+							}
+						}
+					});
 					
-					getEmployeesName(employeeParams,i);
-					
-					
-				}
+					break;
 			}
 		});
 	}

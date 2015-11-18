@@ -99,6 +99,23 @@ req.logout();
 }
 
 //finds all categories for the technology matrix
+var findCategories = function(req,res){
+	var response = {};
+	//Query all the categories in the Category collection
+	Category.find({'table' : req.query.table}, function(err,data){
+		if (err){
+			//Sends Error if the query is unsuccessful
+			response = {'error': true, 'message': 'error fetching data from categries'};
+			res.json(data);
+		}else{
+			//Sends to the client the deata retrieved
+			res.json(data);
+		}
+
+	});
+}
+
+//finds all categories for the technology matrix
 var findCategoriesTechnologyMatrix = function(req,res){
 	
 	var response = {};
@@ -721,5 +738,6 @@ module.exports.model = {
 	findEmployeesWithNoManager	: findEmployeesWithNoManager,
 	addEmployeeToManager 	: addEmployeeToManager,
 	setToInactive  			: setToInactive,
-	changePassword 			: changePassword
+	changePassword 			: changePassword,
+	findCategories 			: findCategories
 };

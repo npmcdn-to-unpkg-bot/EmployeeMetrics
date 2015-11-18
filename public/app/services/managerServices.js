@@ -6,15 +6,7 @@ managerModule.factory('ManagerServices', ManagerServices);
 function ManagerServices($http, $q){
 	var ManagerServices = {};
 
-	var _getManagers = function(){
-		var deferred = $q.defer(); 
-		$http.get('/manager').success(function(data){
-			deferred.resolve(data);
-		}).error(function(data){
-			deferred.resolve(data);
-		});		
-		return deferred.promise;
-	}
+
 
 	var _getManager = function(params){
 		var deferred = $q.defer(); 
@@ -72,7 +64,7 @@ function ManagerServices($http, $q){
 	}
 
 
-	ManagerServices.GetManagers 			= _getManagers;
+	ManagerServices.GetManagers 			= _getManager;
 	ManagerServices.AddEmployeeToManager  	= _addEmployeeToManager;
 	ManagerServices.GetEmployeeUnderManger	=	_getEmployeeUnderManger;
 	ManagerServices.GetEmployeesWithNoManager = _getEmployeesWithNoManager;

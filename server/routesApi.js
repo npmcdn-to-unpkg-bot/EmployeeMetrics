@@ -38,27 +38,15 @@ module.exports = function(app, passport){
 			dbCalls.getaccess(req,res);
 		});
 
-
-	//Routes all the information in categories
-	app.route('/categories/training')
-		.get(loggedIn,function(req, res){
-			dbCalls.findCategoriesTrainingMatrix(req,res);
-		});
-
-	app.route('/categories/technology')
-		.get(loggedIn,function(req, res){
-			dbCalls.findCategoriesTechnologyMatrix(req,res);
-		});
-
-	app.route('/categories/continuous')
-		.get(loggedIn,function(req, res){
-			dbCalls.findCategoriesContinuousEvaluationMatrix(req,res);
+	app.route('/categories')
+		.get(loggedIn, function(req,res){
+			dbCalls.findCategories(req,res);
 		});
 
 
 	app.route('/matrix')
 		.get(loggedIn,function(req,res){
-			dbCalls.findEmployees(req,res);
+			dbCalls.findEmployeesCategoriesMatrix(req,res);
 		})
 		.post(loggedIn,function(req,res){
 			dbCalls.addScoreTrainingMatrix(req,res);
@@ -67,35 +55,7 @@ module.exports = function(app, passport){
 			dbCalls.updateTrainingMatrix(req,res);
 		});
 
-
-	//Routes all information in Employees
-	app.route('/employees')
-		//Get Employees data
-		.get(loggedIn, function(req, res){
-			dbCalls.findEmployees(req,res);
-		})
-		//Post new information in employee categories
-		.post(loggedIn, function(req,res){
-			dbCalls.addScoreTrainingMatrix(req,res);
-		});
-
-	app.route('/employeesonly')
-		//Get Employees data
-		.get(loggedIn, function(req, res){
-			dbCalls.findEmployeesOnly(req,res);
-		});
-
-	//Routes to get all results between categories and people
-	app.route('/employees/:id')
-		//Gets information taking id as parameter
-		.get(loggedIn, function(req, res){
-			dbCalls.findEmployeesCategoriesMatrix(req,res);
-		})
-		//Post informatio taking id as parameter
-		.post(loggedIn, function(req, res){
-			dbCalls.updateTrainingMatrix(req,res);
-		});
-
+	
 	app.route('/employee')
 		.get(loggedIn,function(req,res){
 			dbCalls.findEmployee(req,res);
@@ -107,7 +67,10 @@ module.exports = function(app, passport){
 			dbCalls.updateEmployee(req,res);
 		});
 
-
+	app.route('/employees')
+		.get(loggedIn, function(req,res){
+			dbCalls.findEmployees(req,res)
+		})
 
 	app.route('/manager')
 		.get(loggedIn, function(req,res){

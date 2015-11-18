@@ -24,6 +24,7 @@ competitionMatricesModule.controller('technologyMatrixController', ['$scope', '$
 	$scope.select.year = [];
 	$scope.select.month = ['January', 'February', 'March', 'April', 'May', 'Jun', 'July', 'August', 'September', 'October', 'November', 'December'];
 
+	$scope.success = false;
 	//depending on the person selected it will show all the categories that person has been graded
 	$scope.getPeopleCategories = function(params){
 		
@@ -80,10 +81,11 @@ competitionMatricesModule.controller('technologyMatrixController', ['$scope', '$
 			$scope.peopleCategories[i].table = $scope.categories[i].table;
 			
 			CompetitionMatrixServices.AddToMongo($scope.peopleCategories[i]).then(function(data){
-				
+				$scope.success = true;
+				$scope.peopleCategories = {};
 			});
 		}
-		$state.go('app.technologymatrix','',{reload: true});
+		//$state.go('app.technologymatrix','',{reload: true});
 		
 	}
 
@@ -98,14 +100,14 @@ competitionMatricesModule.controller('technologyMatrixController', ['$scope', '$
 			
 			//Update all the categories of the person selected by sending the most recent information 
 			//stored in $scope.peopleCategories
-			
 			CompetitionMatrixServices.UpdateToMongo($scope.peopleCategories[i]).then(function(data){
-				
+				$scope.success = true;
+				$scope.peopleCategories = {};
 
 			});
 		}
 		$scope.ShowButton = false;	
-		$state.go('app.technologymatrix','',{reload: true});
+		//$state.go('app.technologymatrix','',{reload: true});
 	};
 
 	function findPerson(employeesFromManager,i){
@@ -163,7 +165,9 @@ competitionMatricesModule.controller('technologyMatrixController', ['$scope', '$
 					
 			}
 		});
-		CompetitionMatrixServices.GetTechnologyCategories().then(function(response){
+		var params = {};
+		params.table = 0;
+		CompetitionMatrixServices.GetMatrix(params).then(function(response){
 			$scope.categories = response;
 		});
 		$scope.params.date = new Date();
@@ -188,6 +192,10 @@ competitionMatricesModule.controller('technologyMatrixController', ['$scope', '$
 			if(id == $scope.categories[i]._id)
 				return $scope.categories[i].name;
 		}
+	}
+
+	$scope.setFalse=function(){
+		$scope.success = false;
 	}
 }]);
 

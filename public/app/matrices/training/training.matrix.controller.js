@@ -161,7 +161,9 @@ competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$ro
 					
 			}
 		});
-		CompetitionMatrixServices.GetTrainingCategories().then(function(response){
+		var params = {};
+		params.table = 1;
+		CompetitionMatrixServices.GetMatrix(params).then(function(response){
 			$scope.categories = response;
 		});
 		

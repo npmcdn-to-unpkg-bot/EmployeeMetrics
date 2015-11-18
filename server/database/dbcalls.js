@@ -4,19 +4,6 @@ var ObjectId 	= 	mongoose.Types.ObjectId;
 
 var dbCalls = {};
 
-dbCalls.findCategoriesTrainingMatrix = function(req,res)
-{
-	db.model.findCategoriesTrainingMatrix(req,res);
-}
-
-dbCalls.findCategoriesTechnologyMatrix = function(req,res){
-	db.model.findCategoriesTechnologyMatrix(req,res);
-}
-
-dbCalls.findCategoriesContinuousEvaluationMatrix = function(req,res){
-	db.model.findCategoriesContinuousEvaluationMatrix(req,res);
-}
-
 dbCalls.findEmployees = function(req,res){
 	db.model.findEmployees(req,res);
 }
@@ -51,10 +38,6 @@ dbCalls.updateEmployee = function(req,res){
 
 dbCalls.authenticate = function(req,res){
 	db.model.authenticate(req,res);
-}
-
-dbCalls.validate = function(req,res){
-	db.model.validate(req,res);
 }
 
 dbCalls.getaccess = function(req,res){
@@ -93,4 +76,8 @@ dbCalls.findEmployeesCategoresFromEmployee = function(req,res){
 dbCalls.changePassword = function(req,res){
 	db.model.changePassword(req,res);
 }
+dbCalls.findCategories = function(req,res){
+	db.model.findCategories(req,res);
+};
+
 module.exports = dbCalls;

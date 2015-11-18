@@ -26,12 +26,12 @@ employeeApp.controller('createEmployeeController', ['$scope', '$rootScope','$sta
 					$state.go('logout');
 					break;
 				case 2:
+					$scope.employee.accesslevel = 0;
+					$scope.employee.active = true;
 					
 					break;
 			}
 		});
-		$scope.employee.accesslevel = 0;
-		$scope.employee.active = true;
 
 	}
 
