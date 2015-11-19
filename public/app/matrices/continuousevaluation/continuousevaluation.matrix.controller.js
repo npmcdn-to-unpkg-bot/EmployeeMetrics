@@ -3,7 +3,7 @@ var competitionMatricesModule = angular.module('competitionMatrices');
 
 
 //Creates the controllero for getMongo controller
-competitionMatricesModule.controller('continuousEvaluationMatrixController', 	['$scope', '$rootScope','$state', '$window','$filter', 'CompetitionMatrixServices','AppServices', 'EmployeeServices','ManagerServices', 	function($scope, $rootScope, $state, $window, $filter, CompetitionMatrixServices, AppServices, EmployeeServices, ManagerServices){
+competitionMatricesModule.controller('continuousEvaluationMatrixController', 	['$scope', '$mdToast','$state', '$window','$filter', 'CompetitionMatrixServices','AppServices', 'EmployeeServices','ManagerServices', 	function($scope, $mdToast, $state, $window, $filter, CompetitionMatrixServices, AppServices, EmployeeServices, ManagerServices){
 
 	//Here it will be stored all the information for people
 	$scope.people= {};
@@ -24,6 +24,7 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController', 	['
 	$scope.select.year = [];
 	$scope.select.month = ['January', 'February', 'March', 'April', 'May', 'Jun', 'July', 'August', 'September', 'October', 'November', 'December'];
 
+	
 	//depending on the person selected it will show all the categories that person has been graded
 	$scope.getPeopleCategories = function(params){
 				
@@ -67,7 +68,7 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController', 	['
 
 	//Add new documents to the people-categories collection
 	$scope.addToMongo = function(){
-		
+		var success = true;
 		$scope.ShowButton = false;
 		var month = moment().month($scope.date.month);
 		var params = {};
@@ -80,26 +81,57 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController', 	['
 			$scope.peopleCategories[i].table = $scope.categories[i].table;
 			
 			CompetitionMatrixServices.AddToMongo($scope.peopleCategories[i]).then(function(data){
-				
+				if(data.error == true){
+					success = false;
+				}
 			});
 		}
-		$state.go('app.continuous-evaluation','',{reload: true});
+		if(success){
+			$scope.peopleCategories = {};
+			$mdToast.show(
+				$mdToast.simple()
+				.content('Data has been added successfully')
+				.action('x')
+				.highlightAction(false)
+				.hideDelay(3000)
+				.position("top right")
+				.theme('success-toast')
+			);
+		}
+		//$state.go('app.continuous-evaluation');
 	}
 
 	//Update the documents in people catagories with the new data
 	$scope.updateToMongo = function(){
 		$scope.ShowButton = false;	
-				
+		var success = true;
+		var month = moment().month($scope.date.month);
+		var params = {};
+		params.date = moment({y: $scope.date.year, M: month.month(), d: 15 }).toISOString();
+		$scope.params = params;
 		for(var i = 0; i<$scope.peopleCategories.length;i++){
 			
 			//Update all the categories of the person selected by sending the most recent information 
 			//stored in $scope.peopleCategories
 			CompetitionMatrixServices.UpdateToMongo($scope.peopleCategories[i]).then(function(data){
-				
-
+				if(data.error){
+					success = false;
+				}
 			});
 		}
-		$state.go('app.continuous-evaluation','',{reload: true});
+		if(success){
+			$scope.peopleCategories = {};
+			$mdToast.show(
+				$mdToast.simple()
+				.content('Data updated successfully')
+				.action('x')
+				.highlightAction(false)
+				.hideDelay(3000)
+				.position("top right")
+				.theme('success-toast')
+			);
+		}
+		//$state.go('app.continuous-evaluation');
 	};
 
 	function findPerson(employeesFromManager,i){
@@ -187,7 +219,9 @@ competitionMatricesModule.controller('continuousEvaluationMatrixController', 	['
 		}
 	}
 
-
+	$scope.setFalse=function(){
+		$scope.success = false;
+	}
 }]);
 
 

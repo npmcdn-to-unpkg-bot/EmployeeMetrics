@@ -1,8 +1,8 @@
 var app = angular.module('myApp');
 
-app.controller('authLoginController',['$scope','$rootScope', '$state' , '$window', 'AppServices', function($scope, $rootScope, $state, $window, AppServices){
+app.controller('authLoginController',['$scope','$mdToast', '$state' , '$window', 'AppServices', function($scope, $mdToast, $state, $window, AppServices){
 	$scope.loginForm = {};
-	$scope.message = false;
+	
 
 	$scope.sendLogin = function(){
 	
@@ -12,18 +12,23 @@ app.controller('authLoginController',['$scope','$rootScope', '$state' , '$window
 			{	
 				$state.go('app.dashboard');
 			}else{
-				$window.sessionStorage.token=null;
-				delete $window.sessionStorage.token;
-				$scope.message = false;
-				$scope.message = true;
+				$mdToast.show(
+					$mdToast.simple()
+					.content('User and password do not match please try again')
+					.action('x')
+					.highlightAction(false)
+					.hideDelay(3000)
+					.position("top right")
+					.theme('error-toast')
+				);
+			
 				
 			}
 		});
 	}
 
 	$scope.initialize = function(){
-		$window.sessionStorage.token=null;
-		delete $window.sessionStorage.token;
+
 	}
 
 }]);

@@ -1,3 +1,3 @@
-angular.module('myApp', ['ui.router', 
+angular.module('myApp', ['ui.router', 'ngMaterial',
 	'competitionMatrices' , 'employeeModule', 'managerModule', 'dashboardModule']);
 

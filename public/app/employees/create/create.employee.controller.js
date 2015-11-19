@@ -2,7 +2,7 @@
 
 var employeeApp = angular.module('employeeModule');
 
-employeeApp.controller('createEmployeeController', ['$scope', '$rootScope','$state','EmployeeServices','AppServices' , function($scope, $rootScope,$state, EmployeeServices, AppServices){
+employeeApp.controller('createEmployeeController', ['$scope','$mdToast', '$stateParams','$state','EmployeeServices','AppServices' , function($scope,$mdToast, $stateParams,$state, EmployeeServices, AppServices){
 	$scope.employee = {};
 	
 	$scope.accesslevels = [{
@@ -32,6 +32,10 @@ employeeApp.controller('createEmployeeController', ['$scope', '$rootScope','$sta
 					break;
 			}
 		});
+		
+		$state.current.data.example = true;
+		
+
 
 	}
 
@@ -39,13 +43,25 @@ employeeApp.controller('createEmployeeController', ['$scope', '$rootScope','$sta
 		
 		var employee = $scope.employee;
 		EmployeeServices.SaveEmployee(employee).then(function(response){
-			console.log('data saved' + response);
-			$state.go('app.employee',	{}	,{	reload: true	});	
-			
-			
-		});
+			$mdToast.show(
+				$mdToast.simple()
+				.content('Employee has been added successfully')
+				.action('x')
+				.highlightAction(false)
+				.hideDelay(3000)
+				.position("top right")
+				.theme('success-toast')
+			);
 		
+		
+		$state.go('app.employee',	{}	,{	reload: true	});	
 			
+			
+		});	
+	}
+
+	$scope.cancel = function(){
+		$state.go('app.employee',	{}	,{	reload: true	});	
 	}
 
 }]);

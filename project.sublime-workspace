@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"$state",
+				"$stateParams"
+			],
+			[
 				"canvas",
 				"resizeCanvas"
 			],
@@ -232,34 +236,10 @@
 	"buffers":
 	[
 		{
-			"file": "server/routesApi.js",
+			"file": "public/app/employees/view/view.employee.controller.js",
 			"settings":
 			{
-				"buffer_size": 3137,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "server.js",
-			"settings":
-			{
-				"buffer_size": 990,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "server/database/dbcalls.js",
-			"settings":
-			{
-				"buffer_size": 2238,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "server/database/models.js",
-			"settings":
-			{
-				"buffer_size": 19627,
+				"buffer_size": 1553,
 				"line_ending": "Windows"
 			}
 		}
@@ -288,75 +268,78 @@
 	},
 	"file_history":
 	[
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/styles/style.css",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/training/training.matrix.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/competitionMatricesModule.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/training/training.matrix.controller.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/competitionMatricesConfig.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/technology/technology.matrix.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/technology/technology.matrix.controller.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/continuousevaluation/continuousevaluation.matrix.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/login/auth.login.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/login/auth.login.controller.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/continuousevaluation/continuousevaluation.matrix.controller.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/appConfig.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/create/create.employee.controller.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/appModule.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/index.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/employeeConfig.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/view/view.employee.controller.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/create/create.employee.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/changepassword/auth.changepassword.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/changepassword/auth.changepassword.controller.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/database/models.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/view/view.manager.controller.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/edit/edit.manager.controller.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/add/add.manager.controller.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/update/update.employee.controller.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/styles/bootstrap.min.css",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/libraries/bootstrap.min.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/database/dbcalls.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/competitionMatricesServices.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/dashboardServices.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/employeeServices.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/managerServices.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/appServices.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/routesApi.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/view/view.dashboard.controller.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/managerConfig.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/view/view.manager.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/employeeModule.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/logout/auth.logout.controller.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/app.controller.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/app.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/add/add.manager.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/edit/edit.manager.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/config/passconfig.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/package.json",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/models/category.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/models/employeemanager.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/models/employeecategory.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/index.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/models/employee.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/conf/passconfig.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/conf/dbconf.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/styles/style.css",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/continuousevaluation/continuousevaluation.matrix.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/technology/technology.matrix.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/training/training.matrix.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/changepassword/auth.changepassword.controller.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/changepassword/auth.changepassword.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/view/view.dashboard.controller.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/create/create.employee.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/update/update.employee.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/add/add.manager.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/view/view.manager.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/edit/edit.manager.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/dashboardModule.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/continuousevaluation/continuousevaluation.matrix.controller.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/database/models.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/view/view.dashboard.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/jasmineTest/server.js",
 		"/C/cygwin/home/Carlos.Danna/jasmineTest/spec/spec.js",
 		"/C/cygwin/home/Carlos.Danna/jasmineTest/spec/support/jasmine.json",
 		"/C/cygwin/home/Carlos.Danna/jasmineTest/spec.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/app.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/login/auth.login.controller.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/login/auth.login.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/spec/databaseSpec",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/spec/serverSpec.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/spec/support/jasmine.json",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/spec/serverSpec.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/training/training.matrix.controller.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/routesApi.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/technology/technology.matrix.controller.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/app.controller.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/database/dbcalls.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/appServices.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/update/update.employee.controller.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/appConfig.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/dashboardServices.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/appModule.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/managerModule.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/competitionMatricesModule.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/dashboardConfig.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/package.json",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/create/create.employee.controller.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/employeeModule.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/competitionMatricesServices.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/dashboardServices",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/dashboardModule",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/edit/edit.manager.controller.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/managerServices.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/add/add.manager.controller.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/employeeServices.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/view/view.employee.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/managerConfig.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/employeeConfig.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/view/view.manager.controller.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/editmanager/edit.manager.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/editmanager/edit.manager.controller.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/view/view.employee.controller.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/logout/auth.logout.controller.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/libraries/angular.min.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/logout/auth.logout.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/competitionMatricesConfig.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/login.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/app.html",
 		"/C/cygwin/home/Carlos.Danna/app.html",
@@ -427,6 +410,60 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"console",
+			"change",
+			"categories",
+			"$categories",
+			"getMatrices",
+			"var",
+			";\n",
+			"category",
+			"/employees",
+			"employees",
+			"findemployees",
+			"findEmployee",
+			"findemployees",
+			"token",
+			"delet",
+			"managers",
+			"manager",
+			"token",
+			"addscore",
+			"mongo",
+			"$scope.people",
+			"$window",
+			"token",
+			"console.lo",
+			"under",
+			"getmanager",
+			"token",
+			"}\n",
+			"id",
+			"access",
+			"$window",
+			"personselected",
+			"getaccess",
+			"console.log",
+			"getaccess",
+			"findEmployeesCategoresFromManager",
+			"continu",
+			"continuous",
+			"getaccss",
+			"getaccess",
+			"findemployee",
+			"token",
+			"$root",
+			"root",
+			"Unauthorized",
+			"decrypt",
+			"data",
+			"login",
+			"$rootScope",
+			"jwt",
+			"router",
+			"jwt",
+			"jwtr",
+			"cry",
 			"//Saves the schema object into mongoSchema\nvar mongoSchema = mongoose.Schema;\n\n\n//Creates employee caetegory schema\nvar employeeCategorySchema = new mongoSchema({\n	'_id'			: 	mongoSchema.ObjectId,\n	'employeeId'	: 	{type: mongoSchema.ObjectId, ref: 'Employee'},\n	'managerId'		: 	{type: mongoSchema.ObjectId, ref: 'Employee'},\n	'categoryId'	: 	{type: mongoSchema.ObjectId, ref: 'Category'},\n	'date'			: 	Date,\n	'table'			: 	Number,\n	'Results'		: 	[\n			Number, \n			Number, \n			Number, \n			Number	\n		]\n});\n\n\n//Creates employeeCategory from employeeCategorySchema\nvar EmployeeCategory = mongoose.model('employees.categories', employeeCategorySchema);",
 			"token",
 			">\n",
@@ -500,19 +537,7 @@
 			"console",
 			"console.log",
 			"console.log(date);",
-			");\n",
-			">\n",
-			"$scope",
-			"$scope.peopleCategories[i].date = new Date().toISOString()",
-			"console",
-			"console.log",
-			"}\n",
-			"{\n",
-			"index",
-			"'3'",
-			"'2'",
-			"'1'",
-			"for"
+			");\n"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -533,102 +558,23 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "server/routesApi.js",
+					"file": "public/app/employees/view/view.employee.controller.js",
 					"settings":
 					{
-						"buffer_size": 3137,
+						"buffer_size": 1553,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								423,
-								423
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "server.js",
-					"settings":
-					{
-						"buffer_size": 990,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								387,
-								387
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "server/database/dbcalls.js",
-					"settings":
-					{
-						"buffer_size": 2238,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								636,
-								636
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "server/database/models.js",
-					"settings":
-					{
-						"buffer_size": 19627,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1482,
-								1482
+								0,
+								0
 							]
 						],
 						"settings":
@@ -676,6 +622,10 @@
 		]
 	},
 	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 23.0
+	},
 	"replace":
 	{
 		"height": 62.0

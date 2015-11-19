@@ -2,7 +2,7 @@
 
 var employeeApp = angular.module('employeeModule');
 
-employeeApp.controller('updateEmployeeController', ['$scope', '$rootScope', '$state', '$stateParams','EmployeeServices','AppServices' ,function($scope, $rootScope, $state, $stateParams, EmployeeServices,AppServices){
+employeeApp.controller('updateEmployeeController', ['$scope', '$mdToast', '$state', '$stateParams','EmployeeServices','AppServices' ,function($scope, $mdToast, $state, $stateParams, EmployeeServices,AppServices){
 	$scope.employee = {};
 	
 	$scope.accesslevels = [{
@@ -41,6 +41,15 @@ employeeApp.controller('updateEmployeeController', ['$scope', '$rootScope', '$st
 	$scope.updateEmployee = function(){
 		
 		EmployeeServices.UpdateEmployee($scope.employee).then(function(response){
+			$mdToast.show(
+				$mdToast.simple()
+				.content('Employee updated successfully')
+				.action('x')
+				.highlightAction(false)
+				.hideDelay(3000)
+				.position("top right")
+				.theme('success-toast')
+			);
 			$state.go('app.employee',	{}	, {	reload: true });	
 			
 		});

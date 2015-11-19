@@ -3,7 +3,7 @@ var competitionMatricesModule = angular.module('competitionMatrices');
 
 
 //Creates the controllero for getMongo controller
-competitionMatricesModule.controller('technologyMatrixController', ['$scope', '$rootScope', '$state', '$window', 'CompetitionMatrixServices', 'AppServices' ,'EmployeeServices', 'ManagerServices', function($scope,$rootScope,$state, $window, CompetitionMatrixServices, AppServices, EmployeeServices, ManagerServices){
+competitionMatricesModule.controller('technologyMatrixController', ['$scope', '$mdToast', '$state', '$window', 'CompetitionMatrixServices', 'AppServices' ,'EmployeeServices', 'ManagerServices', function($scope,$mdToast,$state, $window, CompetitionMatrixServices, AppServices, EmployeeServices, ManagerServices){
 
 	//Here it will be stored all the information for people
 	$scope.people= {};
@@ -67,7 +67,7 @@ competitionMatricesModule.controller('technologyMatrixController', ['$scope', '$
 
 	//Add new documents to the people-categories collection
 	$scope.addToMongo = function(){
-		
+		var success = true;
 		$scope.ShowButton = false;
 
 		var month = moment().month($scope.date.month);
@@ -81,17 +81,31 @@ competitionMatricesModule.controller('technologyMatrixController', ['$scope', '$
 			$scope.peopleCategories[i].table = $scope.categories[i].table;
 			
 			CompetitionMatrixServices.AddToMongo($scope.peopleCategories[i]).then(function(data){
-				$scope.success = true;
-				$scope.peopleCategories = {};
+				if(data.error){
+					success = false;
+				}
 			});
 		}
+		if(success){
+			$scope.peopleCategories = {};
+			$mdToast.show(
+				$mdToast.simple()
+				.content('Data has been added successfully')
+				.action('x')
+				.highlightAction(false)
+				.hideDelay(3000)
+				.position("top right")
+				.theme('success-toast')
+			);
+		}
+
 		//$state.go('app.technologymatrix','',{reload: true});
 		
 	}
 
 	//Update the documents in people catagories with the new data
 	$scope.updateToMongo = function(){
-		
+		var success = true;
 		var month = moment().month($scope.date.month);
 		var params = {};
 		params.date = moment({y: $scope.date.year, M: month.month(), d: 15 }).toISOString();
@@ -101,10 +115,23 @@ competitionMatricesModule.controller('technologyMatrixController', ['$scope', '$
 			//Update all the categories of the person selected by sending the most recent information 
 			//stored in $scope.peopleCategories
 			CompetitionMatrixServices.UpdateToMongo($scope.peopleCategories[i]).then(function(data){
-				$scope.success = true;
-				$scope.peopleCategories = {};
+				if(data.error){
+					success = false;
+				}
 
 			});
+		}
+		if(success){
+			$scope.peopleCategories = {};
+			$mdToast.show(
+				$mdToast.simple()
+				.content('Data updated successfully')
+				.action('x')
+				.highlightAction(false)
+				.hideDelay(3000)
+				.position("top right")
+				.theme('success-toast')
+			);
 		}
 		$scope.ShowButton = false;	
 		//$state.go('app.technologymatrix','',{reload: true});

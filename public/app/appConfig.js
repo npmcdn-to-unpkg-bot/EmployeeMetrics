@@ -2,8 +2,15 @@
 	var myApp = angular.module('myApp');
 
 
-	myApp.config(function($stateProvider, $urlRouterProvider, $httpProvider){
+	myApp.config(function($stateProvider, $urlRouterProvider, $httpProvider,$mdThemingProvider){
 		
+		$mdThemingProvider.theme('default')
+    		.primaryPalette('blue')
+    		.accentPalette('green');
+
+    	$mdThemingProvider.theme("success-toast");
+    	$mdThemingProvider.theme("error-toast")
+
 		$urlRouterProvider.when('', 'login');
 		$stateProvider
 

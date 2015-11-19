@@ -112,7 +112,7 @@ module.exports = function(app, passport){
 	app.route('/logout')
 		.post(loggedIn, function(req,res){
 			req.logout();
-			res.send(200);
+			res.sendStatus(200);
 		})
 
 }

@@ -538,16 +538,18 @@ var addEmployeeToManager = function(req,res){
 		//if an error is or not saves a different response and sends it to the client
 			if (err){
 				response = {'error': true, 'message' : 'Something really bad happened'};
+					res.send(response);
 			}else
 			{
-				response = {'error': false, 'message' : 'Data added'};
+				response = {'error': false, 'message' : 'Changes has been saved'};
+					res.send(response);
 			}
 		});
 	}else{
-		response = {'error': true, 'message' : 'the employee cannot be its own manager'};
+		response = {'error': true, 'message' : 'It is not possible to add an employee as its own manager'};
 		
+		res.send(response);
 	}
-	res.send(response);
 
 }
 
@@ -690,17 +692,17 @@ var changePassword = function(req,res){
 				
 				Employee.update({'_id' : user.id},{$set:{password : passconfig.encrypt(db.newPassword,key)}}, function(err, data){
 					if(err){
-						response = {'error': true,'message': 'no user found'};
+						response = {'error': true,'message': 'Check if the passwords you entered are correct'};
 						res.json(response);
 					}else{
-						response = {'error': false,'message': 'Password changed'};
+						response = {'error': false,'message': 'Password changed successfully'};
 						res.json(response);
 				
 					}
 				});
 				
 			}else{
-				response = {'error' : true, 'message': 'old password not match'};	
+				response = {'error' : true, 'message': 'Check if the passwords you entered are correct'};	
 				res.json(response);
 			}
 		}

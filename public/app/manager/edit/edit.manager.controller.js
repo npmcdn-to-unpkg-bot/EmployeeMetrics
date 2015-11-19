@@ -1,7 +1,7 @@
 'use strict'
 var managerModule = angular.module('managerModule');
 
-managerModule.controller('editManagerController', ['$scope', '$rootScope', '$state', 'ManagerServices', 'EmployeeServices','AppServices', function($scope, $rootScope, $state ,ManagerServices, EmployeeServices,AppServices){
+managerModule.controller('editManagerController', ['$scope', '$mdToast', '$state', 'ManagerServices', 'EmployeeServices','AppServices', function($scope, $mdToast, $state ,ManagerServices, EmployeeServices,AppServices){
 	
 	$scope.managerEmployee = {};
 	$scope.manager ={};
@@ -67,6 +67,15 @@ managerModule.controller('editManagerController', ['$scope', '$rootScope', '$sta
 		params.employeeId = employeeId;
 		params.managerId = $state.params.id;
 		ManagerServices.SetToInactive(params).then(function(response){
+			$mdToast.show(
+				$mdToast.simple()
+				.content('Employee is no longer under ' + $scope.manager.firstname + " " + $scope.manager.lastname)
+				.action('x')
+				.highlightAction(false)
+				.hideDelay(3000)
+				.position("top right")
+				.theme('success-toast')
+			);
 			$state.go('app.manager-edit',{params: $state.params.id}, {	reload: true });
 		});
 	}

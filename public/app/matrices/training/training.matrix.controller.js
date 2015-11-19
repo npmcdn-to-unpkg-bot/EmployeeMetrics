@@ -3,7 +3,7 @@ var competitionMatricesModule = angular.module('competitionMatrices');
 
 
 //Creates the controllero for getMongo controller
-competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$rootScope', '$state', '$window', 'CompetitionMatrixServices', 'AppServices' ,'EmployeeServices', 'ManagerServices', function($scope,$rootScope,$state, $window, CompetitionMatrixServices, AppServices, EmployeeServices, ManagerServices){
+competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$mdToast', '$state', '$window', 'CompetitionMatrixServices', 'AppServices' ,'EmployeeServices', 'ManagerServices', function($scope,$mdToast,$state, $window, CompetitionMatrixServices, AppServices, EmployeeServices, ManagerServices){
 
 	//Here it will be stored all the information for people
 	$scope.people= {};
@@ -24,6 +24,7 @@ competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$ro
 	$scope.select.year = [];
 	$scope.select.month = ['January', 'February', 'March', 'April', 'May', 'Jun', 'July', 'August', 'September', 'October', 'November', 'December'];
 
+	$scope.success = false;
 	//depending on the person selected it will show all the categories that person has been graded
 	$scope.getPeopleCategories = function(params){
 		
@@ -66,7 +67,7 @@ competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$ro
 
 	//Add new documents to the people-categories collection
 	$scope.addToMongo = function(){
-		
+		var success = true;
 		$scope.ShowButton = false;
 		
 		var month = moment().month($scope.date.month);
@@ -80,15 +81,30 @@ competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$ro
 			$scope.peopleCategories[i].table = $scope.categories[i].table;
 			
 			CompetitionMatrixServices.AddToMongo($scope.peopleCategories[i]).then(function(data){
-				
+				if(data.error){
+					success = false
+				}
 			});
 		}
-		$state.go('app.training','',{reload: true});
+		if(success){
+			$scope.peopleCategories = {};
+			$mdToast.show(
+				$mdToast.simple()
+				.content('Data has been added successfully')
+				.action('x')
+				.highlightAction(false)
+				.hideDelay(3000)
+				.position("top right")
+				.theme('success-toast')
+			);
+		}
+
+		$state.go('app.training');
 	}
 
 	//Update the documents in people catagories with the new data
 	$scope.updateToMongo = function(){
-		
+		var success = true;
 		var month = moment().month($scope.date.month);
 		var params = {};
 		params.date = moment({y: $scope.date.year, M: month.month(), d: 15 }).toISOString();
@@ -99,12 +115,27 @@ competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$ro
 			//stored in $scope.peopleCategories
 			
 			CompetitionMatrixServices.UpdateToMongo($scope.peopleCategories[i]).then(function(data){
-				
+				if(data.error){
+					success = false
+				}
 
 			});
 		}
+
+		if(success){
+			$scope.peopleCategories = {};
+			$mdToast.show(
+				$mdToast.simple()
+				.content('Data updated successfully')
+				.action('x')
+				.highlightAction(false)
+				.hideDelay(3000)
+				.position("top right")
+				.theme('success-toast')
+			);
+		}
 		$scope.ShowButton = false;
-		$state.go('app.training','',{reload: true});	
+		$state.go('app.training');	
 	};
 
 	function findPerson(employeesFromManager,i){
@@ -188,6 +219,10 @@ competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$ro
 			if(id == $scope.categories[i]._id)
 				return $scope.categories[i].name;
 		}
+	}
+
+	$scope.setFalse=function(){
+		$scope.success = false;
 	}
 }]);
 

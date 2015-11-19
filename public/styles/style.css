@@ -19,3 +19,15 @@ div canvas {
 	height: 370px;
 	width: 370px;
 }
+
+md-toast.md-success-toast-theme {
+    margin-top: 5%;
+    background-color: #568203;
+    
+}
+
+md-toast.md-error-toast-theme {
+    margin-top: 5%;
+    background-color: #C40233;
+    
+}

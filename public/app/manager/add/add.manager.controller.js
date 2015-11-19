@@ -1,7 +1,7 @@
 'use strict'
 var managerModule = angular.module('managerModule');
 
-managerModule.controller('addManagerController', ['$scope', '$rootScope', '$state', 'ManagerServices', 'EmployeeServices','AppServices', function($scope, $rootScope, $state ,ManagerServices, EmployeeServices, AppServices){
+managerModule.controller('addManagerController', ['$scope', '$mdToast', '$state', 'ManagerServices', 'EmployeeServices','AppServices', function($scope, $mdToast, $state ,ManagerServices, EmployeeServices, AppServices){
 	
 	$scope.employees = {};
 	$scope.employeeSelected = {};
@@ -33,6 +33,23 @@ managerModule.controller('addManagerController', ['$scope', '$rootScope', '$stat
 		};
 
 		ManagerServices.AddEmployeeToManager(addData).then(function(response){
+			var themeString = "";
+			if(response.error){
+				themeString = 'error-toast';
+			}
+			else{
+				themeString = 'success-toast';
+			}
+			
+			$mdToast.show(
+				$mdToast.simple()
+				.content(response.message)
+				.action('x')
+				.highlightAction(false)
+				.hideDelay(5000)
+				.position("top right")
+				.theme(themeString)
+			);
 			$state.go('app.manager-edit',{params: $state.params.id}, {	reload: true });
 		});
 	}
