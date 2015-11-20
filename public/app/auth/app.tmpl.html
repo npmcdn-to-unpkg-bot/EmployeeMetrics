@@ -1,48 +1,59 @@
 <nav class="navbar navbar-default" ng-init='initialize()'>
-<div class='collapse navbar-collapse'>
-	<ul class = 'nav navbar-nav'>
-		<li >
-			<a ui-sref = 'app.dashboard'>Home</a>
-		</li>
+	<div class = 'container-fluid'>
+		<!--Mobile Navbar-->
+		<div class="navbar-header">
+	    	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+	      	</button>
+	     	<a class="navbar-brand" ui-sref='app.dashboard'>Home</a>
+	    </div>
+		<div class='collapse navbar-collapse'>
+			<ul class = 'nav navbar-nav'>
+				<li >
+					<a ui-sref = 'app.dashboard'>Home</a>
+				</li>
 
-		<li>
-			<a ui-sref = 'app.training' ng-hide = 'admin'>Training Matrix</a>
-		</li>
-		<li>
-			<a ui-sref = 'app.technologymatrix' ng-hide = 'admin'>Technology Matrix</a>
-		</li>
-		<li>
-			<a ui-sref = 'app.continuous-evaluation' ng-hide = 'admin'>Continuous Evaluation</a>
-		</li>
-		<li>
-			<a ui-sref = 'app.employee' ng-show='admin'>System Data</a>
-		</li>
-		<li>
-			<a ui-sref = 'app.manager' ng-show='admin'>Assign Manager</a>
-		</li>
-	</ul>
-	<ul class = 'nav navbar-nav pull-right'>
-		<li class='dropdown'>
-		<a id = 'dLabel' href = '#' data-toggle='dropdown' class='dropdown-toggle pull-right' >{{personLoged.firstname + ' ' + personLoged.lastname }}	<span class="caret"></span></a>
-		
-			 
-		<ul class="dropdown-menu" >
-			<li>
-				<a ui-sref='app.password'>Change Password</a>
-			</li>
-			<li>
-				<a ui-sref='logout'>Log out</a>
-			</li>
+				<li>
+					<a ui-sref = 'app.training' ng-hide = 'admin'>Training Matrix</a>
+				</li>
+				<li>
+					<a ui-sref = 'app.technologymatrix' ng-hide = 'admin'>Technology Matrix</a>
+				</li>
+				<li>
+					<a ui-sref = 'app.continuous-evaluation' ng-hide = 'admin'>Continuous Evaluation</a>
+				</li>
+				<li>
+					<a ui-sref = 'app.employee' ng-show='admin'>System Data</a>
+				</li>
+				<li>
+					<a ui-sref = 'app.manager' ng-show='admin'>Assign Manager</a>
+				</li>
+			</ul>
+			<ul class = 'nav navbar-nav pull-right'>
+				<li class='dropdown'>
+				<a id = 'dLabel' href = '#' data-toggle='dropdown' class='dropdown-toggle pull-right' >{{personLoged.firstname + ' ' + personLoged.lastname }}	<span class="caret"></span></a>
+				
+					 
+				<ul class="dropdown-menu" >
+					<li>
+						<a ui-sref='app.password'>Change Password</a>
+					</li>
+					<li>
+						<a ui-sref='logout'>Log out</a>
+					</li>
+					
+					
+				</ul>
 			
-			
-		</ul>
-	
-	</ul>
-</div>
+			</ul>
+		</div>
+	</div>
 </nav>
 
-<div ui-view></div>
-
+	<div ui-view></div>
 
 <!--
 navbar-nav
