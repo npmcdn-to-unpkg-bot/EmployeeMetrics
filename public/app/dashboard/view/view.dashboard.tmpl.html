@@ -1,72 +1,84 @@
 <div class = 'container' ng-controller = 'viewDashboardController'>
 	<div ng-init='initialize()'>
-
-		<h1>Dashboard</h1>
-		<h3>Welcome {{employee.firstname+' ' + employee.lastname}}</h3>
-		<!--<div class = 'col-md-3 control-group'>
-			<label for = 'date'>Choose month</label>
-			<input class = 'form-control' type = 'date' name = 'date' ng-model='params.date'></input>
-		</div>-->
-		<div ng-hide='isAdmin'>
-			<form class = 'form form-vertical' >
-				<div ng-if='isManager' class = 'form-group'>
-					<label class = 'col-md-2' for = 'users'>Choose person to see</label>
-					<div class='col-md-2'>
-					<select ng-model ='personSelected._id' name = 'user' ng-change='personChange(personSelected._id)' class = 'col-md-3 form-control'>
-						<option ng-repeat="person in people" value='{{person._id}}'>{{person.firstname + ' ' + person.lastname}}</option>
-					</select>
-				</div>
-				</div>
-
-				<div class = 'form-group col-md-6'>
-					<label class='col-md-4' for = 'date'>Choose month - year</label>
-					<div class='col-md-4'>
-						<select ng-model ='date.month' ng-change='dateChange(personSelected)' class = 'form-control' ng-options='month as month for month in select.month'></select>	
+		<div class = 'col-md-12'>
+			<div class = 'col-md-6'>
+				<h1>Dashboard</h1>
+			</div>
+			<form class = 'form form-inline'>
+				<div class = 'col-md-6 test'>
+					<div class = 'col-md-6 form-group' ng-show='isManager'>
+						<label  for = 'users'>Choose person to see</label>
+						
+						<select ng-model ='personSelected._id' name = 'user' ng-change='personChange(personSelected._id)' class = 'form-control'>
+							<option ng-repeat="person in people" value='{{person._id}}'>{{person.firstname + ' ' + person.lastname}}</option>
+						</select>
+						
 					</div>
-					
-					<div class='col-md-3'>
+					<div class = 'col-md-6 form-group '>
+						<label  for = 'date'>Choose month - year</label>
+						<select ng-model ='date.month' ng-change='dateChange(personSelected)' class = 'form-control' ng-options='month as month for month in select.month'></select>	
 						<select ng-model ='date.year' ng-change='dateChange(personSelected)' class = 'form-control' ng-options = 'year as year for year in select.year'></select>	
 					</div>
-					
 				</div>
-
+			</form>
+		</div>
+		
+		
+		<div class = 'col-md-12' ng-hide='isAdmin'>
 			</form>
 			<div class='col-md-12'>
 				<h4>Manager Results</h4>
-				<div class = 'col-md-4'>
-				<center>
-					<h4>Technology Matrix</h4>
-					<canvas id="technologyManagerChart" ng-disabled='emptyManagerTechChart'></canvas>
-				</center>
+				<div  class = 'col-md-4' >
+					<div align = 'center'>
+						<h4>Technology Matrix</h4>
+						<select ng-model='managerChart.technology' ng-change='' class= 'form-control' ng-options= 'cat as category.name for category in technologyCategory'></select>
+					</div>
+					<canvas id="technologyManagerChart" ></canvas>
 					<div id = 'technologyManagerLegend'></div>
 				</div>
 				<div class = 'col-md-4'>
-					<center><h4>Training Matrix</h4></center>
+					<div align = 'center'>
+						<h4>Training Matrix</h4>
+						<select ng-model='managerChart.training' ng-change='' class= 'form-control' ng-options= 'cat as category.name for category in trainingCategory'></select>
+					</div>
+
 					<canvas id="trainingManagerChart" width="300" height="300"></canvas>
 					<div id = 'trainingManagerLegend'></div>
 				</div>
 				<div class = 'col-md-4'>
-					<center><h4>Continuous Evaluation Matrix</h4></center>
+					<div align = 'center'>
+						<h4>Continuous Evaluation Matrix</h4>
+						<select ng-model='managerChart.continuous' ng-change='' class= 'form-control' ng-options= 'cat as category.name for category in continuousCategory'></select>
+					</div>
 					<canvas id="continuousManagerChart" width="300" height="300"></canvas>
 					<div id = 'continuousManagerLegend'></div>
 				</div>
 			</div>
 			<div class='col-md-12'>
+
 				<h4>User Results</h4>
 				<div class = 'col-md-4'>
-					<center><h4>Technology Matrix</h4></center>
-					
-						<canvas  id="technologyUserChart" width="300" height="300"></canvas>
-						<div id = 'technologyUserLegend'></div>
+					<div align = 'center'>
+						<h4>Technology Matrix</h4>
+						<select ng-model='userChart.technology' ng-change='' class= 'form-control' ng-options= 'cat as category.name for category in technologyCategory'></select>
+					</div>
+					<canvas  id="technologyUserChart" width="300" height="300"></canvas>
+					<div id = 'technologyUserLegend'></div>
 						
 				</div>
 				<div class = 'col-md-4'>
-					<center><h4>Training Matrix</h4></center>
+					<div align = 'center'>
+						<h4>Training Matrix</h4>
+						<select ng-model='userChart.training' ng-change='' class= 'form-control' ng-options= 'cat as category.name for category in trainingCategory'></select>
+					</div>
 					<canvas id="trainingUserChart" width="300" height="300"></canvas>
 					<div id = 'trainingUserLegend'></div>
 				</div>
 				<div class = 'col-md-4'>
-					<center><h4>Continuous Evaluation Matrix</h4></center>
+					<div align = 'center'>
+						<h4>Continuous Evaluation Matrix</h4>
+						<select ng-model='userChart.continuous' ng-change='' class= 'form-control' ng-options= 'cat as category.name for category in continuousCategory'></select>
+					</div>
 					<canvas id="continuousUserChart" width="300" height="300"></canvas>
 					<div id = 'continuousUserLegend'></div>
 				</div>

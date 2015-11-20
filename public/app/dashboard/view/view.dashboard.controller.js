@@ -7,6 +7,9 @@ competitionMatricesModule.controller('viewDashboardController',
 	function($scope, $state, $filter, CompetitionMatrixServices, AppServices, EmployeeServices, ManagerServices, DashboardServices){
 		$scope.employee = {};
 		
+		$scope.userChart = {};
+		$scope.managerChart = {};
+
 		$scope.continuousCategory = {};
 		$scope.trainingCategory = {};
 		$scope.technologyCategory= {};
@@ -14,6 +17,8 @@ competitionMatricesModule.controller('viewDashboardController',
 		$scope.totals.user = [0,0,0];
 		$scope.totals.manager = [0,0,0];
 		$scope.date = {};
+
+
 
 		$scope.select = {};
 		$scope.select.month = ['January', 'February', 'March', 'April', 'May', 'Jun', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -28,7 +33,8 @@ competitionMatricesModule.controller('viewDashboardController',
 		var color = {
 			green 	: ['#66cdaa','#7fffd4','#006400','#556b2f','#8fbc8f','#2e8b57','#3cb371','#20b2aa','#98fb98','#00ff7f'],
 			blue	: ['#191970','#000080','#6495ed','#483d8b','#6a5acd','#7b68ee','#8470ff','#0000cd','#4169e1','#0000ff'],
-			red		: ['#ff69b4','#ff1493','#ffc0cb','#ffb6c1','#db7093','#b03060','#c71585','#d02090','#ee82ee','#dda0dd']
+			red		: ['#ff69b4','#ff1493','#ffc0cb','#ffb6c1','#db7093','#b03060','#c71585','#d02090','#ee82ee','#dda0dd'],
+			mix 	: ['#001f3f','#39CCCC','#2ECC40','#3D9970','#FF851B','#FFDC00','#FF4136','#B10DC9','#111111','#AAAAAA']
 		}
 
 		var options = 
@@ -153,8 +159,8 @@ competitionMatricesModule.controller('viewDashboardController',
 					ManagerMatrixDataSet[0] = {
 							label: 'No Data Available',
 							fillColor: "rgba(0,0,0,1)",
-							strokeColor: color.green[0],
-							pointColor: color.green[0],
+							strokeColor: color.mix[0],
+							pointColor: color.mix[0],
 							pointStrokeColor: "#000",
 							pointHighlightFill: "#000",
 							pointHighlightStroke: "rgba(0,0,0,1)",
@@ -182,8 +188,8 @@ competitionMatricesModule.controller('viewDashboardController',
 						ManagerMatrixDataSet[i] = {
 							label: $scope.continuousCategory[i].name,
 							fillColor: "rgba(220,220,220,0)",
-							strokeColor: color.green[i],
-							pointColor: color.green[i],
+							strokeColor: color.mix[i],
+							pointColor: color.mix[i],
 							pointStrokeColor: "#fff",
 							pointHighlightFill: "#fff",
 							pointHighlightStroke: "rgba(220,220,220,1)",
@@ -224,8 +230,8 @@ competitionMatricesModule.controller('viewDashboardController',
 					ManagerMatrixDataSet[0] = {
 							label: 'No Data Available',
 							fillColor: "rgba(0,0,0,1)",
-							strokeColor: color.green[0],
-							pointColor: color.green[0],
+							strokeColor: color.mix[0],
+							pointColor: color.mix[0],
 							pointStrokeColor: "#000",
 							pointHighlightFill: "#000",
 							pointHighlightStroke: "rgba(0,0,0,1)",
@@ -252,8 +258,8 @@ competitionMatricesModule.controller('viewDashboardController',
 						UserMatrixDataSet[i] = {
 							label: $scope.continuousCategory[i].name,
 							fillColor: "rgba(220,220,220,0)",
-							strokeColor: color.green[i],
-							pointColor: color.green[i],
+							strokeColor: color.mix[i],
+							pointColor: color.mix[i],
 							pointStrokeColor: "#fff",
 							pointHighlightFill: "#fff",
 							pointHighlightStroke: "rgba(220,220,220,1)",
@@ -313,8 +319,8 @@ competitionMatricesModule.controller('viewDashboardController',
 					ManagerMatrixDataSet[0] = {
 							label: 'No Data Available',
 							fillColor: "rgba(0,0,0,1)",
-							strokeColor: color.red[0],
-							pointColor: color.red[0],
+							strokeColor: color.mix[0],
+							pointColor: color.mix[0],
 							pointStrokeColor: "#000",
 							pointHighlightFill: "#000",
 							pointHighlightStroke: "rgba(0,0,0,1)",
@@ -340,8 +346,8 @@ competitionMatricesModule.controller('viewDashboardController',
 						ManagerMatrixDataSet[i] = {
 							label: $scope.trainingCategory[i].name,
 							fillColor: "rgba(220,220,220,0)",
-							strokeColor: color.red[i],
-							pointColor: color.red[i],
+							strokeColor: color.mix[i],
+							pointColor: color.mix[i],
 							pointStrokeColor: "#fff",
 							pointHighlightFill: "#fff",
 							pointHighlightStroke: "rgba(220,220,220,1)",
@@ -379,8 +385,8 @@ competitionMatricesModule.controller('viewDashboardController',
 						ManagerMatrixDataSet[0] = {
 								label: 'No Data Available',
 								fillColor: "rgba(0,0,0,1)",
-								strokeColor: color.red[0],
-								pointColor: color.red[0],
+								strokeColor: color.mix[0],
+								pointColor: color.mix[0],
 								pointStrokeColor: "#000",
 								pointHighlightFill: "#000",
 								pointHighlightStroke: "rgba(0,0,0,1)",
@@ -407,8 +413,8 @@ competitionMatricesModule.controller('viewDashboardController',
 							UserMatrixDataSet[i] = {
 								label: $scope.trainingCategory[i].name,
 								fillColor: "rgba(220,220,220,0)",
-								strokeColor: color.red[i],
-								pointColor: color.red[i],
+								strokeColor: color.mix[i],
+								pointColor: color.mix[i],
 								pointStrokeColor: "#fff",
 								pointHighlightFill: "#fff",
 								pointHighlightStroke: "rgba(220,220,220,1)",
@@ -442,7 +448,7 @@ competitionMatricesModule.controller('viewDashboardController',
 
 	function getTechnologyEvaluationChart(id){
 		var params = {};
-		params.table = 1;
+		params.table = 0;
 		CompetitionMatrixServices.GetMatrix(params).then(function(response){
 			
 			$scope.technologyCategory = response;
@@ -474,8 +480,8 @@ competitionMatricesModule.controller('viewDashboardController',
 					ManagerMatrixDataSet[0] = {
 							label: 'No Data Available',
 							fillColor: "rgba(0,0,0,1)",
-							strokeColor: color.blue[0],
-							pointColor: color.blue[0],
+							strokeColor: color.mix[0],
+							pointColor: color.mix[0],
 							pointStrokeColor: "#000",
 							pointHighlightFill: "#000",
 							pointHighlightStroke: "rgba(0,0,0,1)",
@@ -501,8 +507,8 @@ competitionMatricesModule.controller('viewDashboardController',
 						ManagerMatrixDataSet[i] = {
 							label: $scope.technologyCategory[i].name,
 							fillColor: "rgba(220,220,220,0)",
-							strokeColor: color.blue[i],
-							pointColor: color.blue[i],
+							strokeColor: color.mix[i],
+							pointColor: color.mix[i],
 							pointStrokeColor: "#fff",
 							pointHighlightFill: "#fff",
 							pointHighlightStroke: "rgba(220,220,220,1)",
@@ -545,8 +551,8 @@ competitionMatricesModule.controller('viewDashboardController',
 					ManagerMatrixDataSet[0] = {
 							label: 'No Data Available',
 							fillColor: "rgba(0,0,0,1)",
-							strokeColor: color.blue[0],
-							pointColor: color.blue[0],
+							strokeColor: color.mix[0],
+							pointColor: color.mix[0],
 							pointStrokeColor: "#000",
 							pointHighlightFill: "#000",
 							pointHighlightStroke: "rgba(0,0,0,1)",
@@ -574,8 +580,8 @@ competitionMatricesModule.controller('viewDashboardController',
 						UserMatrixDataSet[i] = {
 							label: $scope.technologyCategory[i].name,
 							fillColor: "rgba(220,220,220,0)",
-							strokeColor: color.blue[i],
-							pointColor: color.blue[i],
+							strokeColor: color.mix[i],
+							pointColor: color.mix[i],
 							pointStrokeColor: "#fff",
 							pointHighlightFill: "#fff",
 							pointHighlightStroke: "rgba(220,220,220,1)",

@@ -16,8 +16,11 @@
 }
 
 div canvas {
-	height: 370px;
-	width: 370px;
+    margin-left: -15%;
+    padding: auto;
+
+	height: 300px;
+	width: 300px;
 }
 
 md-toast.md-success-toast-theme {
@@ -30,4 +33,17 @@ md-toast.md-error-toast-theme {
     margin-top: 5%;
     background-color: #C40233;
     
+}
+
+.test div {
+    float: right;
+}
+
+
+.centered{   
+    display: inline-block;
+    width: auto;
+    height: 100%;
+    margin: auto;
+    text-align: center;
 }

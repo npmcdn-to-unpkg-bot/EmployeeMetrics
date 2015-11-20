@@ -236,10 +236,50 @@
 	"buffers":
 	[
 		{
-			"file": "public/app/employees/view/view.employee.controller.js",
+			"file": "public/app/auth/app.tmpl.html",
 			"settings":
 			{
-				"buffer_size": 1553,
+				"buffer_size": 1720,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/app/matrices/continuousevaluation/continuousevaluation.matrix.tmpl.html",
+			"settings":
+			{
+				"buffer_size": 3025,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/app/dashboard/view/view.dashboard.tmpl.html",
+			"settings":
+			{
+				"buffer_size": 4619,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/app/matrices/technology/technology.matrix.tmpl.html",
+			"settings":
+			{
+				"buffer_size": 3417,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/app/matrices/training/training.matrix.tmpl.html",
+			"settings":
+			{
+				"buffer_size": 3436,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/styles/style.css",
+			"settings":
+			{
+				"buffer_size": 685,
 				"line_ending": "Windows"
 			}
 		}
@@ -268,31 +308,37 @@
 	},
 	"file_history":
 	[
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/styles/style.css",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/training/training.matrix.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/competitionMatricesModule.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/training/training.matrix.controller.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/competitionMatricesConfig.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/technology/technology.matrix.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/technology/technology.matrix.controller.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/continuousevaluation/continuousevaluation.matrix.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/login/auth.login.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/view/view.dashboard.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/view/view.dashboard.controller.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/login/auth.login.controller.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/app.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/routesApi.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/training/training.matrix.controller.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/technology/technology.matrix.controller.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/continuousevaluation/continuousevaluation.matrix.controller.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/appConfig.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/create/create.employee.controller.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/appModule.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/index.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/employeeConfig.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/view/view.employee.controller.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/create/create.employee.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/changepassword/auth.changepassword.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/changepassword/auth.changepassword.controller.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/database/models.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/view/view.manager.controller.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/edit/edit.manager.controller.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/add/add.manager.controller.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/update/update.employee.controller.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/changepassword/auth.changepassword.controller.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/create/create.employee.controller.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/logout/auth.logout.controller.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/view/view.employee.controller.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/database/models.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/view/view.employee.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/styles/style.css",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/training/training.matrix.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/competitionMatricesModule.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/competitionMatricesConfig.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/technology/technology.matrix.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/continuousevaluation/continuousevaluation.matrix.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/login/auth.login.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/appConfig.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/appModule.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/index.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/employeeConfig.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/create/create.employee.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/changepassword/auth.changepassword.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/view/view.manager.controller.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/styles/bootstrap.min.css",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/libraries/bootstrap.min.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/database/dbcalls.js",
@@ -301,14 +347,10 @@
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/employeeServices.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/managerServices.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/appServices.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/routesApi.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/view/view.dashboard.controller.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/managerConfig.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/view/view.manager.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/employeeModule.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/logout/auth.logout.controller.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/app.controller.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/app.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/add/add.manager.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/edit/edit.manager.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/config/passconfig.js",
@@ -322,7 +364,6 @@
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/conf/dbconf.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/update/update.employee.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/dashboardModule.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/view/view.dashboard.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/jasmineTest/server.js",
 		"/C/cygwin/home/Carlos.Danna/jasmineTest/spec/spec.js",
 		"/C/cygwin/home/Carlos.Danna/jasmineTest/spec/support/jasmine.json",
@@ -335,7 +376,6 @@
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/dashboardConfig.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/dashboardServices",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/dashboardModule",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/view/view.employee.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/editmanager/edit.manager.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/editmanager/edit.manager.controller.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/libraries/angular.min.js",
@@ -410,6 +450,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"blue",
+			"red",
+			"manager",
 			"console",
 			"change",
 			"categories",
@@ -534,10 +577,7 @@
 			"2",
 			"mongoOp",
 			">\n",
-			"console",
-			"console.log",
-			"console.log(date);",
-			");\n"
+			"console"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -558,29 +598,165 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "public/app/employees/view/view.employee.controller.js",
+					"file": "public/app/auth/app.tmpl.html",
 					"settings":
 					{
-						"buffer_size": 1553,
+						"buffer_size": 1720,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								83,
+								83
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"syntax": "Packages/AngularJS/AngularJS.tmLanguage",
 							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "public/app/matrices/continuousevaluation/continuousevaluation.matrix.tmpl.html",
+					"settings":
+					{
+						"buffer_size": 3025,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								585,
+								585
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/AngularJS/AngularJS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "public/app/dashboard/view/view.dashboard.tmpl.html",
+					"settings":
+					{
+						"buffer_size": 4619,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1250,
+								1250
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/AngularJS/AngularJS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "public/app/matrices/technology/technology.matrix.tmpl.html",
+					"settings":
+					{
+						"buffer_size": 3417,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								71,
+								71
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/AngularJS/AngularJS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "public/app/matrices/training/training.matrix.tmpl.html",
+					"settings":
+					{
+						"buffer_size": 3436,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								577,
+								577
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/AngularJS/AngularJS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 195.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "public/styles/style.css",
+					"settings":
+					{
+						"buffer_size": 685,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								537,
+								540
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
