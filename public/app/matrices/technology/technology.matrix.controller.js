@@ -52,9 +52,10 @@ competitionMatricesModule.controller('technologyMatrixController', ['$scope', '$
 			}else{
 				//gets all the information for that person
 				$scope.ShowButton = false;
+					
 				$scope.peopleCategories = data;
-				
-				for (var i = 0; i < $scope.categories.length; i++){
+
+				for (var i = 0; i < $scope.peopleCategories.length; i++){
 					
 					$scope.resultChanged(i);
 

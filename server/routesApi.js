@@ -43,6 +43,16 @@ module.exports = function(app, passport){
 			dbCalls.findCategories(req,res);
 		});
 
+	app.route('/category')
+		.get(loggedIn, function(req,res){
+			dbCalls.findCategory(req,res);
+		})
+		.post(loggedIn, function(req,res){
+			dbCalls.createCategory(req,res);
+		})
+		.put(loggedIn, function(req,res){
+			dbCalls.updateCategory(req,res);
+		});
 
 	app.route('/matrix')
 		.get(loggedIn,function(req,res){

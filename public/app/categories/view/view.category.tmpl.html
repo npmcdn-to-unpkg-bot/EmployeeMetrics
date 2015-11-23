@@ -1,0 +1,33 @@
+<div ng-controller="viewCategoryController" ng-init="initialize()">
+	
+	<div class = 'container'>
+		<div ui-view></div>
+
+		
+		<div class = 'row'>
+			<div class = 'col-md-offset-10 col-md-2'>
+				<a ui-sref = 'app.category.create' class='btn btn-primary' ng-hide = 'showCreateForm' ng-click='showCreate()'>Add New Category</a>	
+			</div>
+		</div>
+	
+		<div class = 'col-md-12'>
+		<table class='table table-striped'>
+			<thead>
+				<th>Name</th>
+				<th>Table</th>
+				<th>Active</th>
+			</thead>
+				<tr  ng-click = "updateCategory(category)" ng-repeat='category in categories'>
+					<td>{{category.name}}</td>
+					<td>{{category.table}}</td>
+					<td>{{category.active}}</td>
+				</tr>
+
+		</table>
+	</div>
+	
+		
+	</div>
+
+
+</div>

@@ -25,6 +25,8 @@ competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$md
 	$scope.select.month = ['January', 'February', 'March', 'April', 'May', 'Jun', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 	$scope.success = false;
+
+
 	//depending on the person selected it will show all the categories that person has been graded
 	$scope.getPeopleCategories = function(params){
 		
@@ -55,7 +57,7 @@ competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$md
 				$scope.ShowButton = false;
 				$scope.peopleCategories = data;
 				
-				for (var i = 0; i < $scope.categories.length; i++){
+				for (var i = 0; i < $scope.peopleCategories.length; i++){
 					
 					$scope.resultChanged(i);
 						

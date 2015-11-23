@@ -13,11 +13,13 @@ competitionMatricesModule.controller('viewDashboardController',
 		$scope.continuousCategory = {};
 		$scope.trainingCategory = {};
 		$scope.technologyCategory= {};
+		
 		$scope.totals = {};
 		$scope.totals.user = [0,0,0];
 		$scope.totals.manager = [0,0,0];
-		$scope.date = {};
+		
 
+		$scope.date = {};
 
 
 		$scope.select = {};
@@ -29,6 +31,22 @@ competitionMatricesModule.controller('viewDashboardController',
 
 		$scope.people = {};
 		$scope.personSelected = {};
+
+		$scope.matrix = {};
+
+		var matrices = [{
+			'id': 0,
+			'name' : 'technology'
+		},
+		{
+			'id': 1,
+			'name' : 'training'
+		},
+		{
+			'id': 2,
+			'name' : 'continuous'
+		}
+		];
 
 		var color = {
 			green 	: ['#66cdaa','#7fffd4','#006400','#556b2f','#8fbc8f','#2e8b57','#3cb371','#20b2aa','#98fb98','#00ff7f'],
@@ -82,10 +100,10 @@ competitionMatricesModule.controller('viewDashboardController',
 							$scope.isAdmin	= false;
 
 							//Chart for continuous evaluation
-							
-							getContinuousEvaluationChart();
-							getTrainingEvaluationChart();
-							getTechnologyEvaluationChart();
+							getCharts()
+							//getContinuousEvaluationChart();
+							//getTrainingEvaluationChart();
+							//getTechnologyEvaluationChart();
 							break;
 						
 						case 1: 
@@ -128,10 +146,193 @@ competitionMatricesModule.controller('viewDashboardController',
 
 
 			
-			//Charts Options
-			
+			//Charts Options		
 		}
 		
+
+
+	function AuxFunction(id, j){
+		var params = {};
+		params.table = j;
+		console.log(j);
+		CompetitionMatrixServices.GetMatrix(params).then(function(response){
+				$scope.matrix[j] = {};
+				$scope.matrix[j].table = {};
+				$scope.matrix[j].table = response;
+				
+				var ManagerMatrixDataSet = [];
+				var UserMatrixDataSet = [];
+				var params = {};
+
+				var month = moment().month($scope.date.month);
+				params.date = moment({y: $scope.date.year, M: month.month() }).toISOString();
+				
+				if (id){
+					params._id = id;
+				}
+				
+				params.table = $scope.matrix[j].table[0].table;
+				
+				//Gets information for manager Dashboard
+				DashboardServices.GetManagerDashboard(params).then(function(employeeCategories){
+					
+					var myLineChart = null;
+					var tableIndex = response[0].table;	
+					if (employeeCategories.length == 0){
+						//add in case of there is no data
+											
+						ManagerMatrixDataSet[0] = {
+								label: 'No Data Available',
+								fillColor: "rgba(0,0,0,1)",
+								strokeColor: color.mix[0],
+								pointColor: color.mix[0],
+								pointStrokeColor: "#000",
+								pointHighlightFill: "#000",
+								pointHighlightStroke: "rgba(0,0,0,1)",
+								scaleStepWidth : 3,
+								scaleStartValue : 1,
+								data: [1,1,1,1]
+							}
+
+						var data = {
+
+							labels: ["JS Frameworks (Angular/Backbone)", "Databases (Mongo / SQL Server)", "Core javascript / jquery", "HTML5.0 / CSS3.0"],
+			    			datasets: ManagerMatrixDataSet
+						};
+
+						var chartName = matrices[tableIndex].name + 'ManagerChart';
+						var legendName = matrices[tableIndex].name+'ManagerLegend';
+
+						var ctx = document.getElementById(chartName).getContext("2d");
+						myLineChart = new Chart(ctx).Line(data, options);
+						document.getElementById(legendName).innerHTML = '<h4>'+myLineChart.generateLegend()+ '</h4>';
+						$scope.totals.manager[tableIndex] = 0;
+					}else{
+
+						var total;
+						$scope.totals.manager[tableIndex] = 0;
+						for (var i=0; i< employeeCategories.length;i++){
+							ManagerMatrixDataSet[i] = {
+								label: $scope.matrix[j].table[i].name,
+								fillColor: "rgba(220,220,220,0)",
+								strokeColor: color.mix[i],
+								pointColor: color.mix[i],
+								pointStrokeColor: "#fff",
+								pointHighlightFill: "#fff",
+								pointHighlightStroke: "rgba(220,220,220,1)",
+								scaleStepWidth : 3,
+								scaleStartValue : 1,
+								data: employeeCategories[i].Results
+							}
+							
+							$scope.totals.manager[tableIndex] += parseInt(employeeCategories[i].Results[0]) + 
+									parseInt(employeeCategories[i].Results[1]) +
+									parseInt(employeeCategories[i].Results[2]) +
+									parseInt(employeeCategories[i].Results[3]);
+						}
+						
+
+						var data = {
+
+							labels: ["JS Frameworks (Angular/Backbone)", "Databases (Mongo / SQL Server)", "Core javascript / jquery", "HTML5.0 / CSS3.0"],
+			    			datasets: ManagerMatrixDataSet
+			
+						}
+
+						var chartName = matrices[tableIndex].name + 'ManagerChart';
+						var legendName = matrices[tableIndex].name+'ManagerLegend';
+
+						var ctx = document.getElementById(chartName).getContext("2d");
+						var myLineChart = new Chart(ctx).Line(data, options);
+						document.getElementById(legendName).innerHTML = myLineChart.generateLegend();
+						
+					}
+				});
+
+
+				///Gets information for user Chart
+				DashboardServices.GetUserDashboard(params).then(function(employeeCategories){
+					var myLineChart = null;
+					var tableIndex = response[0].table;					
+					if (employeeCategories.length==0){
+						//add in case of there is no data
+						ManagerMatrixDataSet[0] = {
+								label: 'No Data Available',
+								fillColor: "rgba(0,0,0,1)",
+								strokeColor: color.mix[0],
+								pointColor: color.mix[0],
+								pointStrokeColor: "#000",
+								pointHighlightFill: "#000",
+								pointHighlightStroke: "rgba(0,0,0,1)",
+								scaleStepWidth : 3,
+								scaleStartValue : 1,
+								data: [1,1,1,1]
+							}
+
+						var data = {
+
+							labels: ["JS Frameworks (Angular/Backbone)", "Databases (Mongo / SQL Server)", "Core javascript / jquery", "HTML5.0 / CSS3.0"],
+			    			datasets: ManagerMatrixDataSet
+						};
+
+						var chartName = matrices[tableIndex].name + 'UserChart';
+						var legendName = matrices[tableIndex].name+'UserLegend';
+
+						var ctx = document.getElementById(chartName).getContext("2d");
+						myLineChart = new Chart(ctx).Line(data, options);
+						document.getElementById(legendName).innerHTML = '<h4>'+myLineChart.generateLegend()+ '</h4>';
+						$scope.totals.user[tableIndex] = 0;
+						
+					}else{
+						$scope.totals.user[tableIndex] = 0;
+						var total;
+						for (var i=0; i< employeeCategories.length;i++){
+							UserMatrixDataSet[i] = {
+								label: $scope.matrix[j].table[i].name,
+								fillColor: "rgba(220,220,220,0)",
+								strokeColor: color.mix[i],
+								pointColor: color.mix[i],
+								pointStrokeColor: "#fff",
+								pointHighlightFill: "#fff",
+								pointHighlightStroke: "rgba(220,220,220,1)",
+								scaleStepWidth : 3,
+								scaleStartValue : 1,
+								data: employeeCategories[i].Results
+							}
+								
+							$scope.totals.user[tableIndex] += parseInt(employeeCategories[i].Results[0]) + 
+									parseInt(employeeCategories[i].Results[1]) +
+									parseInt(employeeCategories[i].Results[2]) +
+									parseInt(employeeCategories[i].Results[3]);
+						}
+						
+
+						var data = {
+
+							labels: ["JS Frameworks (Angular/Backbone)", "Databases (Mongo / SQL Server)", "Core javascript / jquery", "HTML5.0 / CSS3.0"],
+			    			datasets: UserMatrixDataSet
+			
+						}
+
+						var chartName = matrices[tableIndex].name + 'UserChart';
+						var legendName = matrices[tableIndex].name+'UserLegend';
+						var ctx = document.getElementById(chartName).getContext("2d");
+						var myLineChart = new Chart(ctx).Line(data, options);
+						document.getElementById(legendName).innerHTML = myLineChart.generateLegend();
+						
+					}
+				});
+			});
+	}
+
+	function getCharts(id){
+		
+		for(var j = 0; j < 3 ; j++)
+		{
+			AuxFunction(id,j);
+		}
+	}
+	/*
 	function getContinuousEvaluationChart(id){
 		var params = {};
 		params.table = 2;
@@ -184,7 +385,7 @@ competitionMatricesModule.controller('viewDashboardController',
 					var total;
 					$scope.totals.manager[2] = 0;
 
-					for (var i=0; i< $scope.continuousCategory.length;i++){
+					for (var i=0; i< employeeCategories.length;i++){
 						ManagerMatrixDataSet[i] = {
 							label: $scope.continuousCategory[i].name,
 							fillColor: "rgba(220,220,220,0)",
@@ -254,7 +455,7 @@ competitionMatricesModule.controller('viewDashboardController',
 				}else{
 					$scope.totals.user[2] = 0;
 					var total;
-					for (var i=0; i< $scope.continuousCategory.length;i++){
+					for (var i=0; i< employeeCategories.length;i++){
 						UserMatrixDataSet[i] = {
 							label: $scope.continuousCategory[i].name,
 							fillColor: "rgba(220,220,220,0)",
@@ -290,7 +491,7 @@ competitionMatricesModule.controller('viewDashboardController',
 				}
 			});
 		});
-	}
+	}*/
 
 	function getTrainingEvaluationChart(id){
 		var params = {}
@@ -342,7 +543,7 @@ competitionMatricesModule.controller('viewDashboardController',
 				}else{
 
 					$scope.totals.manager[1] = 0;
-					for (var i=0; i< $scope.trainingCategory.length;i++){
+					for (var i=0; i< employeeCategories.length;i++){
 						ManagerMatrixDataSet[i] = {
 							label: $scope.trainingCategory[i].name,
 							fillColor: "rgba(220,220,220,0)",
@@ -409,7 +610,7 @@ competitionMatricesModule.controller('viewDashboardController',
 
 						var total=0;
 						$scope.totals.user[1] = 0;
-						for (var i=0; i< $scope.trainingCategory.length;i++){
+						for (var i=0; i< employeeCategories.length;i++){
 							UserMatrixDataSet[i] = {
 								label: $scope.trainingCategory[i].name,
 								fillColor: "rgba(220,220,220,0)",
@@ -503,7 +704,7 @@ competitionMatricesModule.controller('viewDashboardController',
 					
 					
 					$scope.totals.manager[0] = 0;
-					for (var i=0; i< $scope.technologyCategory.length;i++){
+					for (var i=0; i< employeeCategories.length;i++){
 						ManagerMatrixDataSet[i] = {
 							label: $scope.technologyCategory[i].name,
 							fillColor: "rgba(220,220,220,0)",
@@ -576,7 +777,7 @@ competitionMatricesModule.controller('viewDashboardController',
 
 					$scope.totals.user[0] = 0;
 					var total=0;
-					for (var i=0; i< $scope.technologyCategory.length;i++){
+					for (var i=0; i< employeeCategories.length;i++){
 						UserMatrixDataSet[i] = {
 							label: $scope.technologyCategory[i].name,
 							fillColor: "rgba(220,220,220,0)",
@@ -614,9 +815,7 @@ competitionMatricesModule.controller('viewDashboardController',
 		});
 	}
 	
-
-
-
+	
 
 	function findPerson(employeesFromManager,i){
 		EmployeeServices.GetEmployee(employeesFromManager[i]).then(function(response){
@@ -629,8 +828,8 @@ competitionMatricesModule.controller('viewDashboardController',
 		var id = $scope.personSelected._id;
 		//getMatrices(id);
 		getContinuousEvaluationChart(id);
-							getTrainingEvaluationChart(id);
-							getTechnologyEvaluationChart(id);
+		getTrainingEvaluationChart(id);
+		getTechnologyEvaluationChart(id);
 	}
 
 
@@ -649,5 +848,13 @@ competitionMatricesModule.controller('viewDashboardController',
 		}
 	}
 
+	var filterCategory = function(param){
+		CategoryServices.GetCategory(param).then(function(data){
+			if(data){
 
+			}else{
+
+			}
+		})
+	}
 }]);

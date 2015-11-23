@@ -80,76 +80,55 @@ var findEmployeesOnly = function(req,res){
 	});
 }
 
-//Finds all categoreis in for the training matrix
-var findCategoriesTrainingMatrix = function(req,res){
-	
-	var response = {};
-	//Query all the categories in the Category collection
-	Category.find({'table' : 1}, function(err,data){
-		if (err){
-			//Sends Error if the query is unsuccessful
-			response = {'error': true, 'message': 'error fetching data from categries'};
-			res.json(data);
-		}else{
-			//Sends to the client the deata retrieved
-			res.json(data);
-		}
-req.logout();
-	});
-}
+
 
 //finds all categories for the technology matrix
 var findCategories = function(req,res){
 	var response = {};
-	//Query all the categories in the Category collection
-	Category.find({'table' : req.query.table}, function(err,data){
-		if (err){
-			//Sends Error if the query is unsuccessful
-			response = {'error': true, 'message': 'error fetching data from categries'};
-			res.json(data);
-		}else{
-			//Sends to the client the deata retrieved
-			res.json(data);
-		}
-
-	});
-}
-
-//finds all categories for the technology matrix
-var findCategoriesTechnologyMatrix = function(req,res){
 	
-	var response = {};
-	//Query all the categories in the Category collection
-	Category.find({'table' : 0}, function(err,data){
-		if (err){
-			//Sends Error if the query is unsuccessful
-			response = {'error': true, 'message': 'error fetching data from categries'};
-			res.json(data);
-		}else{
-			//Sends to the client the deata retrieved
-			res.json(data);
-		}
+	if (req.query.table && req.query.active){
+				//Query all the categories in the Category collection
+		Category.find({'table' : req.query.table, 'active' : req.query.active}, function(err,data){
+			if (err){
+				//Sends Error if the query is unsuccessful
+				response = {'error': true, 'message': 'error fetching data from categries'};
+				res.json(data);
+			}else{
+				//Sends to the client the deata retrieved
+				res.json(data);
+			}
 
-	});
+		});
+	}
+	if(req.query.table){
+		//Query all the categories in the Category collection
+		Category.find({'table' : req.query.table, 'active': true}, function(err,data){
+			if (err){
+				//Sends Error if the query is unsuccessful
+				response = {'error': true, 'message': 'error fetching data from categries'};
+				res.json(data);
+			}else{
+				//Sends to the client the deata retrieved
+				res.json(data);
+			}
+
+		});
+	}else{
+		console.log('entered');
+		Category.find({},function(err,data){
+			if (err){
+				//Sends Error if the query is unsuccessful
+				response = {'error': true, 'message': 'error fetching data from categries'};
+				res.json(data);
+			}else{
+				//Sends to the client the deata retrieved
+				res.json(data);
+			}
+		});
+	}
 }
 
-//finds all categories for the continuous evaluarion matrix
-var findCategoriesContinuousEvaluationMatrix = function(req,res){
-	
-	var response = {};
-	//Query all the categories in the Category collection
-	Category.find({'table' : 2}, function(err,data){
-		if (err){
-			//Sends Error if the query is unsuccessful
-			response = {'error': true, 'message': 'error fetching data from categries'};
-			res.json(data);
-		}else{
-			//Sends to the client the deata retrieved
-			res.json(data);
-		}
 
-	});
-}
 
 //depending of the user calling this function it shows the 
 //the relation between employees and the matrix requested
@@ -709,6 +688,59 @@ var changePassword = function(req,res){
 	});
 }
 
+var findCategory = function(req,res){
+	var response = {};
+	var categoryId = req.query.id;
+	Category.findOne({'_id' : categoryId}, function(err,data){
+		if (err){
+			response = {'error': true, 'message': 'Something really bad has happened'};
+			res.json(response);
+		}else{
+			res.json(data);
+		}
+	})
+}
+
+var createCategory = function(req, res){
+	var response = {};
+	var db = new Category();
+	db._id = mongoose.Types.ObjectId();
+	db.name = req.body.name;
+	db.table = parseInt(req.body.table);
+	db.active = req.body.active;
+	db.save(function(err){
+		if (err){
+			response = {'error': true, 'message': 'Something unexpected happened, data was not saved'},
+			res.json(response);
+		}else{
+			response = {'error': false, 'message': 'Data has been saved successfully'};
+			res.json(response);
+		}
+	});
+}
+
+var updateCategory = function(req,res){
+	var response = {};
+	var db = req.body;
+	console.log(req.body);
+	console.log(req.query);
+	Category.update({'_id': db._id},
+		{
+			'name': db.name,
+			'table': db.table,
+			'active': db.active,
+		}, function(err){
+			if (err){
+				response = {'error': true, 'message': 'Something unexpected happened, data was not saved'},
+				res.json(response);
+			}else{
+				response = {'error': false, 'message': 'Data has been saved successfully'};
+				res.json(response);
+			}
+			
+	});
+}
+
 
 
 //Exports all schemas created
@@ -718,10 +750,7 @@ module.exports.model = {
 	
 	findEmployees : findEmployees,
 	findEmployeesOnly : findEmployeesOnly,
-	//Finding categories for the different tables
-	findCategoriesContinuousEvaluationMatrix : findCategoriesContinuousEvaluationMatrix,
-	findCategoriesTechnologyMatrix : findCategoriesTechnologyMatrix,
-	findCategoriesTrainingMatrix : findCategoriesTrainingMatrix,
+		
 
 	//Finding relations between employees and categories for the three tables
 	findEmployeesCategoriesMatrix : findEmployeesCategoriesMatrix,
@@ -741,5 +770,8 @@ module.exports.model = {
 	addEmployeeToManager 	: addEmployeeToManager,
 	setToInactive  			: setToInactive,
 	changePassword 			: changePassword,
-	findCategories 			: findCategories
+	findCategories 			: findCategories,
+	findCategory 			: findCategory,
+	createCategory 			: createCategory,
+	updateCategory 			: updateCategory
 };

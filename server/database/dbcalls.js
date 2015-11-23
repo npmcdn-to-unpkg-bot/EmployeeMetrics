@@ -80,4 +80,16 @@ dbCalls.findCategories = function(req,res){
 	db.model.findCategories(req,res);
 };
 
+dbCalls.findCategory = function(req,res){
+	db.model.findCategory(req,res);
+};
+
+dbCalls.createCategory = function(req,res){
+	db.model.createCategory(req,res);
+};
+dbCalls.updateCategory = function(req,res){
+	db.model.updateCategory(req,res);
+};
+
+
 module.exports = dbCalls;
