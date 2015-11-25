@@ -14,7 +14,7 @@
 						</select>
 						
 					</div>
-					<div class = 'col-md-6 form-group '>
+					<div class = 'col-md-6 form-group ' ng-hide='isAdmin'>
 						<label  for = 'date'>Choose month - year</label>
 						<select ng-model ='date.month' ng-change='dateChange(personSelected)' class = 'form-control' ng-options='month as month for month in select.month'></select>	
 						<select ng-model ='date.year' ng-change='dateChange(personSelected)' class = 'form-control' ng-options = 'year as year for year in select.year'></select>	
