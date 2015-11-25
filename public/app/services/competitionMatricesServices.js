@@ -65,6 +65,7 @@ function CompetitionMatricesServices($http, $q){
 		return deferred.promise;
 	}
 
+
 	CompetitionMatricesServices.GetPeople 							= _getPeople;
 	CompetitionMatricesServices.GetMatrix 							= _getMatrix;
 	CompetitionMatricesServices.GetPeopleCategories 				= _getPeopleCategories;

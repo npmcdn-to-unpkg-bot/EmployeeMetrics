@@ -96,13 +96,15 @@ var findCategories = function(req,res){
 			}else{
 				//Sends to the client the deata retrieved
 				res.json(data);
+				return;
 			}
 
 		});
 	}
-	if(req.query.table){
+
+	else if(req.query.table ){
 		//Query all the categories in the Category collection
-		Category.find({'table' : req.query.table, 'active': true}, function(err,data){
+		Category.find({'table' : req.query.table}, function(err,data){
 			if (err){
 				//Sends Error if the query is unsuccessful
 				response = {'error': true, 'message': 'error fetching data from categries'};
@@ -111,10 +113,8 @@ var findCategories = function(req,res){
 				//Sends to the client the deata retrieved
 				res.json(data);
 			}
-
 		});
 	}else{
-		console.log('entered');
 		Category.find({},function(err,data){
 			if (err){
 				//Sends Error if the query is unsuccessful
@@ -164,8 +164,6 @@ var findEmployeesCategoriesMatrix = function(req, res){
 	//setrs the end date to compare on the query
 	var endDate = moment(startDate).add(1,'months');
 
-	
-		
 	//Find all the documents in EmployeeCategory which employeeId is equal the the id pass through url
 	EmployeeCategory.find({	'employeeId' : req.query.employeeId, 
 									'table': parseInt(req.query.table),
@@ -551,66 +549,66 @@ var setToInactive = function(req,res){
 	res.send(response);
 }
 
-var findEmployeesCategoresFromManager = function(req,res){
-	var response = {};	
+// var findEmployeesCategoresFromManager = function(req,res){
+// 	var response = {};	
 	
-	var id = null;
+// 	var id = null;
 	
-	var startDate = moment(req.query.date);
+// 	var startDate = moment(req.query.date);
 	
-	var endDate = moment(startDate).add(1, 'month');
+// 	var endDate = moment(startDate).add(1, 'month');
 	
 	
-	//gets token from the query
-	if (req.query._id){
-		id = req.query._id;
-	}else{
+// 	//gets token from the query
+// 	if (req.query._id){
+// 		id = req.query._id;
+// 	}else{
 		
-		id = req.user._id
-	}
+// 		id = req.user._id
+// 	}
 	
 
-	//if the person loged is manager
-	EmployeeManager.findOne(
-		{
-			'employeeId' : id,
-			'status': true
-		},
-		function(err,data){
-			if(err){
-				response = {'error': true, 'message' : 'Something really bad happened'};
-				res.json(response);
-			}else{
-				//If there is no data
-				if (data == null){
-					response = null;
-					res.send(response);
-				}else{
-					var managerId = data.managerId;
+// 	//if the person loged is manager
+// 	EmployeeManager.findOne(
+// 		{
+// 			'employeeId' : id,
+// 			'status': true
+// 		},
+// 		function(err,data){
+// 			if(err){
+// 				response = {'error': true, 'message' : 'Something really bad happened'};
+// 				res.json(response);
+// 			}else{
+// 				//If there is no data
+// 				if (data == null){
+// 					response = null;
+// 					res.send(response);
+// 				}else{
+// 					var managerId = data.managerId;
 
-					//Find all the documents in EmployeeCategory which employeeId is equal the the id pass through url
-					EmployeeCategory.find({	'employeeId' : id, 
-													'table': parseInt(req.query.table),
-													'managerId': managerId,
-													'date': {$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}}, 
-													function(err,data){
-						if (err){
-							//If an error happens it sends information about the error to the client
-							response = {'error': true, 'message': 'error fetching data from Employees Categories on employeeId: ' + req.query.employeeId};
-							res.json(response);
-						}else
-						{
-							//Sends to the client the data retrieved
+// 					//Find all the documents in EmployeeCategory which employeeId is equal the the id pass through url
+// 					EmployeeCategory.find({	'employeeId' : id, 
+// 													'table': parseInt(req.query.table),
+// 													'managerId': managerId,
+// 													'date': {$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}}, 
+// 													function(err,data){
+// 						if (err){
+// 							//If an error happens it sends information about the error to the client
+// 							response = {'error': true, 'message': 'error fetching data from Employees Categories on employeeId: ' + req.query.employeeId};
+// 							res.json(response);
+// 						}else
+// 						{
+// 							//Sends to the client the data retrieved
 							
-							res.json(data);
-						}
-				});
-			}
-		}
-	});
-}
+// 							res.json(data);
+// 						}
+// 				});
+// 			}
+// 		}
+// 	});
+// }
 
-var findEmployeesCategoresFromEmployee = function(req,res){
+var findEmployeesCategoriesFromEmployee = function(req,res){
 	var response = {};	
 	
 	var id = null;
@@ -629,22 +627,21 @@ var findEmployeesCategoresFromEmployee = function(req,res){
 	}
 
 
-		//Find all the documents in EmployeeCategory which employeeId is equal the the id pass through url
-		EmployeeCategory.find({	'employeeId' : id, 
-										'table': parseInt(req.query.table),
-										'managerId': null,
-										'date': {$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}}, 
-										function(err,data){
-			if (err){
-				//If an error happens it sends information about the error to the client
-				response = {'error': true, 'message': 'error fetching data from Employees Categories on employeeId: ' + req.query.employeeId};
-				res.json(response);
-			}else
-			{
-				//Sends to the client the deata retrieved
-				res.json(data);
-				
-			}
+	//Find all the documents in EmployeeCategory which employeeId is equal the the id pass through url
+	EmployeeCategory.find({	'employeeId' : id, 
+							'table': parseInt(req.query.table),
+							'date': {$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}}).sort({'managerId': -1}).exec( 
+							function(err,data){
+		if (err){
+			//If an error happens it sends information about the error to the client
+			response = {'error': true, 'message': 'error fetching data from Employees Categories on employeeId: ' + req.query.employeeId};
+			res.json(response);
+		}else
+		{
+			//Sends to the client the deata retrieved
+			res.json(data);
+			
+		};
 		
 	});
 }
@@ -754,8 +751,8 @@ module.exports.model = {
 
 	//Finding relations between employees and categories for the three tables
 	findEmployeesCategoriesMatrix : findEmployeesCategoriesMatrix,
-	findEmployeesCategoresFromManager : findEmployeesCategoresFromManager,
-	findEmployeesCategoresFromEmployee : findEmployeesCategoresFromEmployee,
+	// findEmployeesCategoresFromManager : findEmployeesCategoresFromManager,
+	findEmployeesCategoriesFromEmployee : findEmployeesCategoriesFromEmployee,
 	
 	updateTrainingMatrix 	: updateTrainingMatrix,
 	addScoreTrainingMatrix 	: addScoreTrainingMatrix,

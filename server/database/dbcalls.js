@@ -65,12 +65,12 @@ dbCalls.setToInactive	=	function(req,res){
 	db.model.setToInactive(req,res);
 }
 
-dbCalls.findEmployeesCategoresFromManager = function(req,res){
-	db.model.findEmployeesCategoresFromManager(req,res);
-}
+/*dbCalls.findEmployeesCategoresFromManager = function(req,res){
+	db.model.findEmployeesCategoriesFromManager(req,res);
+}*/
 
-dbCalls.findEmployeesCategoresFromEmployee = function(req,res){
-	db.model.findEmployeesCategoresFromEmployee(req,res);
+dbCalls.findEmployeesCategoriesFromEmployee = function(req,res){
+	db.model.findEmployeesCategoriesFromEmployee(req,res);
 }
 
 dbCalls.changePassword = function(req,res){

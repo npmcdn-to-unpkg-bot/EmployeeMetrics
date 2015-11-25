@@ -36,6 +36,7 @@ competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$md
 		
 		$scope.params = params;
 		$scope.params.table = $scope.categories[0].table;
+
 		
 		CompetitionMatrixServices.GetPeopleCategories(params).then(function(data){
 
@@ -196,6 +197,7 @@ competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$md
 		});
 		var params = {};
 		params.table = 1;
+		params.active = true;
 		CompetitionMatrixServices.GetMatrix(params).then(function(response){
 			$scope.categories = response;
 		});

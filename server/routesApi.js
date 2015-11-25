@@ -104,14 +104,9 @@ module.exports = function(app, passport){
 			dbCalls.findEmployeesWithNoManager(req,res);
 		})
 
-	app.route('/managerdashboard')
+	app.route('/dashboard')
 		.get(loggedIn, function(req,res){
-			dbCalls.findEmployeesCategoresFromManager(req,res);
-		});
-
-	app.route('/userdashboard')
-		.get(loggedIn, function(req,res){
-			dbCalls.findEmployeesCategoresFromEmployee(req,res);
+			dbCalls.findEmployeesCategoriesFromEmployee(req,res);
 		});
 
 	app.route('/password')

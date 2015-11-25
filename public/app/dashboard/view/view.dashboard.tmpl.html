@@ -27,11 +27,13 @@
 		<div class = 'col-md-12' ng-hide='isAdmin'>
 			</form>
 			<div class='col-md-12'>
-				<h4>Manager Results</h4>
+				<h4>Manager Results <span ng-show='hasManager'>by {{manager.firstname + " " + manager.lastname}}<span></h4>
 				<div  class = 'col-md-4' >
 					<div align = 'center'>
 						<h4>Technology Matrix</h4>
-						<select ng-model='managerChart.technology' ng-change='' class= 'form-control' ng-options= 'cat as category.name for category in technologyCategory'></select>
+						<select ng-model='technologyParam' ng-change='filterCategory(technologyParam,0)' class= 'form-control' ng-options= 'category as category.name for category in matrix[0].table'>
+							<option value="">Select All</option>
+						</select>
 					</div>
 					<canvas id="technologyManagerChart" ></canvas>
 					<div id = 'technologyManagerLegend'></div>
@@ -39,7 +41,9 @@
 				<div class = 'col-md-4'>
 					<div align = 'center'>
 						<h4>Training Matrix</h4>
-						<select ng-model='managerChart.training' ng-change='' class= 'form-control' ng-options= 'cat as category.name for category in trainingCategory'></select>
+						<select ng-model='trainingParam' ng-change='filterCategory(trainingParam,1)' class= 'form-control' ng-options= 'category as category.name for category in matrix[1].table'>
+							<option value="">Select All</option>
+						</select>
 					</div>
 
 					<canvas id="trainingManagerChart" width="300" height="300"></canvas>
@@ -48,7 +52,9 @@
 				<div class = 'col-md-4'>
 					<div align = 'center'>
 						<h4>Continuous Evaluation Matrix</h4>
-						<select ng-model='managerChart.continuous' ng-change='' class= 'form-control' ng-options= 'cat as category.name for category in continuousCategory'></select>
+						<select ng-model='continuouseParam' ng-change='filterCategory(continuouseParam,2)' class= 'form-control' ng-options= 'category as category.name for category in matrix[2].table'>
+							<option value="">Select All</option>
+						</select>
 					</div>
 					<canvas id="continuousManagerChart" width="300" height="300"></canvas>
 					<div id = 'continuousManagerLegend'></div>
@@ -60,7 +66,6 @@
 				<div class = 'col-md-4'>
 					<div align = 'center'>
 						<h4>Technology Matrix</h4>
-						<select ng-model='userChart.technology' ng-change='' class= 'form-control' ng-options= 'cat as category.name for category in technologyCategory'></select>
 					</div>
 					<canvas  id="technologyUserChart" width="300" height="300"></canvas>
 					<div id = 'technologyUserLegend'></div>
@@ -69,7 +74,7 @@
 				<div class = 'col-md-4'>
 					<div align = 'center'>
 						<h4>Training Matrix</h4>
-						<select ng-model='userChart.training' ng-change='' class= 'form-control' ng-options= 'cat as category.name for category in trainingCategory'></select>
+
 					</div>
 					<canvas id="trainingUserChart" width="300" height="300"></canvas>
 					<div id = 'trainingUserLegend'></div>
@@ -77,7 +82,7 @@
 				<div class = 'col-md-4'>
 					<div align = 'center'>
 						<h4>Continuous Evaluation Matrix</h4>
-						<select ng-model='userChart.continuous' ng-change='' class= 'form-control' ng-options= 'cat as category.name for category in continuousCategory'></select>
+
 					</div>
 					<canvas id="continuousUserChart" width="300" height="300"></canvas>
 					<div id = 'continuousUserLegend'></div>
