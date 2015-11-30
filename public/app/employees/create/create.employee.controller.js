@@ -33,7 +33,7 @@ employeeApp.controller('createEmployeeController', ['$scope','$mdToast', '$state
 			}
 		});
 		
-		$state.current.data.example = true;
+		
 		
 
 

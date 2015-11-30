@@ -18,7 +18,7 @@
 				<th>Assign</th>
 				
 			</thead>
-				<tr ng-repeat = 'employee in managerEmployee'>
+				<tr dir-paginate="employee in managerEmployee | itemsPerPage: 10">
 					<td>{{employee.firstname}}</td>
 					<td>{{employee.lastname}}</td>
 					<td><button class = 'btn btn-danger' ng-click='setToInactive(employee.employeeId)'>X</a></td>	
@@ -27,7 +27,7 @@
 		</table>
 	</div>
 	
-		
+		<dir-pagination-controls></dir-pagination-controls>
 	</div>
 
 

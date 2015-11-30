@@ -4,7 +4,8 @@ var employeeApp = angular.module('employeeModule');
 employeeApp.controller('viewEmployeeController', ['$scope', '$stateParams', '$state','$mdToast', 'EmployeeServices','AppServices', function($scope, $stateParams, $state,$mdToast ,EmployeeServices,AppServices){
 	$scope.employees = {};
 	$scope.showCreateForm = false;
-	
+
+
 	$scope.accesslevels = [{
 		'id' : 0,
 		'name' : 'Employee'
@@ -20,6 +21,7 @@ employeeApp.controller('viewEmployeeController', ['$scope', '$stateParams', '$st
 
 
 	$scope.initialize = function(){
+		$scope.employeeDisplay=[]
 		AppServices.GetAccess().then(function(data){
 			switch(parseInt(data.access)){
 				case 0:
@@ -29,7 +31,11 @@ employeeApp.controller('viewEmployeeController', ['$scope', '$stateParams', '$st
 				case 2:
 					EmployeeServices.GetEmployees().then(function(response){
 						
+		
+						
+
 						$scope.employees = response;
+
 						for (var i = 0 ; i < $scope.employees.length; i++){
 							$scope.employees[i].accesslevelname = showAccessLevel($scope.employees[i].accesslevel);
 						}
@@ -60,4 +66,6 @@ employeeApp.controller('viewEmployeeController', ['$scope', '$stateParams', '$st
 						
 		}
 	}
+
+
 }]);

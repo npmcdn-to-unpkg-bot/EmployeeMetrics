@@ -65,9 +65,6 @@ dbCalls.setToInactive	=	function(req,res){
 	db.model.setToInactive(req,res);
 }
 
-/*dbCalls.findEmployeesCategoresFromManager = function(req,res){
-	db.model.findEmployeesCategoriesFromManager(req,res);
-}*/
 
 dbCalls.findEmployeesCategoriesFromEmployee = function(req,res){
 	db.model.findEmployeesCategoriesFromEmployee(req,res);
@@ -89,6 +86,23 @@ dbCalls.createCategory = function(req,res){
 };
 dbCalls.updateCategory = function(req,res){
 	db.model.updateCategory(req,res);
+};
+
+
+dbCalls.findAspects = function(req,res){
+	db.model.findAspects(req,res);
+};
+
+dbCalls.findAspect  = function(req,res){
+	db.model.findAspect(req,res);
+};
+
+dbCalls.createAspect  = function(req,res){
+	db.model.createAspect(req,res);
+};
+
+dbCalls.updateAspect  = function(req,res){
+	db.model.updateAspect(req,res);
 };
 
 

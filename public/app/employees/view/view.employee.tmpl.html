@@ -19,7 +19,7 @@
 				<th>Access Level</th>
 				<th>Active</th>
 			</thead>
-				<tr  ng-click = "updateEmployee(employee)" ng-repeat='employee in employees'>
+				<tr  ng-click = "updateEmployee(employee)" dir-paginate='employee in employees | itemsPerPage: 10'>
 					<td>{{employee.firstname}}</td>
 					<td>{{employee.lastname}}</td>
 					<td>{{employee.email}}</td>
@@ -29,7 +29,7 @@
 		</table>
 	
 	</div>
-	
+	<dir-pagination-controls></dir-pagination-controls>
 		
 	</div>
 

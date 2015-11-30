@@ -1,8 +1,14 @@
+<form name = 'aspectForm2' novalidate>
+	<formly-form model='model' fields = 'fields' options='options' form = 'aspectForm2'>
+		<button type="submit" class="btn btn-primary submit-button" ng-disabled="form.$invalid" ng-click = 'createAspect()'>Create Attribute</button>
+        <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+    </formly-form>
+</form>
 
-<form name= 'categoryForm' ng-controller = 'createCategoryController' class = 'form form-horizontal' ng-init='initialize()' novalidate>
+<!-- <form name= 'aspectForm' ng-controller = 'aspectController' class = 'form form-horizontal' ng-init='initialize()' novalidate>
 	
 	<div class='col-md-12'>
-		<h2>Create Category</h2>
+		<h2>Create Aspect</h2>
 	</div>
 	<div class = 'col-md-12'>
 		<div class = 'form-group' ng-class ="{ 'has-error' : categoryForm.name.$invalid && !categoryForm.name.$pristine }">
@@ -23,7 +29,7 @@
 	<div class = 'col-md-12'>
 		<div class = 'form-group'>
 			<div class = 'col-md-2'>
-				<label for = 'table'>Table:</label>
+				<label for = 'table'>Access level:</label>
 			</div>
 			<div class = 'col-md-6'>
 				<select class = 'form-control' name = 'table' ng-model = 'category.table' ng-options='table.id as table.name for table in matrixTables' required></select>
@@ -54,4 +60,4 @@
 		</div>
 	</div>
 
-</form>
+</form> -->

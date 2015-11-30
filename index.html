@@ -4,26 +4,39 @@
 		
 		<link rel="stylesheet" href="styles/bootstrap.min.css">
 		<link rel="stylesheet" href="styles/style.css">
-<link rel="stylesheet" type="text/css" href="styles/angular-material.min.css">
+		<link rel="stylesheet" type="text/css" href="styles/angular-material.min.css">
 		
 		
 		<title>Matrices Competition</title>
 		
 		<script type="text/javascript" src="libraries/jquery.min.js"></script>
-		<script type="text/javascript" src="libraries/angular.min.js"></script>
 		<script type="text/javascript" src="libraries/bootstrap.min.js"></script>
+
+		<script type="text/javascript" src="libraries/api-check.min.js"></script>
+		<script type="text/javascript" src="libraries/angular.min.js"></script>
+		
+		<script type="text/javascript" src="libraries/angular-sanitize.min.js"></script>
+		<script type="text/javascript" src="libraries/formly.js"></script>
+		<script src="//npmcdn.com/angular-formly-templates-bootstrap@latest/dist/angular-formly-templates-bootstrap.js"></script>
 		<script type="text/javascript" src='libraries/moment.min.js'></script>
 		<script type="text/javascript" src='libraries/angular-animate.min.js'></script>
 		<script type="text/javascript" src='libraries/angular-aria.min.js'></script>
 		<script type="text/javascript" src='libraries/angular-material.min.js'></script>
+		<script type="text/javascript" src='libraries/angularUtils-pagination/dirPagination.js'></script>
 
 		<script type="text/javascript" src='libraries/angular-ui-router.min.js'></script>
 		<script type="text/javascript" src='libraries/Chart.min.js'></script>
 
 		<!--Calling categories module -->
-		<script type="text/javascript" src ='app/categories/CategoryModule.js'></script>
-		<script type="text/javascript" src ='app/categories/CategoryConfig.js'></script>
+		<script type="text/javascript" src ='app/categories/categoryModule.js'></script>
+		<script type="text/javascript" src ='app/categories/categoryConfig.js'></script>
 		<script type="text/javascript" src ='app/services/categoryServices.js'></script>
+
+		<!--Calling aspects module -->
+		<script type="text/javascript" src ='app/aspects/aspectModule.js'></script>
+		<script type="text/javascript" src ='app/aspects/aspectConfig.js'></script>
+		<script type="text/javascript" src ='app/services/aspectServices.js'></script>
+		<script type="text/javascript" src ='app/aspects/aspectController.js'></script>
 
 		<!--Calling categories controllers -->
 		<script type="text/javascript" src ='app/categories/create/create.category.controller.js'></script>

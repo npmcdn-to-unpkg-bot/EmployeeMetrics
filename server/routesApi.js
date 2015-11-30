@@ -54,6 +54,22 @@ module.exports = function(app, passport){
 			dbCalls.updateCategory(req,res);
 		});
 
+	app.route('/aspects')
+		.get(loggedIn, function(req,res){
+			dbCalls.findAspects(req,res);
+		});
+
+	app.route('/aspect')
+		.get(loggedIn, function(req,res){
+			dbCalls.findAspect(req,res);
+		})
+		.post(loggedIn, function(req,res){
+			dbCalls.createAspect(req,res);
+		})
+		.put(loggedIn, function(req,res){
+			dbCalls.updateAspect(req,res);
+		});
+
 	app.route('/matrix')
 		.get(loggedIn,function(req,res){
 			dbCalls.findEmployeesCategoriesMatrix(req,res);

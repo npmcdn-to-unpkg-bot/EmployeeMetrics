@@ -18,17 +18,16 @@
 				<th>E-Mail</th>
 				<th>Access Level</th>
 			</thead>
-				<tr  ng-click = "employeesUnderManager(manager)" ng-repeat='manager in managers'>
+				<tr  ng-click = "employeesUnderManager(manager)" dir-paginate="manager in managers | itemsPerPage: 10">
 					<td>{{manager.firstname}}</td>
 					<td>{{manager.lastname}}</td>
 					<td>{{manager.email}}</td>
 					<td>{{manager.accesslevelname}}</td>
 				</tr>
-
 		</table>
 	</div>
 	
-		
+	<dir-pagination-controls></dir-pagination-controls>
 	</div>
 
 

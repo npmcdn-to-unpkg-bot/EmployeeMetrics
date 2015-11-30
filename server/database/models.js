@@ -9,6 +9,7 @@ var LocalStrategy = require('passport-local').Strategy;
 
 var Employee 	= 	require('../models/employee');
 var Category 	= 	require('../models/category');
+var Aspect 	= 	require('../models/aspect');
 var EmployeeCategory = require('../models/employeecategory');
 var EmployeeManager = require('../models/employeeManager');
 
@@ -549,64 +550,6 @@ var setToInactive = function(req,res){
 	res.send(response);
 }
 
-// var findEmployeesCategoresFromManager = function(req,res){
-// 	var response = {};	
-	
-// 	var id = null;
-	
-// 	var startDate = moment(req.query.date);
-	
-// 	var endDate = moment(startDate).add(1, 'month');
-	
-	
-// 	//gets token from the query
-// 	if (req.query._id){
-// 		id = req.query._id;
-// 	}else{
-		
-// 		id = req.user._id
-// 	}
-	
-
-// 	//if the person loged is manager
-// 	EmployeeManager.findOne(
-// 		{
-// 			'employeeId' : id,
-// 			'status': true
-// 		},
-// 		function(err,data){
-// 			if(err){
-// 				response = {'error': true, 'message' : 'Something really bad happened'};
-// 				res.json(response);
-// 			}else{
-// 				//If there is no data
-// 				if (data == null){
-// 					response = null;
-// 					res.send(response);
-// 				}else{
-// 					var managerId = data.managerId;
-
-// 					//Find all the documents in EmployeeCategory which employeeId is equal the the id pass through url
-// 					EmployeeCategory.find({	'employeeId' : id, 
-// 													'table': parseInt(req.query.table),
-// 													'managerId': managerId,
-// 													'date': {$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}}, 
-// 													function(err,data){
-// 						if (err){
-// 							//If an error happens it sends information about the error to the client
-// 							response = {'error': true, 'message': 'error fetching data from Employees Categories on employeeId: ' + req.query.employeeId};
-// 							res.json(response);
-// 						}else
-// 						{
-// 							//Sends to the client the data retrieved
-							
-// 							res.json(data);
-// 						}
-// 				});
-// 			}
-// 		}
-// 	});
-// }
 
 var findEmployeesCategoriesFromEmployee = function(req,res){
 	var response = {};	
@@ -695,7 +638,7 @@ var findCategory = function(req,res){
 		}else{
 			res.json(data);
 		}
-	})
+	});
 }
 
 var createCategory = function(req, res){
@@ -722,6 +665,98 @@ var updateCategory = function(req,res){
 	console.log(req.body);
 	console.log(req.query);
 	Category.update({'_id': db._id},
+		{
+			'name': db.name,
+			'table': db.table,
+			'active': db.active,
+		}, function(err){
+			if (err){
+				response = {'error': true, 'message': 'Something unexpected happened, data was not saved'},
+				res.json(response);
+			}else{
+				response = {'error': false, 'message': 'Data has been saved successfully'};
+				res.json(response);
+			}
+			
+	});
+}
+
+var findAspects = function(req,res){
+	var response = {};
+	if (req.query.table && req.query.active){
+			//Query all the categories in the Category collection
+		Aspect.find({'table' : req.query.table, 'active' : req.query.active}, function(err,data){
+			if (err){
+				//Sends Error if the query is unsuccessful
+				response = {'error': true, 'message': 'error fetching data from Attributes'};
+				res.json(data);
+			}else{
+				//Sends to the client the deata retrieved
+				res.json(data);
+			}
+
+		});
+	}
+	else if(req.query.table ){
+		//Query all the categories in the Category collection
+		Aspect.find({'table' : req.query.table}, function(err,data){
+			if (err){
+				//Sends Error if the query is unsuccessful
+				response = {'error': true, 'message': 'error fetching data from categries'};
+				res.json(data);
+			}else{
+				//Sends to the client the deata retrieved
+				res.json(data);
+			}
+		});
+	}else{
+		Aspect.find({},function(err,data){
+			if (err){
+				//Sends Error if the query is unsuccessful
+				response = {'error': true, 'message': 'error fetching data from categries'};
+				res.json(data);
+			}else{
+				//Sends to the client the deata retrieved
+				res.json(data);
+			}
+		});
+	}
+}
+
+var findAspect = function(req,res){
+	var response = {};
+	var categoryId = req.query.id;
+	Aspect.findOne({'_id' : aspectId}, function(err,data){
+		if (err){
+			response = {'error': true, 'message': 'Something really bad has happened'};
+			res.json(response);
+		}else{
+			res.json(data);
+		}
+	});
+}
+var createAspect = function(req,res){
+	var response = {};
+	var db = new Aspect();
+	db._id = mongoose.Types.ObjectId();
+	db.name = req.body.name;
+	db.table = parseInt(req.body.table);
+	db.active = req.body.active;
+	db.save(function(err){
+		if (err){
+			response = {'error': true, 'message': 'Something unexpected happened, data was not saved'},
+			res.json(response);
+		}else{
+			response = {'error': false, 'message': 'Data has been saved successfully'};
+			res.json(response);
+		}
+	});
+}
+var updateAspect = function(req,res){
+	var response = {};
+	var db = req.body;
+	
+	Aspect.update({'_id': db._id},
 		{
 			'name': db.name,
 			'table': db.table,
@@ -767,8 +802,15 @@ module.exports.model = {
 	addEmployeeToManager 	: addEmployeeToManager,
 	setToInactive  			: setToInactive,
 	changePassword 			: changePassword,
+	
+	//categories operations
 	findCategories 			: findCategories,
 	findCategory 			: findCategory,
 	createCategory 			: createCategory,
-	updateCategory 			: updateCategory
+	updateCategory 			: updateCategory,
+	//Aspect operation
+	findAspects				: findAspects,
+	findAspect				: findAspect,
+	createAspect			: createAspect,
+	updateAspect			: updateAspect
 };
