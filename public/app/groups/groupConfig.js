@@ -18,7 +18,7 @@ groupApp.config(function($stateProvider){
 		})
 
 		.state('app.group.update',{
-			url: '/update/:id',
+			url: '/update',
 			templateUrl	: 'app/groups/update/update.group.tmpl.html',
 			controller 	: 'groupController'		
 		});

@@ -2,11 +2,12 @@
 
 var employeeApp = angular.module('employeeModule');
 
-employeeApp.controller('createEmployeeController', ['$scope','$mdToast', '$stateParams','$state','EmployeeServices','GroupServices','AppServices' , 
+employeeApp.controller('employeeController', ['$scope','$mdToast', '$stateParams','$state','EmployeeServices','GroupServices','AppServices' , 
 			function($scope,$mdToast, $stateParams,$state, EmployeeServices,GroupServices, AppServices){
 	
 	$scope.employee = {};
-	
+	$scope.showCreateForm = false;
+
 	$scope.accesslevels = [{
 		'id' : 0,
 		'name' : 'Employee'
@@ -24,8 +25,18 @@ employeeApp.controller('createEmployeeController', ['$scope','$mdToast', '$state
 	$scope.option = {
 
 	};
-	$scope.model = {};
 	
+	
+	$scope.showCreate = function()
+	{
+		
+		$scope.showCreateForm = true;
+	}
+
+	var showAccessLevel = function(number){
+		
+		return $scope.accesslevels[number].name
+	}
 
 	$scope.initialize = function(){
 		$scope.model = {
@@ -36,6 +47,7 @@ employeeApp.controller('createEmployeeController', ['$scope','$mdToast', '$state
 			group: null,
 			active : true
 		};
+
 		AppServices.GetAccess().then(function(data){
 			switch(parseInt(data.access)){
 				case 0:
@@ -43,6 +55,12 @@ employeeApp.controller('createEmployeeController', ['$scope','$mdToast', '$state
 					$state.go('logout');
 					break;
 				case 2:
+					EmployeeServices.GetEmployees().then(function(response){
+						$scope.employees = response;
+						for (var i = 0 ; i < $scope.employees.length; i++){
+							$scope.employees[i].accesslevelname = showAccessLevel($scope.employees[i].accesslevel);
+						}
+					});
 					GroupServices.GetGroups().then(function(response){
 						$scope.groups = response;
 						$scope.fields = [
@@ -104,12 +122,10 @@ employeeApp.controller('createEmployeeController', ['$scope','$mdToast', '$state
 					break;
 			}
 		});
-		
-		
-		
-
-
 	}
+
+		
+
 
 	$scope.saveEmployee = function(){
 		
@@ -132,8 +148,49 @@ employeeApp.controller('createEmployeeController', ['$scope','$mdToast', '$state
 		});	
 	}
 
+	$scope.updateEmployee = function(){
+		
+		EmployeeServices.UpdateEmployee($scope.employee).then(function(response){
+			$mdToast.show(
+				$mdToast.simple()
+				.content('Employee updated successfully')
+				.action('x')
+				.highlightAction(false)
+				.hideDelay(3000)
+				.position("top right")
+				.theme('success-toast')
+			);
+			$state.go('app.employee',	{}	, {	reload: true });	
+			
+		});
+	}
+
+	$scope.changePassword = function(params){
+		
+		$state.go('app.forcepassword',{id: params});
+	}
+
 	$scope.cancel = function(){
 		$state.go('app.employee',	{}	,{	reload: true	});	
+	}
+
+	$scope.goToUpdateEmployee = function(employee){
+		console.log(employee);
+		$scope.model = {
+			firstname: 		employee.firstname,
+			lastname: 		employee.lastname,
+			email:			employee.email,
+			accesslevel : 	employee.accesslevel,
+			group:			employee.group,
+			active : 		employee.active
+		};
+		console.log($scope.model);
+		if($scope.showCreateForm == false)
+		{
+			$scope.showCreateForm = true;
+			$state.go('app.employee.update');
+						
+		}
 	}
 
 }]);

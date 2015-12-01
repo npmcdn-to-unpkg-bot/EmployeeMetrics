@@ -18,6 +18,7 @@ var employeeSchema = new mongoSchema({
 	'email'			: String,
 	'password'		: String,
 	'accesslevel'	: Number,
+	'group'			: {type: mongoSchema.ObjectId, ref: 'Group'},
 	'active'		: Boolean
 });
 

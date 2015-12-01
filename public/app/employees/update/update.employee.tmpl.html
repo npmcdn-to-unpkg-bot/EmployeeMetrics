@@ -1,4 +1,13 @@
 
+<form name = 'tableForm2' novalidate>
+	<formly-form model='model' fields = 'fields' options='options' form = 'tableForm2'>
+		<button type="submit" class="btn btn-primary submit-button" ng-disabled="form.$invalid" ng-click = 'updateEmployee()'>Update employee</button>
+		<button ng-click = 'changePassword()' class='btn btn-default'>Change Password</button>
+        <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+    </formly-form>
+</form>
+
+<!-- 
 <form name= 'employeeForm' ng-controller = 'updateEmployeeController' class = 'form form-horizontal' ng-init='initialize()' novalidate>
 	
 	<div class='col-md-12'>
@@ -83,3 +92,4 @@
 	</div>
 
 </form>
+ -->

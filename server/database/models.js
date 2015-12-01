@@ -335,6 +335,7 @@ var createEmployee = function(req,res){
 	db.password = passconfig.encrypt(req.body.password, key);
 
 	db.accesslevel = parseInt(req.body.accesslevel);
+	db.group = req.body.group;
 	db.active = req.body.active;
 	
 	//saves the employee in the database
@@ -362,6 +363,7 @@ var updateEmployee = function(req,res){
 							'firstname' 	: db.firstname,
 							'lastaname'		: db.lastaname,
 							'accesslevel'	: db.accesslevel,
+							'group'			: db.group,
 							'email'			: db.email,
 							'active'		: db.active,
 							'password'		: db.password

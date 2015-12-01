@@ -51,7 +51,7 @@ function EmployeeServices($http, $q){
 
 	var _updateEmployee = function(data){
 		var deferred = $q.defer();
-		$http.put('/employee', data, {id: data._id}).success(function(data){
+		$http.put('/employee', data).success(function(data){
 			deferred.resolve(data);
 		}).error(function(data){
 			deferred.resolve(data);

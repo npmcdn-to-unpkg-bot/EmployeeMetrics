@@ -8,19 +8,19 @@ employeeApp.config(function($stateProvider){
 		.state('app.employee',{
 			url: '/employee',
 			templateUrl	: 'app/employees/view/view.employee.tmpl.html',
-			controller 	: 'viewEmployeeController',
+			controller 	: 'employeeController',
 		})
 
 		.state('app.employee.create',{
 			url: '/create',
 			templateUrl	: 'app/employees/create/create.employee.tmpl.html',
-			controller 	: 'createEmployeeController',
+			controller 	: 'employeeController',
 		})
 
 		.state('app.employee.update',{
-			url: '/update/:id',
+			url: '/update',
 			templateUrl	: 'app/employees/update/update.employee.tmpl.html',
-			controller 	: 'updateEmployeeController'		
+			controller 	: 'employeeController'		
 		});
 
 });

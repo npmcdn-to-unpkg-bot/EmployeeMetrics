@@ -1,4 +1,4 @@
-<div ng-controller="viewEmployeeController" ng-init="initialize()">
+<div ng-init="initialize()">
 	
 	<div class = 'container'>
 		<div ui-view></div>
@@ -17,13 +17,15 @@
 				<th>Last Name</th>
 				<th>E-Mail</th>
 				<th>Access Level</th>
+				<th>Group</th>
 				<th>Active</th>
 			</thead>
-				<tr  ng-click = "updateEmployee(employee)" dir-paginate='employee in employees | itemsPerPage: 10'>
+				<tr  ng-click = "goToUpdateEmployee(employee)" dir-paginate='employee in employees | itemsPerPage: 10'>
 					<td>{{employee.firstname}}</td>
 					<td>{{employee.lastname}}</td>
 					<td>{{employee.email}}</td>
 					<td>{{employee.accesslevelname}}</td>
+					<td>{{employee.group}}</td>
 					<td>{{employee.active}}</td>
 				</tr>
 		</table>

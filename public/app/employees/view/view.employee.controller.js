@@ -30,12 +30,7 @@ employeeApp.controller('viewEmployeeController', ['$scope', '$stateParams', '$st
 					break;
 				case 2:
 					EmployeeServices.GetEmployees().then(function(response){
-						
-		
-						
-
 						$scope.employees = response;
-
 						for (var i = 0 ; i < $scope.employees.length; i++){
 							$scope.employees[i].accesslevelname = showAccessLevel($scope.employees[i].accesslevel);
 						}
@@ -57,7 +52,7 @@ employeeApp.controller('viewEmployeeController', ['$scope', '$stateParams', '$st
 		return $scope.accesslevels[number].name
 	}
 	
-	$scope.updateEmployee = function(employee){
+	$scope.goToUpdateEmployee = function(employee){
 		
 		if($scope.showCreateForm == false)
 		{
