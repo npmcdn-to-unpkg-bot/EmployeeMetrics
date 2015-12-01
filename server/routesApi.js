@@ -70,6 +70,38 @@ module.exports = function(app, passport){
 			dbCalls.updateAspect(req,res);
 		});
 
+	app.route('/tables')
+		.get(loggedIn, function(req,res){
+			dbCalls.findTables(req,res);
+		});
+
+	app.route('/table')
+		.get(loggedIn, function(req,res){
+			dbCalls.findTable(req,res);
+		})
+		.post(loggedIn, function(req,res){
+			dbCalls.createTable(req,res);
+		})
+		.put(loggedIn, function(req,res){
+			dbCalls.updateTable(req,res);
+		});
+
+	app.route('/groups')
+		.get(loggedIn, function(req,res){
+			dbCalls.findGroups(req,res);
+		});
+
+	app.route('/group')
+		.get(loggedIn, function(req,res){
+			dbCalls.findGroup(req,res);
+		})
+		.post(loggedIn, function(req,res){
+			dbCalls.createGroup(req,res);
+		})
+		.put(loggedIn, function(req,res){
+			dbCalls.updateGroup(req,res);
+		});
+
 	app.route('/matrix')
 		.get(loggedIn,function(req,res){
 			dbCalls.findEmployeesCategoriesMatrix(req,res);

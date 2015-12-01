@@ -1,0 +1,35 @@
+<div ng-controller="tableController" ng-init="initialize()">
+	
+	<div class = 'container'>
+		<div ui-view></div>
+
+		
+		<div class = 'row'>
+			<div class = 'col-md-offset-10 col-md-2'>
+				<a ui-sref = 'app.table.create' class='btn btn-primary' ng-hide = 'showCreateForm' ng-click='showCreate()'>Add New Table</a>	
+			</div>
+		</div>
+	
+		<div class = 'col-md-12'>
+		<table class='table table-striped'>
+			<thead>
+				<th>Name</th>
+				<th>Active</th>
+				<th>View</th>
+				<th>Edit</th>
+			</thead>
+				<tr   dir-paginate="table in tables | itemsPerPage: 10">
+					<td>{{table.name}}</td>
+					<td>{{table.active}}</td>
+					<td><a >View</a></td>
+					<td ng-click = "goToUpdateTable(table)"><a >Edit</a></td>
+				</tr>
+
+		</table>
+	</div>
+	
+	<dir-pagination-controls></dir-pagination-controls>
+	</div>
+
+
+</div>

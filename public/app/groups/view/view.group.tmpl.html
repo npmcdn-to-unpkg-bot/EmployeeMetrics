@@ -1,0 +1,31 @@
+<div ng-controller="groupController" ng-init="initialize()">
+	
+	<div class = 'container'>
+		<div ui-view></div>
+
+		
+		<div class = 'row'>
+			<div class = 'col-md-offset-10 col-md-2'>
+				<a ui-sref = 'app.group.create' class='btn btn-primary' ng-hide = 'showCreateForm' ng-click='showCreate()'>Add New Group</a>	
+			</div>
+		</div>
+	
+		<div class = 'col-md-12'>
+		<table class='table table-striped'>
+			<thead>
+				<th>Name</th>
+				<th>Active</th>
+			</thead>
+				<tr  ng-click = "goToUpdateGroup(group)" dir-paginate="group in groups | itemsPerPage: 10">
+					<td>{{group.name}}</td>
+					<td>{{group.active}}</td>
+				</tr>
+
+		</table>
+	</div>
+	
+	<dir-pagination-controls></dir-pagination-controls>
+	</div>
+
+
+</div>

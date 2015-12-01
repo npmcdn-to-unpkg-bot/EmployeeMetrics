@@ -105,5 +105,31 @@ dbCalls.updateAspect  = function(req,res){
 	db.model.updateAspect(req,res);
 };
 
+dbCalls.findTables = function(req,res){
+	db.model.findTables(req,res);
+}
+dbCalls.findTable = function(req,res){
+	db.model.findTable(req,res);
+}
+dbCalls.createTable = function(req,res){
+	db.model.createTable(req,res);
+}
+dbCalls.updateTable = function(req,res){
+	db.model.updateTable(req,res);
+}
+
+dbCalls.findGroups = function(req,res){
+	db.model.findGroups(req, res);
+};
+dbCalls.findGroup = function(req,res){
+	db.model.findGroup(req, res);
+};
+dbCalls.createGroup = function(req,res){
+	db.model.createGroup(req, res);
+};
+dbCalls.updateGroup = function(req,res){
+	db.model.updateGroup(req, res);
+};
+
 
 module.exports = dbCalls;

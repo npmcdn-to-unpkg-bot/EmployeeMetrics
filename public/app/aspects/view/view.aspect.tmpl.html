@@ -17,9 +17,9 @@
 				<th>Table</th>
 				<th>Active</th>
 			</thead>
-				<tr  ng-click = "updateCategory(aspect)" dir-paginate="aspect in aspects | itemsPerPage: 10">
+				<tr  ng-click = "goToUpdateAspect(aspect)" dir-paginate="aspect in aspects | itemsPerPage: 10">
 					<td>{{aspect.name}}</td>
-					<td>{{aspect.table}}</td>
+					<td>{{aspect.tableName}}</td>
 					<td>{{aspect.active}}</td>
 				</tr>
 

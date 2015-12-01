@@ -1,57 +1,6 @@
-
-<form name= 'aspectForm' ng-controller = 'aspectController' class = 'form form-horizontal' ng-init='initialize()' novalidate>
-	
-	<div class='col-md-12'>
-		<h2>Update employee</h2>
-	</div>
-	<div class = 'col-md-12'>
-		<div class = 'form-group' ng-class ="{ 'has-error' : categoryForm.name.$invalid && !categoryForm.name.$pristine }">
-			<div class='col-md-2'>
-				<label  for = 'name' >Category Name:</label>
-			</div>
-			<div class='col-md-6'>
-				<input class = 'form-control' type='text' name='name' id = 'name' placeholder = 'For example: Ability to structure the application' ng-model = 'category.name' ng-minlength="3" required></input>
-			</div>
-			<div class='col-md-12'>
-				<p ng-show='categoryForm.name.$invalid && !categoryForm.name.$pristine' class='help-block'>Category name is required</p>
-			    <p ng-show="categoryForm.name.$error.minlength" class="help-block">Category name is too short.</p>
-			</div>
-		</div>
-	</div>
-
-
-	<div class = 'col-md-12'>
-		<div class = 'form-group'>
-			<div class = 'col-md-2'>
-				<label for = 'table'>Access level:</label>
-			</div>
-			<div class = 'col-md-6'>
-				<select class = 'form-control' name = 'table' ng-model = 'category.table' ng-options='table.id as table.name for table in matrixTables' required></select>
-			</div>
-		</div>
-	</div>
-
-	<div class = 'col-md-12'>
-		<div class = 'form-group'>
-			<div class='col-md-2'>
-				<label for ='active'>Active</label>
-			</div>
-			<div class='col-md-6'>
-				<input type='checkbox' class = 'checkbox' ng-model= 'category.active'></input>
-			</div>
-		</div>
-	</div>
-	<div class = 'col-md-12'>
-		<div class = 'col-md-offset-4 col-md-2'>
-				<div class = 'form-group'>
-					<button ng-click = 'cancel()' class='btn btn-default'>Cancel</button>
-				</div>
-		</div>
-		<div class = 'col-md-2'>
-			<div class = 'form-group'>
-				<button class = 'btn btn-primary' ng-disabled = 'categoryForm.$invalid' ng-click = 'createCategory()'>Add new category</button>
-			</div>
-		</div>
-	</div>
-
+<form name = 'aspectForm2' novalidate>
+	<formly-form model='model' fields = 'fields' options='options' form = 'aspectForm2'>
+		<button type="submit" class="btn btn-primary submit-button" ng-disabled="form.$invalid" ng-click = 'updateAspect()'>Update Attribute</button>
+        <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+    </formly-form>
 </form>

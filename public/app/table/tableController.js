@@ -1,29 +1,12 @@
 (function(){
 	'use strict'
-	var aspectApp = angular.module('aspectModule');
+	var tableApp = angular.module('tableModule');
 
-	aspectApp.controller('aspectController', ['$scope', '$stateParams', '$state','$mdToast', 'AspectServices','AppServices', 
-						function($scope, $stateParams, $state,$mdToast , AspectServices, AppServices){
-			$scope.aspects = {};
+	tableApp.controller('tableController', ['$scope', '$stateParams', '$state','$mdToast', 'TableServices','AppServices', 
+						function($scope, $stateParams, $state,$mdToast , TableServices, AppServices){
+			$scope.tables = {};
 			$scope.showCreateForm = false;
 			
-			$scope.table = [{
-				'id' : 0,
-				'name' : 'Technology'
-			},
-			{
-				'id' : 1,
-				'name' : 'Training'
-			},
-			{
-				'id' : 2,
-				'name' : 'Continuous Evaluation'
-			}];
-
-
-
-			
-
 			$scope.option = {
 
 			};
@@ -33,19 +16,10 @@
 					key: 'name',
 					type: 'input',
 					templateOptions: {
-						label: 'Attribute Name: ',
+						label: 'Table Name: ',
 						placeholder: 'Angular JS / Backbone JS'
 					}
 
-				},
-				{
-					key: 'table',
-					type: 'select',
-					templateOptions: {
-						label: 'Table',
-						options: $scope.table,
-						ngOptions: 'option.id as option.name for option in to.options'
-					}
 				},
 				{
 					key: 'active',
@@ -62,7 +36,6 @@
 								
 				$scope.model = {
 					name: '',
-					table: null,
 					active: true
 				};
 
@@ -73,11 +46,9 @@
 							$state.go('logout');
 							break;
 						case 2:
-							AspectServices.GetAspects().then(function(response){
-								$scope.aspects = response;
-								for (var i = 0 ; i < $scope.aspects.length; i++){
-									$scope.aspects[i].tableName = showTable($scope.aspects[i].table);
-								}
+							TableServices.GetTables().then(function(response){
+								$scope.tables = response;
+								
 							});
 							break;
 					}
@@ -95,24 +66,23 @@
 				return $scope.table[number].name
 			}
 			
-			$scope.goToUpdateAspect = function(aspect){
+			$scope.goToUpdateTable = function(table){
 				$scope.model = {
-					_id: aspect._id,
-					name: aspect.name,
-					table: aspect.table,
-					active: aspect.active
+					_id: table._id,
+					name: table.name,
+					active: table.active
 				};
 				
 				//console.log($scope.model);
 				if($scope.showCreateForm == false)
 				{
 					$scope.showCreateForm = true;
-					$state.go('app.aspect.update');
+					$state.go('app.table.update');
 				}
 			}
 
-			$scope.updateAspect = function(){
-				AspectServices.UpdateAspect($scope.model).then(function(response){
+			$scope.updateTable = function(){
+				TableServices.UpdateTable($scope.model).then(function(response){
 				$mdToast.show(
 					$mdToast.simple()
 					.content('Attribute updated successfully')
@@ -122,14 +92,14 @@
 					.position("top right")
 					.theme('success-toast')
 				);
-				$state.go('app.aspect',	{}	, {	reload: true });	
+				$state.go('app.table',	{}	, {	reload: true });	
 				
 			});
 			}
 
-			$scope.createAspect = function(){
+			$scope.createTable = function(){
 			
-			AspectServices.CreateAspect($scope.model).then(function(response){
+			TableServices.CreateTable($scope.model).then(function(response){
 				$mdToast.show(
 					$mdToast.simple()
 					.content('Attribute added successfully')
@@ -139,13 +109,13 @@
 					.position("top right")
 					.theme('success-toast')
 				);
-				$state.go('app.aspect',	{}	, {	reload: true });	
+				$state.go('app.table',	{}	, {	reload: true });	
 				
 			});
 		}
 
 		$scope.cancel = function(){
-			$state.go('app.aspect',{}, {reload: true});
+			$state.go('app.table',{}, {reload: true});
 		}
 
 		$scope.submit = function(){

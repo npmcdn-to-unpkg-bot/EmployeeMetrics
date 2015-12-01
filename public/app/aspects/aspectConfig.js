@@ -1,3 +1,4 @@
+
 var aspectApp = angular.module('aspectModule');
 
 
@@ -20,7 +21,7 @@ aspectApp.config(function($stateProvider){
 		})
 
 		.state('app.aspect.update',{
-			url: '/update/:id',
+			url: '/update',
 			templateUrl	: 'app/aspects/update/update.aspect.tmpl.html',
 			controller 	: 'aspectController'
 		

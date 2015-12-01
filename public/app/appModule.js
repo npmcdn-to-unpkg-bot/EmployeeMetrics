@@ -1,3 +1,3 @@
 angular.module('myApp', ['ui.router', 'ngMaterial', 'angularUtils.directives.dirPagination', 'formly', 'formlyBootstrap',
-	'categoryModule', 'aspectModule','competitionMatrices' , 'employeeModule', 'managerModule', 'dashboardModule']);
+	'categoryModule', 'aspectModule', 'tableModule', 'groupModule','competitionMatrices' , 'employeeModule', 'managerModule', 'dashboardModule']);
 

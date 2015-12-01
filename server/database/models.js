@@ -1,21 +1,23 @@
 'use strict'
 
-var mongoose 	= 	require('mongoose');
-var moment 		=  	require('moment')
-var ObjectId 	= 	mongoose.Types.ObjectId;
+var mongoose 		= 	require('mongoose');
+var moment 			=  	require('moment')
+var ObjectId 		= 	mongoose.Types.ObjectId;
 
-var passport 	=	require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+var passport 		=	require('passport');
+var LocalStrategy 	= 	require('passport-local').Strategy;
 
-var Employee 	= 	require('../models/employee');
-var Category 	= 	require('../models/category');
-var Aspect 	= 	require('../models/aspect');
-var EmployeeCategory = require('../models/employeecategory');
-var EmployeeManager = require('../models/employeeManager');
-
-
-
+var Employee 		= 	require('../models/employee');
+var Category 		= 	require('../models/category');
+var Aspect 			= 	require('../models/aspect');
+var Table  			= 	require('../models/table');
+var Group  			= 	require('../models/group');
+var EmployeeCategory= 	require('../models/employeecategory');
+var EmployeeManager = 	require('../models/employeeManager');
+	
 var passconfig = require('../config/passconfig');
+
+
 var key = passconfig.key;
 
 
@@ -725,7 +727,7 @@ var findAspects = function(req,res){
 
 var findAspect = function(req,res){
 	var response = {};
-	var categoryId = req.query.id;
+	var aspectId = req.query.id;
 	Aspect.findOne({'_id' : aspectId}, function(err,data){
 		if (err){
 			response = {'error': true, 'message': 'Something really bad has happened'};
@@ -755,7 +757,6 @@ var createAspect = function(req,res){
 var updateAspect = function(req,res){
 	var response = {};
 	var db = req.body;
-	
 	Aspect.update({'_id': db._id},
 		{
 			'name': db.name,
@@ -772,6 +773,189 @@ var updateAspect = function(req,res){
 			
 	});
 }
+
+var findTables = function(req,res){
+	var response = {};
+	if (req.query.table && req.query.active){
+			//Query all the categories in the Category collection
+		Table.find({'table' : req.query.table, 'active' : req.query.active}, function(err,data){
+			if (err){
+				//Sends Error if the query is unsuccessful
+				response = {'error': true, 'message': 'error fetching data from Attributes'};
+				res.json(data);
+			}else{
+				//Sends to the client the deata retrieved
+				res.json(data);
+			}
+
+		});
+	}
+	else if(req.query.table ){
+		//Query all the categories in the Category collection
+		Table.find({'table' : req.query.table}, function(err,data){
+			if (err){
+				//Sends Error if the query is unsuccessful
+				response = {'error': true, 'message': 'error fetching data from categries'};
+				res.json(data);
+			}else{
+				//Sends to the client the deata retrieved
+				res.json(data);
+			}
+		});
+	}else{
+		Table.find({},function(err,data){
+			if (err){
+				//Sends Error if the query is unsuccessful
+				response = {'error': true, 'message': 'error fetching data from categries'};
+				res.json(data);
+			}else{
+				//Sends to the client the deata retrieved
+				res.json(data);
+			}
+		});
+	}
+}
+
+var findTable = function(req,res){
+	var response = {};
+	var tableId = req.query.id;
+	Table.findOne({'_id' : tableId}, function(err,data){
+		if (err){
+			response = {'error': true, 'message': 'Something really bad has happened'};
+			res.json(response);
+		}else{
+			res.json(data);
+		}
+	});
+}
+
+var createTable = function(req,res){
+	var response = {};
+	var db = new Table();
+	db._id = mongoose.Types.ObjectId();
+	db.name = req.body.name;
+	db.active = req.body.active;
+	db.save(function(err){
+		if (err){
+			response = {'error': true, 'message': 'Something unexpected happened, data was not saved'},
+			res.json(response);
+		}else{
+			response = {'error': false, 'message': 'Data has been saved successfully'};
+			res.json(response);
+		}
+	});
+}
+
+var updateTable = function(req,res){
+	var response = {};
+	var db = req.body;
+	Table.update({'_id': db._id},
+		{
+			'name': db.name,
+			'active': db.active,
+		}, function(err){
+			if (err){
+				response = {'error': true, 'message': 'Something unexpected happened, data was not saved'},
+				res.json(response);
+			}else{
+				response = {'error': false, 'message': 'Data has been saved successfully'};
+				res.json(response);
+			}
+			
+	});
+}
+
+var findGroups = function(req,res){
+	var response = {};
+	if (req.query.group && req.query.active){
+			//Query all the categories in the Category collection
+		Group.find({'table' : req.query.group, 'active' : req.query.active}, function(err,data){
+			if (err){
+				//Sends Error if the query is unsuccessful
+				response = {'error': true, 'message': 'error fetching data from Attributes'};
+				res.json(data);
+			}else{
+				//Sends to the client the deata retrieved
+				res.json(data);
+			}
+
+		});
+	}
+	else if(req.query.table ){
+		//Query all the categories in the Category collection
+		Group.find({'table' : req.query.group}, function(err,data){
+			if (err){
+				//Sends Error if the query is unsuccessful
+				response = {'error': true, 'message': 'error fetching data from categries'};
+				res.json(data);
+			}else{
+				//Sends to the client the deata retrieved
+				res.json(data);
+			}
+		});
+	}else{
+		Group.find({},function(err,data){
+			if (err){
+				//Sends Error if the query is unsuccessful
+				response = {'error': true, 'message': 'error fetching data from categries'};
+				res.json(data);
+			}else{
+				//Sends to the client the deata retrieved
+				res.json(data);
+			}
+		});
+	}
+}
+
+var findGroup = function(req,res){
+	var response = {};
+	var groupId = req.query.id;
+	Group.findOne({'_id' : groupId}, function(err,data){
+		if (err){
+			response = {'error': true, 'message': 'Something really bad has happened'};
+			res.json(response);
+		}else{
+			res.json(data);
+		}
+	});
+}
+
+var createGroup = function(req,res){
+	var response = {};
+	var db = new Group();
+	db._id = mongoose.Types.ObjectId();
+	db.name = req.body.name;
+	db.active = req.body.active;
+	db.save(function(err){
+		if (err){
+			response = {'error': true, 'message': 'Something unexpected happened, data was not saved'},
+			res.json(response);
+		}else{
+			response = {'error': false, 'message': 'Data has been saved successfully'};
+			res.json(response);
+		}
+	});
+}
+
+var updateGroup = function(req,res){
+	var response = {};
+	var db = req.body;
+	Group.update({'_id': db._id},
+		{
+			'name': db.name,
+			'active': db.active,
+		}, function(err){
+			if (err){
+				response = {'error': true, 'message': 'Something unexpected happened, data was not saved'},
+				res.json(response);
+			}else{
+				response = {'error': false, 'message': 'Data has been saved successfully'};
+				res.json(response);
+			}
+			
+	});
+}
+
 
 
 
@@ -812,5 +996,13 @@ module.exports.model = {
 	findAspects				: findAspects,
 	findAspect				: findAspect,
 	createAspect			: createAspect,
-	updateAspect			: updateAspect
+	updateAspect			: updateAspect,
+	findTables 				: findTables,
+	findTable 				: findTable,
+	createTable 			: createTable,
+	updateTable 			: updateTable,
+	findGroups				: findGroups,
+	findGroup				: findGroup,
+	createGroup				: createGroup,
+	updateGroup				: updateGroup
 };
