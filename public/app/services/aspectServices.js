@@ -38,9 +38,9 @@ function AspectServices($http, $q){
 		return deferred.promise;
 	}
 
-	var _getAspects = function(){
+	var _getAspects = function(params){
 		var deferred = $q.defer(); 
-		$http.get('/aspects').success(function(data){
+		$http.get('/aspects', {params: params}).success(function(data){
 			deferred.resolve(data);
 		}).error(function(data){
 			deferred.resolve(data);

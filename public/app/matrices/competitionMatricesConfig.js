@@ -23,6 +23,12 @@ competitionMatricesModule.config(function($stateProvider){
 			url: '/continuous-evaluation',
 			templateUrl	: 'app/matrices/continuousevaluation/continuousevaluation.matrix.tmpl.html',
 			controller 	: 'continuousEvaluationMatrixController'
+		})
+
+		.state('app.matrix',{
+			url: '/matrix/:id',
+			templateUrl : 'app/matrices/view.matrix.tmpl.html',
+			controller  : 'competitionMatricesController' 
 		});
 
 

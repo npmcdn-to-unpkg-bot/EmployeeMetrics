@@ -88,8 +88,9 @@ var findEmployeesOnly = function(req,res){
 //finds all categories for the technology matrix
 var findCategories = function(req,res){
 	var response = {};
-	
+	console.log()
 	if (req.query.table && req.query.active){
+		console.log('is here');
 				//Query all the categories in the Category collection
 		Category.find({'table' : req.query.table, 'active' : req.query.active}, function(err,data){
 			if (err){
@@ -106,6 +107,7 @@ var findCategories = function(req,res){
 	}
 
 	else if(req.query.table ){
+		console.log('is this');
 		//Query all the categories in the Category collection
 		Category.find({'table' : req.query.table}, function(err,data){
 			if (err){
@@ -119,6 +121,7 @@ var findCategories = function(req,res){
 		});
 	}else{
 		Category.find({},function(err,data){
+			console.log('is that');
 			if (err){
 				//Sends Error if the query is unsuccessful
 				response = {'error': true, 'message': 'error fetching data from categries'};
@@ -337,7 +340,7 @@ var createEmployee = function(req,res){
 	db.accesslevel = parseInt(req.body.accesslevel);
 	db.group = req.body.group;
 	db.active = req.body.active;
-	
+	console.log(db);	
 	//saves the employee in the database
 	db.save(function(err){
 	//if an error is or not saves a different response and sends it to the client
@@ -356,6 +359,7 @@ var createEmployee = function(req,res){
 var updateEmployee = function(req,res){
 	var response = {};
 	var db = req.body;
+
 	Employee.update({'_id' : db._id},
 					{
 						$set: 
@@ -365,8 +369,7 @@ var updateEmployee = function(req,res){
 							'accesslevel'	: db.accesslevel,
 							'group'			: db.group,
 							'email'			: db.email,
-							'active'		: db.active,
-							'password'		: db.password
+							'active'		: db.active
 						}
 					},function(err,data){
 						//If an error appear or not it set response and send a message to the client
@@ -599,7 +602,6 @@ var changePassword = function(req,res){
 
 	if(!req.body._id)
 	{
-		console.log('entered');
 		db._id = req.user._id;	
 	}
 
@@ -650,7 +652,7 @@ var createCategory = function(req, res){
 	var db = new Category();
 	db._id = mongoose.Types.ObjectId();
 	db.name = req.body.name;
-	db.table = parseInt(req.body.table);
+	db.table = req.body.table;
 	db.active = req.body.active;
 	db.save(function(err){
 		if (err){
@@ -666,8 +668,8 @@ var createCategory = function(req, res){
 var updateCategory = function(req,res){
 	var response = {};
 	var db = req.body;
-	console.log(req.body);
-	console.log(req.query);
+	
+	
 	Category.update({'_id': db._id},
 		{
 			'name': db.name,
@@ -744,7 +746,7 @@ var createAspect = function(req,res){
 	var db = new Aspect();
 	db._id = mongoose.Types.ObjectId();
 	db.name = req.body.name;
-	db.table = parseInt(req.body.table);
+	db.table = req.body.table;
 	db.active = req.body.active;
 	db.save(function(err){
 		if (err){
@@ -804,7 +806,20 @@ var findTables = function(req,res){
 				res.json(data);
 			}
 		});
-	}else{
+	}
+	else if(req.query.group){
+		Table.find({'group': req.query.group}, function(err, data){
+			if (err){
+				//Sends Error if the query is unsuccessful
+				response = {'error': true, 'message': 'error fetching data from categries'};
+				res.json(data);
+			}else{
+				//Sends to the client the deata retrieved
+				res.json(data);
+			}
+		});
+	}
+	else{
 		Table.find({},function(err,data){
 			if (err){
 				//Sends Error if the query is unsuccessful
@@ -836,6 +851,7 @@ var createTable = function(req,res){
 	var db = new Table();
 	db._id = mongoose.Types.ObjectId();
 	db.name = req.body.name;
+	db.group = req.body.group;
 	db.active = req.body.active;
 	db.save(function(err){
 		if (err){
@@ -855,6 +871,7 @@ var updateTable = function(req,res){
 		{
 			'name': db.name,
 			'active': db.active,
+			'group' : db.group
 		}, function(err){
 			if (err){
 				response = {'error': true, 'message': 'Something unexpected happened, data was not saved'},

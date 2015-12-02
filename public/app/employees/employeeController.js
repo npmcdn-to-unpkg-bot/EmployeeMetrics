@@ -26,7 +26,8 @@ employeeApp.controller('employeeController', ['$scope','$mdToast', '$stateParams
 
 	};
 	
-	
+
+
 	$scope.showCreate = function()
 	{
 		
@@ -38,14 +39,94 @@ employeeApp.controller('employeeController', ['$scope','$mdToast', '$stateParams
 		return $scope.accesslevels[number].name
 	}
 
+	var loadFields = function(isUpdate){
+		$scope.fields = 
+		[
+			{
+				key: 'firstname',
+				type: 'horizontalInput',
+				templateOptions: {
+					label: 'First Name: ',
+					placeholder: 'John',
+					minlength: 3,
+					required: true
+				}
+			},
+			{
+				key: 'lastname',
+				type: 'horizontalInput',
+				templateOptions: {
+					label: 'Last Name: ',
+					placeholder: 'Doe',
+					minlength: 3,
+					required: true
+				}
+			},
+			{
+				key: 'email',
+				type: 'horizontalInput',
+				templateOptions: {
+					type: 'email',
+					label: 'E-Mail: ',
+					placeholder: 'John.Doe@synechron.com',
+					required: true
+				}
+			},
+			{
+				key: 'password',
+				type: 'horizontalInput',
+				hide: isUpdate,
+				templateOptions: {
+					type: 'password',
+					label: 'Password: ',
+					placeholder: 'Password',
+					minlength: 3,
+					required: true
+				}
+			},
+			{
+				key: 'accesslevel',
+				type: 'horizontalSelect',
+				templateOptions: {
+					label: 'Access Level: ',
+					options: $scope.accesslevels,
+					ngOptions: 'option.id as option.name for option in to.options',
+					required: true
+				}
+			},
+			{
+				key: 'group',
+				type: 'horizontalSelect',
+				templateOptions: {
+					label: 'User Group: ',
+					options: $scope.groups,
+					ngOptions: 'option._id as option.name for option in to.options'	,
+					required: true
+				}
+
+			},
+			{
+				key: 'active',
+				type: 'horizontalCheckbox',
+				templateOptions: {
+					label: 'Active',
+					placeholder: 'Active'
+				}
+			}
+		];
+	}
+
 	$scope.initialize = function(){
+
 		$scope.model = {
+			_id: '',
 			firstname: '',
 			lastname: '',
 			email: '',
 			accesslevel : null,
 			group: null,
-			active : true
+			active : true,
+			password: ''
 		};
 
 		AppServices.GetAccess().then(function(data){
@@ -60,64 +141,20 @@ employeeApp.controller('employeeController', ['$scope','$mdToast', '$stateParams
 						for (var i = 0 ; i < $scope.employees.length; i++){
 							$scope.employees[i].accesslevelname = showAccessLevel($scope.employees[i].accesslevel);
 						}
-					});
-					GroupServices.GetGroups().then(function(response){
-						$scope.groups = response;
-						$scope.fields = [
-							{
-								key: 'firstname',
-								type: 'input',
-								templateOptions: {
-									label: 'First Name: ',
-									placeholder: 'John'
-								}
-							},
-							{
-								key: 'lastname',
-								type: 'input',
-								templateOptions: {
-									label: 'Last Name: ',
-									placeholder: 'Doe'
-								}
-							},
-							{
-								key: 'email',
-								type: 'input',
-								templateOptions: {
-									label: 'E-Mail: ',
-									placeholder: 'John.Doe@synechron.com'
-								}
-							},
-							{
-								key: 'accesslevel',
-								type: 'select',
-								templateOptions: {
-									label: 'Access Level: ',
-									options: $scope.accesslevels,
-									ngOptions: 'option.id as option.name for option in to.options'
-								}
-							},
-							{
-								key: 'group',
-								type: 'select',
-								templateOptions: {
-									label: 'User Group: ',
-									options: $scope.groups,
-									ngOptions: 'option._id as option.name for option in to.options'	
-								}
+						GroupServices.GetGroups().then(function(response){
+							$scope.groups = response;
+							
+							loadFields(false);
 
-							},
-							{
-								key: 'active',
-								type: 'checkbox',
-								templateOptions: {
-									label: 'Active',
-									placeholder: 'Active'
+							for(var i = 0 ; i< $scope.employees.length; i++){
+								for(var j = 0; j< $scope.groups.length; j++){
+									if ($scope.employees[i].group === $scope.groups[j]._id){
+										$scope.employees[i].groupname = $scope.groups[j].name;
+										break;
+									}
 								}
 							}
-
-
-						];
+						});
 					});
 					break;
 			}
@@ -129,7 +166,7 @@ employeeApp.controller('employeeController', ['$scope','$mdToast', '$stateParams
 
 	$scope.saveEmployee = function(){
 		
-		var employee = $scope.employee;
+		var employee = $scope.model;
 		EmployeeServices.SaveEmployee(employee).then(function(response){
 			$mdToast.show(
 				$mdToast.simple()
@@ -150,7 +187,7 @@ employeeApp.controller('employeeController', ['$scope','$mdToast', '$stateParams
 
 	$scope.updateEmployee = function(){
 		
-		EmployeeServices.UpdateEmployee($scope.employee).then(function(response){
+		EmployeeServices.UpdateEmployee($scope.model).then(function(response){
 			$mdToast.show(
 				$mdToast.simple()
 				.content('Employee updated successfully')
@@ -171,20 +208,36 @@ employeeApp.controller('employeeController', ['$scope','$mdToast', '$stateParams
 	}
 
 	$scope.cancel = function(){
+		//console.log(this);
+		console.log(this.$parent.theFormlyForm);
+		loadFields();
+		$scope.model = {
+			_id: '',
+			firstname: '',
+			lastname: '',
+			email: '',
+			accesslevel : null,
+			group: null,
+			active : true,
+			password: ""
+		};
+
 		$state.go('app.employee',	{}	,{	reload: true	});	
 	}
 
 	$scope.goToUpdateEmployee = function(employee){
-		console.log(employee);
+		loadFields(true);
 		$scope.model = {
+			_id			: 	employee._id,
 			firstname: 		employee.firstname,
 			lastname: 		employee.lastname,
 			email:			employee.email,
 			accesslevel : 	employee.accesslevel,
 			group:			employee.group,
-			active : 		employee.active
+			active : 		employee.active,
+			password : 		employee.password
 		};
-		console.log($scope.model);
+		
 		if($scope.showCreateForm == false)
 		{
 			$scope.showCreateForm = true;

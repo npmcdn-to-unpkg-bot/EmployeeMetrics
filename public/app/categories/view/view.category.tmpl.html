@@ -1,7 +1,7 @@
-<div ng-controller="viewCategoryController" ng-init="initialize()">
-	
+<div ng-init="initialize()">
 	<div class = 'container'>
-		<div ui-view></div>
+	<div ui-view></div>
+	<h1>Categories</h1>
 
 		
 		<div class = 'row'>
@@ -17,9 +17,9 @@
 				<th>Table</th>
 				<th>Active</th>
 			</thead>
-				<tr  ng-click = "updateCategory(category)" dir-paginate="category in categories | itemsPerPage: 10">
+				<tr  ng-click = "goToUpdateCategory(category)" dir-paginate="category in categories | itemsPerPage: 10">
 					<td>{{category.name}}</td>
-					<td>{{category.table}}</td>
+					<td>{{category.tableName}}</td>
 					<td>{{category.active}}</td>
 				</tr>
 

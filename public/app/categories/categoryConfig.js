@@ -8,21 +8,21 @@ categoryApp.config(function($stateProvider){
 		.state('app.category',{
 			url: '/category',
 			templateUrl	: 'app/categories/view/view.category.tmpl.html',
-			controller 	: 'viewCategoryController',
+			controller 	: 'categoryController',
 	
 		})
 
 		.state('app.category.create',{
 			url: '/create',
 			templateUrl	: 'app/categories/create/create.category.tmpl.html',
-			controller 	: 'createCategoryController',
+			controller 	: 'categoryController',
 
 		})
 
 		.state('app.category.update',{
 			url: '/update/:id',
 			templateUrl	: 'app/categories/update/update.category.tmpl.html',
-			controller 	: 'updateCategoryController'
+			controller 	: 'categoryController'
 		
 			
 		});

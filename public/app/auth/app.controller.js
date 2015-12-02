@@ -1,6 +1,7 @@
 var app = angular.module('myApp');
 
-app.controller('appController',['$scope', '$state' , '$window', 'AppServices','EmployeeServices', function($scope, $state, $window, AppServices,EmployeeServices){
+app.controller('appController',['$scope', '$state' , '$window', 'AppServices','EmployeeServices', 'TableServices', 
+						function($scope, $state, $window, AppServices, EmployeeServices, TableServices){
 	$scope.loginForm = {};
 	
 	
@@ -9,7 +10,7 @@ app.controller('appController',['$scope', '$state' , '$window', 'AppServices','E
 	$scope.employee	= false;
 	$scope.manager	= false;
 	$scope.admin	= false;
-
+	$scope.tables = [];
 	$scope.personLoged = {};
 
 	$scope.getAccess = function(){
@@ -42,6 +43,11 @@ app.controller('appController',['$scope', '$state' , '$window', 'AppServices','E
 		
 		EmployeeServices.GetEmployee().then(function(response){
 			$scope.personLoged = response;
+			var params = {group: response.group};
+			TableServices.GetTables(params).then(function(response){
+				$scope.tables = response;
+				
+			});
 		});
 	}
 

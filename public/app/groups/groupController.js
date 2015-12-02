@@ -14,7 +14,7 @@
 			$scope.fields = [
 				{
 					key: 'name',
-					type: 'input',
+					type: 'horizontalInput',
 					templateOptions: {
 						label: 'Group Name: ',
 						placeholder: 'Front End Developers'
@@ -23,7 +23,7 @@
 				},
 				{
 					key: 'active',
-					type: 'checkbox',
+					type: 'horizontalCheckbox',
 					templateOptions: {
 						label: 'Active',
 						placeholder: 'Active'

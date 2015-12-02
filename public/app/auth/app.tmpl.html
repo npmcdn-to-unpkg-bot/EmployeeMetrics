@@ -15,7 +15,10 @@
 				<li>
 					<a ui-sref = 'app.dashboard'>Home</a>
 				</li>
-				<li>
+				<li ng-repeat = 'table in tables' ng-hide = 'admin'>
+					<a ui-sref = "app.matrix({id: '{{table._id}}' })">{{table.name}}</a>
+				</li>
+				<!-- <li>
 					<a ui-sref = 'app.training' ng-hide = 'admin'>Training Matrix</a>
 				</li>
 				<li>
@@ -24,7 +27,7 @@
 				<li>
 					<a ui-sref = 'app.continuous-evaluation' ng-hide = 'admin'>Continuous Evaluation</a>
 				</li>
-				
+				 -->
 				<li>
 					<a ui-sref='app.category' ng-show = 'admin'>Categories</a>
 				</li>

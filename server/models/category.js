@@ -14,7 +14,7 @@ var mongoSchema = mongoose.Schema;
 var categorySchema = new mongoSchema({
 	'_id'	: 	mongoSchema.ObjectId,
 	'name'	: 	String,
-	'table'	: 	Number,
+	'table'	: 	{type: mongoSchema.ObjectId, ref: 'Table'},
 	'active':   Boolean,
 });
 

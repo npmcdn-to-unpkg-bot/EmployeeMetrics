@@ -2,8 +2,8 @@
 	'use strict'
 	var tableApp = angular.module('tableModule');
 
-	tableApp.controller('tableController', ['$scope', '$stateParams', '$state','$mdToast', 'TableServices','AppServices', 
-						function($scope, $stateParams, $state,$mdToast , TableServices, AppServices){
+	tableApp.controller('tableController', ['$scope', '$stateParams', '$state','$mdToast', 'TableServices','AppServices','GroupServices', 'CategoryServices', 'AspectServices',
+						function($scope, $stateParams, $state,$mdToast , TableServices, AppServices, GroupServices, CategoryServices, AspectServices){
 			$scope.tables = {};
 			$scope.showCreateForm = false;
 			
@@ -11,31 +11,60 @@
 
 			};
 
-			$scope.fields = [
-				{
-					key: 'name',
-					type: 'input',
-					templateOptions: {
-						label: 'Table Name: ',
-						placeholder: 'Angular JS / Backbone JS'
+			var color = {
+				mix 	: ['#001f3f','#39CCCC','#2ECC40','#3D9970','#FF851B','#FFDC00','#FF4136','#B10DC9','#111111','#AAAAAA']
+			};
+
+			var options = 
+			{	
+				responsive: true,
+				animation: true,
+				scaleOverride : true,
+				showScale: true,
+				scaleSteps : 1,
+				scaleStepWidth : 2,
+				scaleStartValue : 1,
+				multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"    		
+			}
+
+			var loadFields = function(){
+				$scope.fields = [
+					{
+						key: 'name',
+						type: 'horizontalInput',
+						templateOptions: {
+							label: 'Table Name: ',
+							placeholder: 'Angular JS / Backbone JS'
+						}
+
+					},
+					{
+						key: 'group',
+						type: 'horizontalSelect',
+						templateOptions: {
+							label: 'User Group: ',
+							options: $scope.groups,
+							ngOptions: 'option._id as option.name for option in to.options'
+						}
+
+					},
+					{
+						key: 'active',
+						type: 'horizontalCheckbox',
+						templateOptions: {
+							label: 'Active',
+							placeholder: 'Active'
+						}
 					}
 
-				},
-				{
-					key: 'active',
-					type: 'checkbox',
-					templateOptions: {
-						label: 'Active',
-						placeholder: 'Active'
-					}
-				}
-
-			];
+				];
+			}
 
 			$scope.initialize = function(){
 								
 				$scope.model = {
 					name: '',
+					group: '',
 					active: true
 				};
 
@@ -46,9 +75,20 @@
 							$state.go('logout');
 							break;
 						case 2:
-							TableServices.GetTables().then(function(response){
-								$scope.tables = response;
-								
+							GroupServices.GetGroups().then(function(response){
+								$scope.groups = response;
+								loadFields();
+								TableServices.GetTables().then(function(response){
+									$scope.tables = response;
+									for(var i = 0 ; i< $scope.tables.length; i++){
+										for(var j = 0 ; j < $scope.groups.length ; j++){
+											if($scope.tables[i].group == $scope.groups[j]._id){
+												$scope.tables[i].groupName = $scope.groups[j].name;
+												break;
+											}
+										}
+									}
+								});
 							});
 							break;
 					}
@@ -70,10 +110,11 @@
 				$scope.model = {
 					_id: table._id,
 					name: table.name,
+					group: table.group,
 					active: table.active
 				};
 				
-				//console.log($scope.model);
+				
 				if($scope.showCreateForm == false)
 				{
 					$scope.showCreateForm = true;
@@ -115,8 +156,86 @@
 		}
 
 		$scope.cancel = function(){
+			$scope.model = {
+				name: '',
+				group: '',
+				active: true
+			};
+			loadFields();
 			$state.go('app.table',{}, {reload: true});
 		}
+
+		$scope.loadViewTable = function(table){
+			$scope.table = table;
+			var params = {table: table._id, active: true};
+			$scope.numbers = [1,2,3];
+			$scope.results = [];
+			$scope.aspectIndex = 0;
+			$scope.categoryIndex = 0;
+			$scope.aspects = [];
+			$scope.categories = [];
+
+			if($scope.showCreateForm == false)
+			{
+				$scope.showCreateForm = true;
+			
+			}
+			AspectServices.GetAspects(params).then(function(response){
+				$scope.aspects = response;
+				CategoryServices.GetCategories(params).then(function(response){
+					$scope.categories = response;
+					for(var i = 0; i<$scope.categories.length;i++){
+						$scope.categories[i].cindex = i;
+						$scope.results[i] = [];
+						for(var j = 0;j< $scope.aspects.length;j++){
+							$scope.aspects[j].aindex = j;
+							$scope.results[i][j] = 1;
+						}
+					}
+					$state.go('app.table.view');
+				});
+			});
+
+		}
+
+		$scope.reload = function(){
+			console.log($scope.results);
+			var dataset = [];
+			for (var i = 0; i< $scope.categories.length ; i++)
+			{
+				dataset[i] = {
+		 			label: $scope.categories[i].name,
+					fillColor: "rgba(220,220,220,0)",
+					strokeColor: color.mix[i],
+					pointColor: color.mix[i],
+					pointStrokeColor: "#fff",
+					pointHighlightFill: "#fff",
+					pointHighlightStroke: "rgba(220,220,220,1)",
+					scaleStepWidth : 3,
+					scaleStartValue : 1,
+					data: $scope.results[i]
+				}
+						
+			}
+				 			
+			var label = [];
+			for (var j = 0 ; j< $scope.aspects.length; j++){
+				label.push($scope.aspects[j].name);
+			}
+			
+			var data = {
+				labels: label,
+				datasets: dataset
+			}
+				
+
+				
+			var ctx = document.getElementById('chart').getContext("2d");
+
+			var myLineChart = new Chart(ctx).Line(data, options);
+			document.getElementById('legend').innerHTML = myLineChart.generateLegend();
+		}
+		
 
 		$scope.submit = function(){
 			console.log($scope.model);

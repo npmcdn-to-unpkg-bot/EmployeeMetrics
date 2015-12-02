@@ -14,6 +14,7 @@ var mongoSchema = mongoose.Schema;
 var TableSchema = new mongoSchema({
 	'_id'	: 	mongoSchema.ObjectId,
 	'name'	: 	String,
+	'group'	: 	{type: mongoSchema.ObjectId, ref: 'Group'},
 	'active':   Boolean,
 });
 

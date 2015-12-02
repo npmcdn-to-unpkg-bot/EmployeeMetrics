@@ -38,9 +38,9 @@ function CategoryServices($http, $q){
 		return deferred.promise;
 	}
 
-	var _getCategories = function(){
+	var _getCategories = function(params){
 		var deferred = $q.defer(); 
-		$http.get('/categories').success(function(data){
+		$http.get('/categories', {params: params}).success(function(data){
 			deferred.resolve(data);
 		}).error(function(data){
 			deferred.resolve(data);

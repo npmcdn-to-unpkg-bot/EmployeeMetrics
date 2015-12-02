@@ -14,8 +14,8 @@ var mongoSchema = mongoose.Schema;
 var aspectSchema = new mongoSchema({
 	'_id'	: 	mongoSchema.ObjectId,
 	'name'	: 	String,
-	'table'	: 	Number,
-	'active':   Boolean,
+	'table'	: 	{type: mongoSchema.ObjectId, ref: 'Table'},
+	'active':   Boolean
 });
 
 //Creates category from CategorySchema

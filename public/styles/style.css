@@ -29,14 +29,20 @@ md-toast.md-success-toast-theme {
     
 }
 
-md-toast.md-error-toast-theme {
-    margin-top: 5%;
+md-toast.md-error-toast-theme 
+{    margin-top: 5%;
     background-color: #C40233;
     
 }
 
 .test div {
     float: right;
+}
+
+
+#chart{
+  
+  height: 50%;
 }
 
 fieldset{

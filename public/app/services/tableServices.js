@@ -38,9 +38,9 @@ function TableServices($http, $q){
 		return deferred.promise;
 	}
 
-	var _getTables = function(){
+	var _getTables = function(params){
 		var deferred = $q.defer(); 
-		$http.get('/tables').success(function(data){
+		$http.get('/tables', {params: params}).success(function(data){
 			deferred.resolve(data);
 		}).error(function(data){
 			deferred.resolve(data);

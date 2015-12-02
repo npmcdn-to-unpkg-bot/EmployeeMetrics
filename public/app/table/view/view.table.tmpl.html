@@ -2,8 +2,8 @@
 	
 	<div class = 'container'>
 		<div ui-view></div>
-
 		
+		<h1>Table</h1>
 		<div class = 'row'>
 			<div class = 'col-md-offset-10 col-md-2'>
 				<a ui-sref = 'app.table.create' class='btn btn-primary' ng-hide = 'showCreateForm' ng-click='showCreate()'>Add New Table</a>	
@@ -15,14 +15,17 @@
 			<thead>
 				<th>Name</th>
 				<th>Active</th>
+				<th>Group</th>
 				<th>View</th>
 				<th>Edit</th>
+
 			</thead>
 				<tr   dir-paginate="table in tables | itemsPerPage: 10">
 					<td>{{table.name}}</td>
 					<td>{{table.active}}</td>
-					<td><a >View</a></td>
-					<td ng-click = "goToUpdateTable(table)"><a >Edit</a></td>
+					<td>{{table.groupName}}</td>
+					<td ng-click = 'loadViewTable(table)'>	<a>View</a></td>
+					<td ng-click = "goToUpdateTable(table)"><a>Edit</a></td>
 				</tr>
 
 		</table>
