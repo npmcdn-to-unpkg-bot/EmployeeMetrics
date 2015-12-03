@@ -225,9 +225,10 @@ competitionMatricesModule.controller('trainingMatrixController', ['$scope', '$md
 		}
 	}
 
-	$scope.setFalse=function(){
-		$scope.success = false;
+	$scope.submit = function(){
+		console.log($scope.peopleCategories);
 	}
+
 }]);
 
 

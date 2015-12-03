@@ -7,11 +7,11 @@ var ObjectId 		= 	mongoose.Types.ObjectId;
 var passport 		=	require('passport');
 var LocalStrategy 	= 	require('passport-local').Strategy;
 
+var Group  			= 	require('../models/group');
 var Employee 		= 	require('../models/employee');
+var Table  			= 	require('../models/table');
 var Category 		= 	require('../models/category');
 var Aspect 			= 	require('../models/aspect');
-var Table  			= 	require('../models/table');
-var Group  			= 	require('../models/group');
 var EmployeeCategory= 	require('../models/employeecategory');
 var EmployeeManager = 	require('../models/employeeManager');
 	
@@ -88,11 +88,11 @@ var findEmployeesOnly = function(req,res){
 //finds all categories for the technology matrix
 var findCategories = function(req,res){
 	var response = {};
-	console.log()
+	
 	if (req.query.table && req.query.active){
-		console.log('is here');
+		
 				//Query all the categories in the Category collection
-		Category.find({'table' : req.query.table, 'active' : req.query.active}, function(err,data){
+		Category.find({'table' : req.query.table, 'active' : req.query.active}).sort({'_id': 1}).exec(function(err,data){
 			if (err){
 				//Sends Error if the query is unsuccessful
 				response = {'error': true, 'message': 'error fetching data from categries'};
@@ -107,9 +107,9 @@ var findCategories = function(req,res){
 	}
 
 	else if(req.query.table ){
-		console.log('is this');
+		
 		//Query all the categories in the Category collection
-		Category.find({'table' : req.query.table}, function(err,data){
+		Category.find({'table' : req.query.table}).sort({'_id': 1}).exec(function(err,data){
 			if (err){
 				//Sends Error if the query is unsuccessful
 				response = {'error': true, 'message': 'error fetching data from categries'};
@@ -120,8 +120,8 @@ var findCategories = function(req,res){
 			}
 		});
 	}else{
-		Category.find({},function(err,data){
-			console.log('is that');
+		Category.find({}).sort({'_id': 1}).exec(function(err,data){
+			
 			if (err){
 				//Sends Error if the query is unsuccessful
 				response = {'error': true, 'message': 'error fetching data from categries'};
@@ -169,23 +169,30 @@ var findEmployeesCategoriesMatrix = function(req, res){
 	
 	//setrs the end date to compare on the query
 	var endDate = moment(startDate).add(1,'months');
-
+	console.log(req.query);
 	//Find all the documents in EmployeeCategory which employeeId is equal the the id pass through url
-	EmployeeCategory.find({	'employeeId' : req.query.employeeId, 
-									'table': parseInt(req.query.table),
-									'managerId': managerId,
-									'date': {$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}}, 
-									function(err,data){
-		if (err){
-			//If an error happens it sends information about the error to the client
-			response = {'error': true, 'message': 'error fetching data from Employees Categories on employeeId: ' + req.query.employeeId};
-			res.json(response);
-		}else
-		{
-			//Sends to the client the deata retrieved
-			res.json(data);
-			
-		}
+	EmployeeCategory
+	.find({	
+		'employeeId' : req.query.employeeId, 
+		'tableId': req.query.tableId,
+		'managerId': managerId,
+		'date': {$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}})
+	.sort({
+		'categoryId': 1,
+		'aspectId' 	: 1
+		})
+	.exec(
+		function(err,data){
+			if (err){
+				//If an error happens it sends information about the error to the client
+				response = {'error': true, 'message': 'error fetching data from Employees Categories on employeeId: ' + req.query.employeeId};
+				res.json(response);
+			}else
+			{
+				//Sends to the client the deata retrieved
+				res.json(data);
+				
+			}
 	});
 }
 
@@ -194,96 +201,116 @@ var updateTrainingMatrix = function(req, res){
 	var response={};
 
 	//Creates new employeeCategory for validation on the server side
-	var db = new EmployeeCategory();
 
-	//compares the employeeId requested with the user asking for this employee
-	if(req.user._id.toString() == req.body.employeeId.toString()){
-		//if it is the user sets managerId to null
-		db.managerId = null;
-	}else{
-		//if it is the manager sets the manager id with the token._id information
-		db.managerId = req.user._id;
+	var peopleCategories = req.body;
+	console.log(peopleCategories);
+	for (var i = 0; i<peopleCategories.length; i++){
+		for (var j=0; j<peopleCategories[i].length; j++){
+			var db = {};
+
+			//compares the employeeId requested with the user asking for this employee
+			if(req.user._id.toString() == peopleCategories[i][j].employeeId.toString()){
+				//if it is the user sets managerId to null
+				db.managerId = null;
+			}else{
+				//if it is the manager sets the manager id with the token._id information
+				db.managerId = req.user._id;
+			}
+
+			//Sets new information to be saved
+			db._id			= peopleCategories[i][j]._id;
+			db.employeeId 	= peopleCategories[i][j].employeeId;
+			db.categoryId 	= peopleCategories[i][j].categoryId;
+			db.aspectId   	= peopleCategories[i][j].aspectId;
+			db.Results 		= peopleCategories[i][j].Results;
+			db.tableId 		= peopleCategories[i][j].tableId;
+			db.date 		= peopleCategories[i][j].date;
+
+			var startDate  = moment(peopleCategories[i][j].date);
+			startDate.date(1);
+			var endDate = moment(startDate).add(1,'months');
+			
+			//Update the old information with the new one 
+			EmployeeCategory.update(
+					{
+						'_id'		 : db._id,	
+						'employeeId' : db.employeeId, 
+						'managerId'	 : db.managerId,
+						'tableId'	 : db.tableId,
+						'categoryId' : db.categoryId, 
+						'aspectId'	 : db.aspectId,
+						'date' 		 : {	//compare greater equal than start date and less than end date
+											$gte: new Date(startDate._d).toISOString(), 
+											$lt: new Date(endDate._d).toISOString()
+										}
+					}, //Query where to update
+					{
+						$set: 
+						{
+							'Results' : db.Results
+							
+						}
+					}, //Values to change
+					function(err,data){
+						//If an error appear or not it set response and send a message to the client
+						if(err){
+							response = {'error': true, 'message' : 'Something really bad happened'};
+
+						}else{
+							
+							response = {'error': false, 'message' : 'Data added'};
+						}
+					});
+		}
 	}
 
-	//Sets new information to be saved
-	db.employeeId = req.body.employeeId
-	db.categoryId = req.body.categoryId;
-	db.Results = req.body.Results;
-	db.date = req.body.date;
-	db.table = parseInt(req.body.table);
-
-	var startDate  = moment(req.body.date);
-	startDate.date(1);
-	var endDate = moment(startDate).add(1,'months');
-	
-	//Update the old information with the new one 
-	EmployeeCategory.update(
-			{
-				'employeeId' : db.employeeId, 
-				'managerId'	 : db.managerId,
-				'categoryId' : db.categoryId, 
-				'date' 		 : {	//compare greater equal than start date and less than end date
-									$gte: new Date(startDate._d).toISOString(), 
-									$lt: new Date(endDate._d).toISOString()
-								}
-			}, //Query where to update
-			{
-				$set: 
-				{
-					'Results' : db.Results, 
-					'employeeIdId': db.employeeId , 
-					'categoryId': db.categoryId, 
-					'table' : db.table
-				}
-			}, //Values to change
-			function(err,data){
-				//If an error appear or not it set response and send a message to the client
-				if(err){
-					response = {'error': true, 'message' : 'Something really bad happened'};
-
-				}else{
-					response = {'error': false, 'message' : 'Data added'};
-				}
-
-			res.send(response);
-	});
+	res.send(response);
 }
 
 var addScoreTrainingMatrix = function(req,res){
 	var response={};
 	//creates a new document for EmployeeCategory
-	var db = new EmployeeCategory();
-	
-	
-	
-	//compares the employeeId requested with the user asking for this employee
-	if(req.user._id.toString() == req.body.employeeId.toString()){
-		//if it is the user sets managerId to null
-		db.managerId = null;
-	}else{
-		//if it is the manager sets the manager id with the token._id information
-		db.managerId = req.user._id;
-	}
+	console.log(req.body);
+	var peopleCategories = req.body;
+	for (var i = 0; i<peopleCategories.length; i++){
+		for (var j=0; j<peopleCategories[i].length; j++){
+			var db = new EmployeeCategory();
+			
+			
+			//compares the employeeId requested with the user asking for this employee
+			if(req.user._id.toString() == peopleCategories[i][j].employeeId.toString()){
+				//if it is the user sets managerId to null
+				db.managerId = null;
+			}else{
+				//if it is the manager sets the manager id with the token._id information
+				db.managerId = req.user._id;
+			}
 
-	//Saves all new information to be saved
-	db._id = mongoose.Types.ObjectId();		//Generates ObjectId
-	db.employeeId = req.body.employeeId;
-	db.categoryId = req.body.categoryId;
-	db.Results = req.body.Results;
-	db.table = parseInt(req.body.table);
-	db.date = req.body.date;
-	
-	
-	//Calss the save functiont to mongo
-	db.save(function(err){
-		//if an error is or not saves a different response and sends it to the client
-		if (err){
-			response = {'error': true, 'message' : 'Something really bad happened'};
-		}else
-		{
-			response = {'error': false, 'message' : 'Data added'};
+			//Saves all new information to be saved
+
+			db._id 			= mongoose.Types.ObjectId();		//Generates ObjectId
+			db.employeeId 	= peopleCategories[i][j].employeeId;
+			db.categoryId 	= peopleCategories[i][j].categoryId;
+			db.aspectId   	= peopleCategories[i][j].aspectId;
+			db.Results 		= peopleCategories[i][j].Results;
+			db.tableId 		= peopleCategories[i][j].tableId;
+			db.date 		= peopleCategories[i][j].date;
+			
+			//Calss the save functiont to mongo
+			db.save(function(err){
+				//if an error is or not saves a different response and sends it to the client
+				if (err){
+					response = {'error': true, 'message' : 'Something really bad happened'};
+				}else
+				{
+					response = {'error': false, 'message' : 'Data added'};
+				}
+			});
+			
 		}
-	});
+	}
+	
+	
 	
 	res.send(response);
 }
@@ -691,7 +718,7 @@ var findAspects = function(req,res){
 	var response = {};
 	if (req.query.table && req.query.active){
 			//Query all the categories in the Category collection
-		Aspect.find({'table' : req.query.table, 'active' : req.query.active}, function(err,data){
+		Aspect.find({'table' : req.query.table, 'active' : req.query.active}).sort({'_id': 1}).exec(function(err,data){
 			if (err){
 				//Sends Error if the query is unsuccessful
 				response = {'error': true, 'message': 'error fetching data from Attributes'};
@@ -705,7 +732,7 @@ var findAspects = function(req,res){
 	}
 	else if(req.query.table ){
 		//Query all the categories in the Category collection
-		Aspect.find({'table' : req.query.table}, function(err,data){
+		Aspect.find({'table' : req.query.table}).sort({'_id': 1}).exec(function(err,data){
 			if (err){
 				//Sends Error if the query is unsuccessful
 				response = {'error': true, 'message': 'error fetching data from categries'};
@@ -716,7 +743,7 @@ var findAspects = function(req,res){
 			}
 		});
 	}else{
-		Aspect.find({},function(err,data){
+		Aspect.find({}).sort({'_id': 1}).exec(function(err,data){
 			if (err){
 				//Sends Error if the query is unsuccessful
 				response = {'error': true, 'message': 'error fetching data from categries'};

@@ -16,7 +16,7 @@
 					<a ui-sref = 'app.dashboard'>Home</a>
 				</li>
 				<li ng-repeat = 'table in tables' ng-hide = 'admin'>
-					<a ui-sref = "app.matrix({id: '{{table._id}}' })">{{table.name}}</a>
+					<a ui-sref = "app.matrix({id: '{{table._id}}' } )" ui-sref-opts="{reload: true}">{{table.name}}</a>
 				</li>
 				<!-- <li>
 					<a ui-sref = 'app.training' ng-hide = 'admin'>Training Matrix</a>

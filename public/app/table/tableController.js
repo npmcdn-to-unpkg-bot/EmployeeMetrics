@@ -199,7 +199,7 @@
 		}
 
 		$scope.reload = function(){
-			console.log($scope.results);
+			
 			var dataset = [];
 			for (var i = 0; i< $scope.categories.length ; i++)
 			{
@@ -238,7 +238,7 @@
 		
 
 		$scope.submit = function(){
-			console.log($scope.model);
+			
 		}
 
 	}]);

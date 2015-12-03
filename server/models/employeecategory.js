@@ -9,15 +9,12 @@ var employeeCategorySchema = new mongoSchema({
 	'_id'			: 	mongoSchema.ObjectId,
 	'employeeId'	: 	{type: mongoSchema.ObjectId, ref: 'Employee'},
 	'managerId'		: 	{type: mongoSchema.ObjectId, ref: 'Employee'},
+	'tableId'		: 	{type: mongoSchema.ObjectId, ref: 'Table'},
 	'categoryId'	: 	{type: mongoSchema.ObjectId, ref: 'Category'},
+	'aspectId'		: 	{type: mongoSchema.ObjectId, ref: 'Aspect'},
 	'date'			: 	Date,
-	'table'			: 	Number,
-	'Results'		: 	[
-			Number, 
-			Number, 
-			Number, 
-			Number	
-		]
+	'Results'		: 	Number
+		
 });
 
 

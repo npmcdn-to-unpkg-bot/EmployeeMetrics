@@ -2,8 +2,8 @@
 	'use strict'
 	var categoryApp = angular.module('categoryModule');
 
-	categoryApp.controller('categoryController', ['$scope', '$stateParams', '$state','$mdToast', 'CategoryServices','AppServices', 'TableServices',
-						function($scope, $stateParams, $state,$mdToast , CategoryServices, AppServices, TableServices){
+	categoryApp.controller('categoryController', ['$scope', '$stateParams', '$state','$mdToast', 'CategoryServices','AppServices', 'TableServices','GroupServices',
+						function($scope, $stateParams, $state,$mdToast , CategoryServices, AppServices, TableServices, GroupServices){
 			$scope.categories = {};
 			$scope.showCreateForm = false;
 			
@@ -26,7 +26,7 @@
 						templateOptions: {
 							label: 'Table',
 							options: $scope.tables,
-							ngOptions: 'option._id as option.name for option in to.options'
+							ngOptions: 'option._id as option.groupShow for option in to.options'
 						}
 					},
 					{
@@ -65,18 +65,36 @@
 							$state.go('logout');
 							break;
 						case 2:
+							//Get information for all tables
 							TableServices.GetTables().then(function(response){
 								$scope.tables = response;
+								//load fields
 								loadFields();
+								//Get All categories available
+								GroupServices.GetGroups().then(function(response){
+									$scope.groups = response;
+									
+									for(var i = 0; i< $scope.tables.length; i++){
+										for (var j = 0; j< $scope.groups.length; j++){
+											if ($scope.groups[j]._id == $scope.tables[i].group){
+												$scope.tables[i].groupName = $scope.groups[j].name;
+												$scope.tables[i].groupShow = $scope.tables[i].name + ' - '+ $scope.tables[i].groupName;
+											}
+										}
+									}
+								});
+
 								CategoryServices.GetCategories().then(function(response){
 									$scope.categories = response;
 									
 									for (var i = 0 ; i < $scope.categories.length; i++){
 										
 										for(var j = 0; j < $scope.tables.length; j++){
-											
+											//Compates if the table._id is equal to the tableId in Categories
 											if($scope.categories[i].table == $scope.tables[j]._id){
+												//Saves the name in the variable
 												$scope.categories[i].tableName = $scope.tables[j].name;
+												$scope.categories[i].groupName = $scope.tables[j].groupName;
 												break;
 											}
 											

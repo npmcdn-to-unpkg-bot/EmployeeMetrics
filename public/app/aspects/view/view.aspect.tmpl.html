@@ -19,7 +19,7 @@
 			</thead>
 				<tr  ng-click = "goToUpdateAspect(aspect)" dir-paginate="aspect in aspects | itemsPerPage: 10">
 					<td>{{aspect.name}}</td>
-					<td>{{aspect.tableName}}</td>
+					<td>{{aspect.tableName + ' - '+ aspect.groupName}}</td>
 					<td>{{aspect.active}}</td>
 				</tr>
 

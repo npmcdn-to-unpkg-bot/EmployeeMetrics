@@ -19,7 +19,7 @@
 			</thead>
 				<tr  ng-click = "goToUpdateCategory(category)" dir-paginate="category in categories | itemsPerPage: 10">
 					<td>{{category.name}}</td>
-					<td>{{category.tableName}}</td>
+					<td>{{category.tableName + ' - '+ category.groupName}}</td>
 					<td>{{category.active}}</td>
 				</tr>
 

@@ -2,8 +2,8 @@
 	'use strict'
 	var aspectApp = angular.module('aspectModule');
 
-	aspectApp.controller('aspectController', ['$scope', '$stateParams', '$state','$mdToast', 'AspectServices','AppServices', 'TableServices',
-						function($scope, $stateParams, $state,$mdToast , AspectServices, AppServices, TableServices){
+	aspectApp.controller('aspectController', ['$scope', '$stateParams', '$state','$mdToast', 'AspectServices','AppServices', 'TableServices', 'GroupServices',
+						function($scope, $stateParams, $state,$mdToast , AspectServices, AppServices, TableServices, GroupServices){
 			$scope.aspects = {};
 			$scope.showCreateForm = false;
 			
@@ -26,7 +26,7 @@
 						templateOptions: {
 							label: 'Table',
 							options: $scope.tables,
-							ngOptions: 'option._id as option.name for option in to.options'
+							ngOptions: 'option._id as option.groupShow for option in to.options'
 						}
 					},
 					{
@@ -65,9 +65,23 @@
 							$state.go('logout');
 							break;
 						case 2:
+
+
 							TableServices.GetTables().then(function(response){
 								$scope.tables = response;
 								loadFields();
+								GroupServices.GetGroups().then(function(response){
+									$scope.groups = response;
+									for(var i = 0; i< $scope.tables.length; i++){
+										for (var j = 0; j< $scope.groups.length; j++){
+											if ($scope.groups[j]._id == $scope.tables[i].group){
+												$scope.tables[i].groupName = $scope.groups[j].name;
+												$scope.tables[i].groupShow = $scope.tables[i].name + ' - '+ $scope.tables[i].groupName;
+												break;
+											}
+										}
+									}
+								});
 								AspectServices.GetAspects().then(function(response){
 									$scope.aspects = response;
 									
@@ -77,6 +91,7 @@
 											
 											if($scope.aspects[i].table == $scope.tables[j]._id){
 												$scope.aspects[i].tableName = $scope.tables[j].name;
+												$scope.aspects[i].groupName = $scope.tables[j].groupName;
 												break;
 											}
 											
