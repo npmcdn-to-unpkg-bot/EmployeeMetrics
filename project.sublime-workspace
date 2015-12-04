@@ -4,16 +4,68 @@
 		"selected_items":
 		[
 			[
+				"j",
+				"j-1"
+			],
+			[
+				"people",
+				"peopleCategories"
+			],
+			[
+				"peo",
+				"peopleCategories"
+			],
+			[
+				"as",
+				"aspects"
+			],
+			[
+				"only",
+				"onlyActiveCategories"
+			],
+			[
+				"categor",
+				"categories"
+			],
+			[
+				"on",
+				"onlyActiveCategories"
+			],
+			[
+				"catego",
+				"categories"
+			],
+			[
+				"cate",
+				"categories"
+			],
+			[
+				"aspec",
+				"aspects"
+			],
+			[
+				"categories",
+				"categories"
+			],
+			[
+				"Aspce",
+				"AspectServices"
+			],
+			[
+				"Catego",
+				"CategoryServices"
+			],
+			[
+				"aspects",
+				"aspects"
+			],
+			[
 				"aspect",
-				"aspectId"
+				"aspects"
 			],
 			[
 				"Compat",
 				"competitionMatricesController"
-			],
-			[
-				"categories",
-				"peopleCategories"
 			],
 			[
 				"table",
@@ -52,10 +104,6 @@
 				"mongoSchema"
 			],
 			[
-				"as",
-				"aspect"
-			],
-			[
 				"page",
 				"pages"
 			],
@@ -66,10 +114,6 @@
 			[
 				"pading",
 				"padding-top"
-			],
-			[
-				"catego",
-				"categoryId"
 			],
 			[
 				"Category",
@@ -220,24 +264,12 @@
 				"getPeopleCategories"
 			],
 			[
-				"cate",
-				"catagories"
-			],
-			[
-				"peo",
-				"people"
-			],
-			[
 				"mon",
 				"MongoModuleServicesFactory"
 			],
 			[
 				"result",
 				"resultChanged"
-			],
-			[
-				"people",
-				"peopleCategories"
 			],
 			[
 				"getcat",
@@ -300,34 +332,26 @@
 	"buffers":
 	[
 		{
+			"file": "public/app/dashboard/view/view.dashboard.tmpl.html",
+			"settings":
+			{
+				"buffer_size": 4479,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "public/app/matrices/competitionMatricesController.js",
 			"settings":
 			{
-				"buffer_size": 8635,
+				"buffer_size": 10749,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "public/app/matrices/view.matrix.tmpl.html",
+			"file": "public/app/dashboard/dashboardController.js",
 			"settings":
 			{
-				"buffer_size": 2415,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "server/models/employeecategory.js",
-			"settings":
-			{
-				"buffer_size": 773,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "public/app/services/competitionMatricesServices.js",
-			"settings":
-			{
-				"buffer_size": 2064,
+				"buffer_size": 5182,
 				"line_ending": "Windows"
 			}
 		},
@@ -335,15 +359,15 @@
 			"file": "server/database/models.js",
 			"settings":
 			{
-				"buffer_size": 28064,
+				"buffer_size": 28000,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "public/app/auth/app.tmpl.html",
+			"file": "server/routesApi.js",
 			"settings":
 			{
-				"buffer_size": 2300,
+				"buffer_size": 3824,
 				"line_ending": "Windows"
 			}
 		}
@@ -388,6 +412,17 @@
 	},
 	"file_history":
 	[
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/database/models.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/view/view.dashboard.controller.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/groups/groupController.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/index.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/app.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/competitionMatricesServices.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/models/employeecategory.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/view.matrix.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/competitionMatricesController.js",
+		"/C/Users/Carlos.Danna/Desktop/test.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/dashboardController.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/categories/categoryConfig.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/table/tableController.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/table/viewtable/viewtable.table.tmpl.html",
@@ -397,17 +432,11 @@
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/categories/categoryController.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/training/training.matrix.controller.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/training/training.matrix.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/index.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/models/employeecategory.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/database/models.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/competitionMatricesConfig.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/groups/view/view.group.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/view.matrix.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/competitionMatricesController.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/groups/create/create.group.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/groups/update/update.group.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/table/tableConfig.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/app.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/app.controller.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/table/update/update.table.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/table/create/create.table.tmpl.html",
@@ -421,7 +450,6 @@
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/tableServices.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/table/view/view.table.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/employeeController.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/groups/groupController.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/create/create.employee.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/update/update.employee.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/appConfig.js",
@@ -471,8 +499,6 @@
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/styles/bootstrap.min.css",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/continuousevaluation/continuousevaluation.matrix.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/technology/technology.matrix.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/competitionMatricesServices.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/view/view.dashboard.controller.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/view/view.dashboard.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/dashboardConfig.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/dashboardServices.js",
@@ -513,9 +539,7 @@
 		"/C/cygwin/home/Carlos.Danna/jasmineTest/spec.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/spec/databaseSpec",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/spec/serverSpec.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/spec/support/jasmine.json",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/spec/serverSpec.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/managerModule.js"
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/spec/support/jasmine.json"
 	],
 	"find":
 	{
@@ -533,6 +557,23 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"parseint",
+			"findEmployeesCategoriesFromEmployee",
+			"employees",
+			"findEmployeesCategoriesFromEmployee",
+			"categories",
+			"get",
+			"getempty",
+			"$scope.table",
+			"console.log",
+			"peoplecategories",
+			"console",
+			"$scope.date",
+			"$scope.params",
+			"console.log",
+			"getPeopleCate",
+			"GetPeopleCategories",
+			"getPeopleCategories",
 			"table",
 			"});\n",
 			"findCategor",
@@ -643,24 +684,7 @@
 			"categorie",
 			"findcate",
 			"save",
-			"blue",
-			"red",
-			"manager",
-			"console",
-			"change",
-			"categories",
-			"$categories",
-			"getMatrices",
-			"var",
-			";\n",
-			"category",
-			"/employees",
-			"employees",
-			"findemployees",
-			"findEmployee",
-			"findemployees",
-			"token",
-			"delet"
+			"blue"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -681,103 +705,104 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "public/app/matrices/competitionMatricesController.js",
+					"file": "public/app/dashboard/view/view.dashboard.tmpl.html",
 					"settings":
 					{
-						"buffer_size": 8635,
+						"buffer_size": 4479,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2031,
-								2031
+								1155,
+								1155
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"syntax": "Packages/AngularJS/AngularJS.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 234.0,
+						"translation.y": 195.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "public/app/matrices/view.matrix.tmpl.html",
+					"file": "public/app/matrices/competitionMatricesController.js",
 					"settings":
 					{
-						"buffer_size": 2415,
+						"buffer_size": 10749,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								319,
-								336
+								3961,
+								3962
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/AngularJS/AngularJS.tmLanguage",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 4251.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "server/models/employeecategory.js",
+					"file": "public/app/dashboard/dashboardController.js",
 					"settings":
 					{
-						"buffer_size": 773,
+						"buffer_size": 5182,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								567,
-								574
+								5124,
+								5124
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1833.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "public/app/services/competitionMatricesServices.js",
+					"file": "server/database/models.js",
 					"settings":
 					{
-						"buffer_size": 2064,
+						"buffer_size": 28000,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1324,
-								1338
+								15734,
+								15734
 							]
 						],
 						"settings":
@@ -786,25 +811,25 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 117.0,
+						"translation.y": 7371.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "server/database/models.js",
+					"file": "server/routesApi.js",
 					"settings":
 					{
-						"buffer_size": 28064,
+						"buffer_size": 3824,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								274,
-								274
+								3559,
+								3594
 							]
 						],
 						"settings":
@@ -813,34 +838,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 624.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "public/app/auth/app.tmpl.html",
-					"settings":
-					{
-						"buffer_size": 2300,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								644,
-								644
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/AngularJS/AngularJS.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1482.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

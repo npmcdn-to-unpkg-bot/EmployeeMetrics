@@ -3,8 +3,8 @@ var dashboardModule = angular.module('dashboardModule');
 
 
 competitionMatricesModule.controller('viewDashboardController', 
-	['$scope','$state', '$filter', 'CompetitionMatrixServices','AppServices', 'CategoryServices' ,'EmployeeServices','ManagerServices', 'DashboardServices', 
-	function($scope, $state, $filter, CompetitionMatrixServices, AppServices,  CategoryServices , EmployeeServices, ManagerServices, DashboardServices){
+	['$scope','$state', '$filter', 'CompetitionMatrixServices','AppServices', 'CategoryServices' ,'EmployeeServices','ManagerServices', 'DashboardServices', 'AspectServices', 'TableServices', 'GroupServices',
+	function($scope, $state, $filter, CompetitionMatrixServices, AppServices,  CategoryServices , EmployeeServices, ManagerServices, DashboardServices, AspectServices, TableServices, GroupServices){
 		$scope.employee = {};
 		
 		$scope.userChart = {};
@@ -39,19 +39,7 @@ competitionMatricesModule.controller('viewDashboardController',
 
 		$scope.manager = {};
 
-		var matrices = [{
-			'id': 0,
-			'name' : 'technology'
-		},
-		{
-			'id': 1,
-			'name' : 'training'
-		},
-		{
-			'id': 2,
-			'name' : 'continuous'
-		}
-		];
+		$scope.table = {};
 
 
 

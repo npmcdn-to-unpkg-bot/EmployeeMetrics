@@ -36,49 +36,10 @@
 				if($stateParams.id==null || $stateParams.id ==''){
 					$state.go('app.dashboard');
 				}
-				var params = {id: $stateParams.id}
-				//getEmptyMatrix(params);
-				TableServices.GetTable(params).then(function(response){
-					$scope.table = response;
-					$scope.numbers = [1,2,3];
-					$scope.peopleCategories = [];
-					$scope.aspectIndex = 0;
-					$scope.categoryIndex = 0;
-					$scope.aspects = [];
-					$scope.categories = [];
-					params = {table: response._id, active: true};
-					AspectServices.GetAspects(params).then(function(response){
-						$scope.aspects = response;
-						CategoryServices.GetCategories(params).then(function(response){
-							$scope.categories = response;
 
-							for(var i = 0; i<$scope.categories.length;i++){
-								$scope.categories[i].cindex = i;
-								$scope.peopleCategories[i] = [];
-								for(var j = 0;j< $scope.aspects.length;j++){
-									$scope.aspects[j].aindex = j;
-									$scope.peopleCategories[i][j] = {};
-								}
-							}
-							
 
-						});
-					});			
-				});
-
-				//this operations are to set a default date
-				var today = new Date();
-				var month = moment(today).month();
-				var year = moment(today).year();
 				
-				
-				$scope.date.month = $scope.select.month[month];
-				$scope.date.year = year;
-
 				AppServices.GetAccess().then(function(data){
-					
-									
-					
 					switch(parseInt(data.access)){
 						case 0:
 							EmployeeServices.GetEmployee().then(function(response){
@@ -86,16 +47,17 @@
 								var today = new Date();
 								var month = moment(today).month();
 								var year = moment(today).year();
-								var params = {
-									tableId: $scope.table._id,
-									date: moment({y: $scope.date.year, M: month, d: 15}).toISOString(),
-									employeeId: response._id,
-								};
 
-								$scope.params.employeeId = params.employeeId;
+
 								
-								$scope.getPeopleCategories(params);
-										
+								var params = {id : $stateParams.id};
+								$scope.params.employeeId = response._id;
+								$scope.date.numberMonth = month;
+								$scope.date.month = $scope.select.month[month];;
+								$scope.date.year = year;
+
+								getMatrix(params);
+								
 							});
 							
 							break;
@@ -104,20 +66,28 @@
 								for (var i = 0; i<response.length;i++){
 									findPerson(response,i);
 								}
-							});
+								var index = response.length;
+								console.log(index);
 
-							EmployeeServices.GetEmployee().then(function(response){
-									$scope.people[$scope.people.length] = response;
-									var today = new Date();
-									var month = moment(today).month();
-									var year = moment(today).year();
-									var params = {
-										tableId: $scope.table._id,
-										date: moment({y: $scope.date.year, M: month, d: 15}).toISOString(),
-										employeeId: response._id,
-									};
-									$scope.params.employeeId = response._id;
-									$scope.getPeopleCategories(params);
+								EmployeeServices.GetEmployee().then(function(response){
+									console.log(index);
+										$scope.people[index] = response;
+										console.log($scope.people);
+										var today = new Date();
+										var month = moment(today).month();
+										var year = moment(today).year();
+										var params = {id : $stateParams.id};
+										/*var params = {
+											tableId: $scope.table._id,
+											date: moment({y: $scope.date.year, M: month, d: 15}).toISOString(),
+											employeeId: response._id,
+										};*/
+										$scope.params.employeeId = $scope.people[index]._id;
+										$scope.date.numberMonth = month;
+										$scope.date.month = $scope.select.month[month];;
+										$scope.date.year = year;
+										getMatrix(params);
+								});
 							});
 							break;
 						case 2:
@@ -125,8 +95,8 @@
 							break;
 					}
 				});
-
-			}
+				
+	}
 
 	//This function triggers if any value of a specific row changes 
 	$scope.resultChanged = function(rowNumber){
@@ -141,18 +111,18 @@
 		var month = moment().month($scope.date.month);
 		
 		params = {
-			tableId: $scope.table._id,
+			tableId: $stateParams.id,
 			date: 	moment({y: $scope.date.year, M: month.month(), d: 15}).toISOString(),
-			employeeId: pEmployeeId,
+			employeeId: pEmployeeId
 		};
-		console.log($scope.peopleCategories);
+		
 		
 		CompetitionMatrixServices.GetPeopleCategories(params).then(function(response){
 			if (response.length!=0){
 				var h = 0;
 				var k = 0;
 				$scope.ShowButton = false;
-				console.log(response);
+				
 				for (var i = 1; i<= response.length; i++){
 					
 					$scope.peopleCategories[h][k] = response[i-1];
@@ -177,7 +147,7 @@
 					for(var j = 0;j< $scope.aspects.length;j++){
 						$scope.aspects[j].aindex = j;
 						$scope.peopleCategories[i][j] = {};
-						$scope.peopleCategories[i][j].tableId	 = $scope.table._id;
+						$scope.peopleCategories[i][j].tableId	 = $stateParams.id;
 						$scope.peopleCategories[i][j].categoryId = $scope.categories[i]._id;
 						$scope.peopleCategories[i][j].aspectId 	 = $scope.aspects[j]._id;
 						$scope.peopleCategories[i][j].Results 	 = 1;
@@ -199,8 +169,10 @@
 	}
 
 	function getEmptyMatrix(params){
+		params = {id: params.tableId};
 		TableServices.GetTable(params).then(function(response){
 			$scope.table = response;
+			
 			$scope.numbers = [1,2,3];
 			$scope.peopleCategories = [];
 			$scope.aspectIndex = 0;
@@ -211,9 +183,9 @@
 			if($scope.showCreateForm == false)
 			{
 				$scope.showCreateForm = true;
-			
 			}
-			params = {table: response._id, active: true};
+
+			params = {table: $stateParams.id, active: true};
 			AspectServices.GetAspects(params).then(function(response){
 				$scope.aspects = response;
 				CategoryServices.GetCategories(params).then(function(response){
@@ -225,7 +197,7 @@
 						for(var j = 0;j< $scope.aspects.length;j++){
 							$scope.aspects[j].aindex = j;
 							$scope.peopleCategories[i][j] = {};
-							$scope.peopleCategories[i][j].tableId	 = $scope.table._id;
+							$scope.peopleCategories[i][j].tableId	 = $stateParams.id;
 							$scope.peopleCategories[i][j].categoryId = $scope.categories[i]._id;
 							$scope.peopleCategories[i][j].aspectId 	 = $scope.aspects[j]._id;
 							$scope.peopleCategories[i][j].Results 	 = 1;
@@ -293,6 +265,129 @@
 	$scope.submit = function(){
 
 		
+	}
+
+
+	//this function is to test if the category or aspect is in array
+	function isInArray(array, element){
+		//if the array is more than 0
+		if(array.length > 0){
+			var inArray = false;
+			//go through the array
+			for(var i=0 ; i< array.length; i++){
+				//if it has at least one element equal another
+				if(array[i]._id == element._id){
+					//sets in array to true
+					inArray = true;
+					break;
+				}
+			}
+			//if the element is not in the array
+			if(inArray == false){
+				//add the element to the array
+				array.push(element);
+			}
+		}else{
+			//if it is the first element added directly to the array
+			array.push(element);
+		}
+
+	}
+
+
+	function getMatrix(params){
+		//Get the table requested through URL
+		
+		TableServices.GetTable(params).then(function(response){
+			$scope.table = response;
+			console.log(response);
+			var params = {table : $stateParams.id};
+			CategoryServices.GetCategories(params).then(function(response){
+				
+				$scope.categories = response;
+				for(var i = 0;i< $scope.categories.length; i++){
+					$scope.categories[i].cindex = i;
+				}
+
+				var params = {table : $stateParams.id};
+				AspectServices.GetAspects(params).then(function(response){
+
+					$scope.aspects = response;
+					for(var i = 0;i< $scope.aspects.length; i++){
+						$scope.aspects[i].aindex = i;
+					}
+
+					params = {
+						tableId: $stateParams.id,
+						date: moment({y: $scope.date.year, M: $scope.date.numberMonth, d: 15}).toISOString(),
+						employeeId: response._id,
+					};					
+					
+					//Get People categories to start building the matrix from there		
+					CompetitionMatrixServices.GetPeopleCategories(params).then(function(response){
+						
+						if (response.length != 0){
+							
+							var hasCategory = [];
+							var hasAspect = [];
+							for(var i = 0; i< response.length;i++){
+
+								for(var j = 0 ; j< $scope.categories.length;j++){
+									if(response[i].categoryId == $scope.categories[j]._id){
+										isInArray(hasCategory, $scope.categories[j]);
+										break;
+									}
+								}
+								for(var j = 0;j< $scope.aspects.length;j++){
+									if(response[i].aspectId == $scope.aspects[j]._id){
+										isInArray(hasAspect, $scope.aspects[j]);
+										break;
+									}
+								}
+
+							}
+
+							$scope.categories = hasCategory;
+							$scope.aspects = hasAspect;
+
+							$scope.peopleCategories = [];
+							for (var j = 0 ; j< $scope.categories.length; j++){
+								$scope.peopleCategories[j] = [];
+							}
+
+							$scope.ShowButton = false;
+							
+							var h = 0;
+							var k = 0;
+							for (var i = 1; i<= response.length; i++){
+								
+								$scope.peopleCategories[h][k] = response[i-1];
+
+								if(i % $scope.aspects.length == 0 && i != 0)
+								{
+									h++;
+									k=0;
+								}else{
+									k++;
+								}
+							}
+							
+
+							for(var i = 0;i<$scope.peopleCategories.length;i++){
+								$scope.resultChanged(i);
+							}
+							
+						}else{
+							$scope.ShowButton = true;
+
+							getEmptyMatrix(params);
+						}
+
+					});	
+				});			
+			});
+			
+		});
 	}
 			
 	}]);

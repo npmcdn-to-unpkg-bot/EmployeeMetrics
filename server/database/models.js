@@ -155,9 +155,11 @@ var findEmployeesCategoriesMatrix = function(req, res){
 	if(req.query.employeeId.toString() == req.user._id.toString()){
 		//if it is the user sets managerId to null
 		managerId = null;
+		console.log('no manager');
 	}else{
 		//if it is the manager sets the manager id with the token._id information
 		managerId = req.user._id;
+		console.log('manager');
 	}
 
 	
@@ -169,7 +171,7 @@ var findEmployeesCategoriesMatrix = function(req, res){
 	
 	//setrs the end date to compare on the query
 	var endDate = moment(startDate).add(1,'months');
-	console.log(req.query);
+	
 	//Find all the documents in EmployeeCategory which employeeId is equal the the id pass through url
 	EmployeeCategory
 	.find({	
@@ -189,6 +191,7 @@ var findEmployeesCategoriesMatrix = function(req, res){
 				res.json(response);
 			}else
 			{
+				console.log(data);
 				//Sends to the client the deata retrieved
 				res.json(data);
 				
@@ -203,7 +206,7 @@ var updateTrainingMatrix = function(req, res){
 	//Creates new employeeCategory for validation on the server side
 
 	var peopleCategories = req.body;
-	console.log(peopleCategories);
+	
 	for (var i = 0; i<peopleCategories.length; i++){
 		for (var j=0; j<peopleCategories[i].length; j++){
 			var db = {};
@@ -270,7 +273,7 @@ var updateTrainingMatrix = function(req, res){
 var addScoreTrainingMatrix = function(req,res){
 	var response={};
 	//creates a new document for EmployeeCategory
-	console.log(req.body);
+	
 	var peopleCategories = req.body;
 	for (var i = 0; i<peopleCategories.length; i++){
 		for (var j=0; j<peopleCategories[i].length; j++){
@@ -367,7 +370,7 @@ var createEmployee = function(req,res){
 	db.accesslevel = parseInt(req.body.accesslevel);
 	db.group = req.body.group;
 	db.active = req.body.active;
-	console.log(db);	
+	
 	//saves the employee in the database
 	db.save(function(err){
 	//if an error is or not saves a different response and sends it to the client
@@ -573,11 +576,11 @@ var setToInactive = function(req,res){
 	EmployeeManager.remove({'employeeId': db.employeeId, 'managerId': db.managerId}, function(err, data){
 		if (err){
 			response = {'error': true, 'message' : 'Something really bad happened'};
-			console.log(response);
+			
 		}else
 		{
 			response = {'error': false, 'message' : 'Data modified'};
-			console.log(response);
+			
 			
 		}
 	});
@@ -606,7 +609,7 @@ var findEmployeesCategoriesFromEmployee = function(req,res){
 
 	//Find all the documents in EmployeeCategory which employeeId is equal the the id pass through url
 	EmployeeCategory.find({	'employeeId' : id, 
-							'table': parseInt(req.query.table),
+							'tableId': req.query.tableId,
 							'date': {$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}}).sort({'managerId': -1}).exec( 
 							function(err,data){
 		if (err){
