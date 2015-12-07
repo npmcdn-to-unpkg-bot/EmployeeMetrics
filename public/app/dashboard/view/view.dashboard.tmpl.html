@@ -9,15 +9,15 @@
 					<div class = 'col-md-6 form-group' ng-show='isManager'>
 						<label  for = 'users'>Choose person to see</label>
 						
-						<select ng-model ='personSelected._id' name = 'user' ng-change='personChange(personSelected._id)' class = 'form-control'>
+						<select ng-model ='personSelected._id' name = 'user' ng-change='personChange()' class = 'form-control'>
 							<option ng-repeat="person in people" value='{{person._id}}'>{{person.firstname + ' ' + person.lastname}}</option>
 						</select>
 						
 					</div>
 					<div class = 'col-md-6 form-group ' ng-hide='isAdmin'>
 						<label  for = 'date'>Choose month - year</label>
-						<select ng-model ='date.month' ng-change='dateChange(personSelected)' class = 'form-control' ng-options='month as month for month in select.month'></select>	
-						<select ng-model ='date.year' ng-change='dateChange(personSelected)' class = 'form-control' ng-options = 'year as year for year in select.year'></select>	
+						<select ng-model ='date.month' ng-change='dateChange()' class = 'form-control' ng-options='month as month for month in select.month'></select>	
+						<select ng-model ='date.year' ng-change='dateChange()' class = 'form-control' ng-options = 'year as year for year in select.year'></select>	
 					</div>
 				</div>
 			</form>
@@ -25,97 +25,40 @@
 		
 		
 		<div class = 'col-md-12' ng-hide='isAdmin'>
-			</form>
-			<div class='col-md-12'>
-				<h4>Manager Results <span ng-show='hasManager'>by {{manager.firstname + " " + manager.lastname}}<span></h4>
-				<div  class = 'col-md-4' >
-					<div align = 'center'>
-						<h4>Technology Matrix</h4>
-						<select ng-model='technologyParam' ng-change='filterCategory(technologyParam,0)' class= 'form-control' ng-options= 'category as category.name for category in matrix[0].table'>
-							<option value="">Select All</option>
-						</select>
-					</div>
-					<canvas id="technologyManagerChart" ></canvas>
-					<div id = 'technologyManagerLegend'></div>
-				</div>
-				<div class = 'col-md-4'>
-					<div align = 'center'>
-						<h4>Training Matrix</h4>
-						<select ng-model='trainingParam' ng-change='filterCategory(trainingParam,1)' class= 'form-control' ng-options= 'category as category.name for category in matrix[1].table'>
-							<option value="">Select All</option>
-						</select>
-					</div>
-
-					<canvas id="trainingManagerChart" width="300" height="300"></canvas>
-					<div id = 'trainingManagerLegend'></div>
-				</div>
-				<div class = 'col-md-4'>
-					<div align = 'center'>
-						<h4>Continuous Evaluation Matrix</h4>
-						<select ng-model='continuouseParam' ng-change='filterCategory(continuouseParam,2)' class= 'form-control' ng-options= 'category as category.name for category in matrix[2].table'>
-							<option value="">Select All</option>
-						</select>
-					</div>
-					<canvas id="continuousManagerChart" width="300" height="300"></canvas>
-					<div id = 'continuousManagerLegend'></div>
+			<h4>Manager Results</h4>
+			<div class = 'col-md-12'>
+				<div class="col-md-4" ng-repeat='table in tables'>
+					<center><h4>{{table.name}} Matrix</h4></center>
+					<select ng-model = 'filterTable[$index]' ng-options = 'category._id as category.name for category in selectCategories[$index]' class = 'form-control' ng-change = 'filterCategory($index)'>
+						<option value = ''>Select all categories</option>
+					</select>
+					<canvas id="{{table.name + 'ManagerChart'}}" width='300' height='300'></canvas>
+					<div id = "{{table.name + 'ManagerLegend'}}"></div>
 				</div>
 			</div>
-			<div class='col-md-12'>
-
-				<h4>User Results</h4>
-				<div class = 'col-md-4'>
-					<div align = 'center'>
-						<h4>Technology Matrix</h4>
-					</div>
-					<canvas  id="technologyUserChart" width="300" height="300"></canvas>
-					<div id = 'technologyUserLegend'></div>
-						
-				</div>
-				<div class = 'col-md-4'>
-					<div align = 'center'>
-						<h4>Training Matrix</h4>
-
-					</div>
-					<canvas id="trainingUserChart" width="300" height="300"></canvas>
-					<div id = 'trainingUserLegend'></div>
-				</div>
-				<div class = 'col-md-4'>
-					<div align = 'center'>
-						<h4>Continuous Evaluation Matrix</h4>
-
-					</div>
-					<canvas id="continuousUserChart" width="300" height="300"></canvas>
-					<div id = 'continuousUserLegend'></div>
+			<h4>User Results</h4>
+			<div class = 'col-md-12'>
+				<div class="col-md-4" ng-repeat='table in tables'>
+					<h4>{{table.name}} Matrix</h4>
+					<canvas id="{{table.name + 'UserChart'}}"  width='300' height='300'></canvas>
+					<div id = "{{table.name + 'UserLegend'}}"></div>
 				</div>
 			</div>
+		</div>
 
-			<div class='col-md-offset-3 col-md-6 col-md-offset-3'>
+			<div class='col-md-offset-3 col-md-6 col-md-offset-3' ng-hide='isAdmin'>
 				<table class = 'table table-striped'>
 					<thead>
 						<th>Matrix</th>
 						<th>Manager Totals</th>
 						<th>User Totals</th>
 					</thead>
-					<tr>
-						<td>Technology</td>
-						<td>{{totals.manager[0]}}</td>
-						<td>{{totals.user[0]}}</td>
+					<tr ng-repeat='table in tables track by $index'>
+						<td>{{table.name}} Matrix</td>
+						<td>{{totals[$index][0]}}</td>
+						<td>{{totals[$index][1]}}</td>
 					</tr>
-					<tr>
-						<td>Training</td>
-						<td>{{totals.manager[1]}}</td>
-						<td>{{totals.user[1]}}</td>
-					</tr>
-					<tr>
-						<td>Continuous Evaluation</td>
-						<td>{{totals.manager[2]}}</td>
-						<td>{{totals.user[2]}}</td>
-					</tr>
-					<tr>
-						<td><strong>Total</strong></td>
-						<td><strong>{{totals.manager[0] + totals.manager[1] + totals.manager[2]}}</strong></td>
-						<td><strong>{{totals.user[0] + totals.user[1] + totals.user[2]}}</strong></td>
-					</tr>
+					
 				</table>
 			</div>
 

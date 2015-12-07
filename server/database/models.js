@@ -610,15 +610,41 @@ var findEmployeesCategoriesFromEmployee = function(req,res){
 	//Find all the documents in EmployeeCategory which employeeId is equal the the id pass through url
 	EmployeeCategory.find({	'employeeId' : id, 
 							'tableId': req.query.tableId,
-							'date': {$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}}).sort({'managerId': -1}).exec( 
-							function(err,data){
+							'date': {$gte: new Date(startDate._d).toISOString(), $lt: new Date(endDate._d).toISOString()}})
+					.sort({'managerId': -1, 
+						   'categoryId' : 1, 
+						   'aspectId' : 1})
+					.exec(function(err,data){
 		if (err){
 			//If an error happens it sends information about the error to the client
 			response = {'error': true, 'message': 'error fetching data from Employees Categories on employeeId: ' + req.query.employeeId};
 			res.json(response);
 		}else
 		{
+			//console.log(data);
+			var array = [];
+			
+			var userArray = [];
+			var managerArray = [];
+			var c = -1;
+			var a = -1;
+			var auxC = null;
+
 			//Sends to the client the deata retrieved
+			for(var i = 0 ; i < data.length; i++){
+				
+
+				if (data[i].managerId == null){
+					userArray.push(data[i])	
+				}else{
+					managerArray.push(data[i]);
+				}
+			}
+
+			data = [];
+			data[0] = managerArray;
+			data[1] = userArray;
+			
 			res.json(data);
 			
 		};
