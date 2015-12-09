@@ -32,8 +32,7 @@ competitionMatricesModule.controller('viewDashboardController',
 		$scope.people = {};
 		$scope.personSelected = {};
 
-		$scope.matrix = [];
-		$scope.matrix[0] = [];
+		
 		$scope.categories = [];
 		$scope.aspects = [];
 		$scope.user = {};
@@ -45,13 +44,13 @@ competitionMatricesModule.controller('viewDashboardController',
 
 		$scope.table = {};
 
-
+		$scope.matrix = [];
 
 		var color = {
 			green 	: ['#66cdaa','#7fffd4','#006400','#556b2f','#8fbc8f','#2e8b57','#3cb371','#20b2aa','#98fb98','#00ff7f'],
 			blue	: ['#191970','#000080','#6495ed','#483d8b','#6a5acd','#7b68ee','#8470ff','#0000cd','#4169e1','#0000ff'],
 			red		: ['#ff69b4','#ff1493','#ffc0cb','#ffb6c1','#db7093','#b03060','#c71585','#d02090','#ee82ee','#dda0dd'],
-			mix 	: ['#001f3f','#39CCCC','#2ECC40','#3D9970','#FF851B','#FFDC00','#FF4136','#B10DC9','#111111','#AAAAAA']
+			mix 	: ['#39CCCC','#2ECC40','#3D9970','#FF851B','#FFDC00','#FF4136','#B10DC9','#ACACAC','#AAAAAA', '#001f3f']
 		}
 
 
@@ -66,7 +65,8 @@ competitionMatricesModule.controller('viewDashboardController',
 			scaleStepWidth : 2,
 			scaleStartValue : 1,
 			showTooltips: false,
-			multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"    		
+			multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>" ,
+			scaleFontColor : '#333'   
 		}
 	
 	
@@ -232,7 +232,7 @@ $scope.peopleCategories[table][user][categories][aspects]
 							}
 						}
 
-						$scope.matrix = [];
+						
 						$scope.matrix[i] = [];
 
 						for(var u = 0; u< $scope.peopleCategories[i].length ; u++){
@@ -325,7 +325,7 @@ $scope.peopleCategories[table][user][categories][aspects]
 
 				dataset[u][0] = {
 					label: 'No Data available at this time',
-						fillColor: "rgba(220,220,220,0)",
+						fillColor: "rgba(220,220,220,.2)",
 						strokeColor: color.mix[0],
 						pointColor: color.mix[0],
 						pointStrokeColor: "#fff",
@@ -433,6 +433,19 @@ $scope.peopleCategories[table][user][categories][aspects]
 		}
 	}
 
+
+	function reloadTable(tableIndex){
+		var month = moment().month($scope.date.month);
+		var params = {
+						  tableId 	 : $scope.filterTable[tableIndex], 
+						  _id 		 : $scope.personSelected._id,
+						  date 		 : moment({y: $scope.date.year, M: month.month(), d: 15}).toISOString()
+						};
+
+		drawMatrix($scope.matrix,tableIndex);
+
+	}
+
 	function findPerson(employeesFromManager,i){
 		EmployeeServices.GetEmployee(employeesFromManager[i]).then(function(response){
 			$scope.people[i] = response[0];
@@ -448,69 +461,90 @@ $scope.peopleCategories[table][user][categories][aspects]
 		var userFound = false;
 		var managerFound = false;
 
-		
-		/*$scope.matrix[tableIndex].table.sort(categorySort2);
-		$scope.user[0].table[tableIndex].categories.sort(categorySort);
-		$scope.user[1].table[tableIndex].categories.sort(categorySort);*/
-
-		console.log($scope.filterTable[tableIndex]);
 		if($scope.filterTable[tableIndex] == null || $scope.filterTable[tableIndex] == ''){
-			$scope.dateChange();
+			reloadTable(tableIndex);
 		
 		}else{
 			var label = [];
 			var data = [];
 			var dataset = [];
 			
+						
 			for(var user = 0; user < $scope.dataCategories[tableIndex].length; user++){
-				for (var category = 0; category < $scope.dataCategories[tableIndex][user].length; category++){
-					if($scope.filterTable[tableIndex].toString() == $scope.dataCategories[tableIndex][user][category]._id.toString()){
-						console.log($scope.matrix[tableIndex][user][category]);
-						dataset[user] = {
-							label: $scope.dataCategories[tableIndex][user][category].name,
-							fillColor: "rgba(220,220,220,0)",
-							strokeColor: color.mix[category],
-							pointColor: color.mix[category],
-							pointStrokeColor: "#fff",
-							pointHighlightFill: "#fff",
-							pointHighlightStroke: "rgba(220,220,220,1)",
-							scaleStepWidth : 3,
-							scaleStartValue : 1,
-							data: $scope.matrix[tableIndex][user][category]
-						};
+				
+				if($scope.dataCategories[tableIndex][user].length != 0){
+					for (var category = 0; category < $scope.selectCategories[tableIndex].length; category++){
+						if($scope.filterTable[tableIndex] == $scope.selectCategories[tableIndex][category]._id){
+						
+							if($scope.matrix[tableIndex][user][category]){
+								dataset[user] = {
+									label: $scope.selectCategories[tableIndex][category].name,
+									fillColor: "rgba(220,220,220,0)",
+									strokeColor: color.mix[category],
+									pointColor: color.mix[category],
+									pointStrokeColor: "#fff",
+									pointHighlightFill: "#fff",
+									pointHighlightStroke: "rgba(220,220,220,1)",
+									scaleStepWidth : 3,
+									scaleStartValue : 1,
+									data: $scope.matrix[tableIndex][user][category]
+								};
+							}else{
+								var auxData = [];
+								for(var auxIndex = 0 ; auxIndex < $scope.dataAspects[tableIndex][user].length; auxIndex++){
+									auxData.push(1);
+								}
+								dataset[user] = {
+									label: 'No data available for this category',
+									fillColor: "rgba(220,220,220,0)",
+									strokeColor: color.mix[0],
+									pointColor: color.mix[0],
+									pointStrokeColor: "#fff",
+									pointHighlightFill: "#fff",
+									pointHighlightStroke: "rgba(220,220,220,1)",
+									scaleStepWidth : 3,
+									scaleStartValue : 1,
+									data: auxData
+								};
+							}
 
+						}
+						
 					}
 					
+
+					label[user] = [] 
+					//Setts the labels of the attributes
+					for (var a = 0 ; a< $scope.dataAspects[tableIndex][user].length; a++){
+						label[user].push($scope.dataAspects[tableIndex][user][a].name);
+					}
+
+
+					data[user] = {
+						labels: label[user],
+						datasets: [dataset[user]]		//Dataset user will only send one element and it will be considered as an object with [] we are putting the objects inside an array
+					}
 					
+					var chart = $scope.tables[tableIndex].name;
+					var legend = $scope.tables[tableIndex].name;
+
+					if(user == 0){
+						chart += 'ManagerChart';
+						legend += 'ManagerLegend';
+					}else{
+						chart += 'UserChart'
+						legend += 'UserLegend';
+					}
+
+					
+
+					var ctx = document.getElementById(chart).getContext("2d");
+					
+					var myLineChart = new Chart(ctx).Line(data[user], options);
+					
+					document.getElementById(legend).innerHTML = myLineChart.generateLegend();
 				}
-				
-
-				label[user] = [] 
-				//Setts the labels of the attributes
-				for (var a = 0 ; a< $scope.dataAspects[tableIndex][user].length; a++){
-					label[user].push($scope.dataAspects[tableIndex][user][a].name);
-				}
-
-
-				data[user] = {
-					labels: label[user],
-					datasets: dataset[user]
-				}
-
-				var chart = $scope.tables[tableIndex].name;
-				var legend = $scope.tables[tableIndex].name;
-
-				if(user == 0){
-					chart += 'ManagerChart';
-					legend += 'ManagerLegend';
-				}else{
-					chart += 'UserChart'
-					legend += 'UserLegend';
-				}
-
-				var ctx = document.getElementById(chart).getContext("2d");
-				var myLineChart = new Chart(ctx).Line(data[user], options);
-				document.getElementById(legend).innerHTML = myLineChart.generateLegend();
+					
 			}
 
 

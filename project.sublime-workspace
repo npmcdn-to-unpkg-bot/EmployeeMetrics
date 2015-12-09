@@ -4,6 +4,38 @@
 		"selected_items":
 		[
 			[
+				"table",
+				"tableIndex"
+			],
+			[
+				"data",
+				"dataCategories"
+			],
+			[
+				"dataset",
+				"dataset"
+			],
+			[
+				"datase",
+				"dataset"
+			],
+			[
+				"Data",
+				"dataCategories"
+			],
+			[
+				"categoy",
+				"categoryId"
+			],
+			[
+				"categor",
+				"categoryId"
+			],
+			[
+				"manager",
+				"managerArray"
+			],
+			[
 				"j",
 				"j-1"
 			],
@@ -22,10 +54,6 @@
 			[
 				"only",
 				"onlyActiveCategories"
-			],
-			[
-				"categor",
-				"categories"
 			],
 			[
 				"on",
@@ -68,10 +96,6 @@
 				"competitionMatricesController"
 			],
 			[
-				"table",
-				"tableId"
-			],
-			[
 				"tables",
 				"tables"
 			],
@@ -82,10 +106,6 @@
 			[
 				"padd",
 				"padding"
-			],
-			[
-				"data",
-				"dataset"
 			],
 			[
 				"Table",
@@ -152,10 +172,6 @@
 				"employeeCategories"
 			],
 			[
-				"dataset",
-				"datasets"
-			],
-			[
 				"Empl",
 				"Employee"
 			],
@@ -166,10 +182,6 @@
 			[
 				"Employee",
 				"EmployeeManager"
-			],
-			[
-				"manager",
-				"managerEmployee"
 			],
 			[
 				"employees",
@@ -332,34 +344,18 @@
 	"buffers":
 	[
 		{
-			"file": "public/app/dashboard/view/view.dashboard.tmpl.html",
-			"settings":
-			{
-				"buffer_size": 4479,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "public/app/matrices/competitionMatricesController.js",
-			"settings":
-			{
-				"buffer_size": 10749,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "public/app/dashboard/dashboardController.js",
 			"settings":
 			{
-				"buffer_size": 5182,
+				"buffer_size": 18732,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "server/database/models.js",
+			"file": "public/app/dashboard/view/view.dashboard.tmpl.html",
 			"settings":
 			{
-				"buffer_size": 28000,
+				"buffer_size": 2585,
 				"line_ending": "Windows"
 			}
 		},
@@ -368,6 +364,14 @@
 			"settings":
 			{
 				"buffer_size": 3824,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/app/table/tableController.js",
+			"settings":
+			{
+				"buffer_size": 5614,
 				"line_ending": "Windows"
 			}
 		}
@@ -412,6 +416,8 @@
 	},
 	"file_history":
 	[
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/view/view.dashboard.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/dashboardController.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/database/models.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/view/view.dashboard.controller.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/groups/groupController.js",
@@ -422,7 +428,6 @@
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/view.matrix.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/competitionMatricesController.js",
 		"/C/Users/Carlos.Danna/Desktop/test.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/dashboardController.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/categories/categoryConfig.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/table/tableController.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/table/viewtable/viewtable.table.tmpl.html",
@@ -499,7 +504,6 @@
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/styles/bootstrap.min.css",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/continuousevaluation/continuousevaluation.matrix.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/technology/technology.matrix.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/view/view.dashboard.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/dashboardConfig.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/dashboardServices.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/technology/technology.matrix.controller.js",
@@ -557,6 +561,14 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"u",
+			"console.log",
+			"_id",
+			"id",
+			"employeeid",
+			"employeeId",
+			"					",
+			"console.log",
 			"parseint",
 			"findEmployeesCategoriesFromEmployee",
 			"employees",
@@ -676,15 +688,7 @@
 			"{\n",
 			"matrix",
 			"});",
-			"findcategories",
-			".leng",
-			"category",
-			"employee",
-			"employeeForm",
-			"categorie",
-			"findcate",
-			"save",
-			"blue"
+			"findcategories"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -705,23 +709,50 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "public/app/dashboard/view/view.dashboard.tmpl.html",
+					"file": "public/app/dashboard/dashboardController.js",
 					"settings":
 					{
-						"buffer_size": 4479,
+						"buffer_size": 18732,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1155,
-								1155
+								12942,
+								12942
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5764.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "public/app/dashboard/view/view.dashboard.tmpl.html",
+					"settings":
+					{
+						"buffer_size": 2585,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1346,
+								1357
 							]
 						],
 						"settings":
@@ -730,94 +761,13 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 195.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "public/app/matrices/competitionMatricesController.js",
-					"settings":
-					{
-						"buffer_size": 10749,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3961,
-								3962
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 4251.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "public/app/dashboard/dashboardController.js",
-					"settings":
-					{
-						"buffer_size": 5182,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5124,
-								5124
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1833.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "server/database/models.js",
-					"settings":
-					{
-						"buffer_size": 28000,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								15734,
-								15734
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 7371.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
 					"file": "server/routesApi.js",
 					"settings":
 					{
@@ -839,6 +789,33 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 1482.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "public/app/table/tableController.js",
+					"settings":
+					{
+						"buffer_size": 5614,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2262.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

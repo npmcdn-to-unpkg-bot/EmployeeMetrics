@@ -1,4 +1,18 @@
+.clearfix:before,
+.clearfix:after {
+  content: ' ';
+  display: table;
+}
+
+body {
+  height: auto;
+}
+.clearfix:after {
+  clear: both;
+}
+
 .chart-legend li span{
+    
     display: inline-block;
     width: 12px;
     height: 12px;
@@ -124,7 +138,7 @@ fieldset{
         border-top: none;
     }
     table.responsive-table td.organisationnumber{
-        background: #D5E0CC;
+        /*background: #D5E0CC;*/
         border-top: 1px solid #B3BFAA;
     }
     table.responsive-table td.actions{

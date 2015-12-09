@@ -1,11 +1,20 @@
+<aside style = '{background-color: #999; width: 380px;}'>
+</aside>
 <div class = 'container' ng-controller = 'viewDashboardController'>
 	<div ng-init='initialize()'>
-		<div class = 'col-md-12'>
-			<div class = 'col-md-6'>
+		<div class = 'col-lg-12'>
+			<div class = 'col-lg-6'>
 				<h1>Dashboard</h1>
 			</div>
-			<form class = 'form form-inline'>
-				<div class = 'col-md-6 test'>
+		</div>
+		
+		
+		<div class = 'col-lg-12' ng-hide='isAdmin'>
+			<div class='col-lg-6 col-xs-12 col-sm-12'>
+				<h4>Manager Results</h4>
+			</div>
+			<form class = 'form form-inline clearfix'>
+				<div class = 'col-lg-6 col-xs-12 col-sm-12 pull-right'>
 					<div class = 'col-md-6 form-group' ng-show='isManager'>
 						<label  for = 'users'>Choose person to see</label>
 						
@@ -14,19 +23,14 @@
 						</select>
 						
 					</div>
-					<div class = 'col-md-6 form-group ' ng-hide='isAdmin'>
+					<div class = 'col-md-6 form-group' ng-hide='isAdmin'>
 						<label  for = 'date'>Choose month - year</label>
 						<select ng-model ='date.month' ng-change='dateChange()' class = 'form-control' ng-options='month as month for month in select.month'></select>	
 						<select ng-model ='date.year' ng-change='dateChange()' class = 'form-control' ng-options = 'year as year for year in select.year'></select>	
 					</div>
 				</div>
 			</form>
-		</div>
-		
-		
-		<div class = 'col-md-12' ng-hide='isAdmin'>
-			<h4>Manager Results</h4>
-			<div class = 'col-md-12'>
+			<div class = 'col-lg-12 row'>
 				<div class="col-md-4" ng-repeat='table in tables'>
 					<center><h4>{{table.name}} Matrix</h4></center>
 					<select ng-model = 'filterTable[$index]' ng-options = 'category._id as category.name for category in selectCategories[$index]' class = 'form-control' ng-change = 'filterCategory($index)'>
@@ -37,8 +41,8 @@
 				</div>
 			</div>
 			<h4>User Results</h4>
-			<div class = 'col-md-12'>
-				<div class="col-md-4" ng-repeat='table in tables'>
+			<div class = 'col-lg-12 row'>
+				<div class="col-lg-4" ng-repeat='table in tables'>
 					<h4>{{table.name}} Matrix</h4>
 					<canvas id="{{table.name + 'UserChart'}}"  width='300' height='300'></canvas>
 					<div id = "{{table.name + 'UserLegend'}}"></div>
@@ -46,7 +50,7 @@
 			</div>
 		</div>
 
-			<div class='col-md-offset-3 col-md-6 col-md-offset-3' ng-hide='isAdmin'>
+			<div class='col-lg-offset-3 col-lg-6 col-md-offset-3' ng-hide='isAdmin'>
 				<table class = 'table table-striped'>
 					<thead>
 						<th>Matrix</th>
@@ -65,6 +69,5 @@
 			<div class = 'col-md-12' style="margin-bottom: 100px;"> </div>
 			
 
-		</div>
 	</div>
 </div>

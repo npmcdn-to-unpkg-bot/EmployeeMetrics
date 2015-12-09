@@ -223,7 +223,7 @@
 			for(var j = 0;j< $scope.aspects.length;j++){
 				
 				
-				$scope.peopleCategories[i][j].employeeId = $scope.people[0]._id;
+				$scope.peopleCategories[i][j].employeeId = $scope.params.employeeId;
 				$scope.peopleCategories[i][j].date = params.date;
 				
 			}

@@ -11,7 +11,7 @@
 				<div class = 'col-md-offset-1 col-md-6'>
 						<h2 align = 'center'>{{table.name}} Matrix</h2>
 				</div>
-				<div class = 'col-md-3'>
+				<div class = 'col-md-3 pull-right'>
 					<label for = 'date'>Choose month - year</label>
 					<select ng-model ='date.month' ng-change='getPeopleCategories(params)' class = 'form-control' ng-options='month as month for month in select.month'></select>	
 					<select ng-model ='date.year' ng-change='getPeopleCategories(params)' class = 'form-control' ng-options = 'year as year for year in select.year'></select>	
@@ -32,18 +32,18 @@
 				</tr>
 			</table>
 		</div>
-		<div class = 'col-md-12'>
-		
-			<div class = 'col-md-3'ng-show='ShowButton'>
+		<div class = 'row col-md-12'>
+			<div class='col-md-6 pull-right'>
+			<div class = 'col-md-4 pull-right' ng-show='ShowButton'>
 				<button name='Add' class = 'btn btn-success' ng-click='createPeopleCategories()'>Add New Information </button>
 			</div>
-			<div class = 'col-md-3' ng-hide='ShowButton'>
-				<button name='update' class = 'btn btn-info' ng-click='updatePeopleCategories()'>Update Information </button>
+			<div class = 'col-md-4 pull-right' ng-hide='ShowButton'>
+				<button name='update' class = 'btn btn-primary' ng-click='updatePeopleCategories()'>Update Information </button>
 			</div>
-			<div class = 'col-md-3'>
+			<div class = 'col-md-2 pull-right'>
 				<button name='update' class = 'btn btn-danger' ui-sref = "app.matrix({id: '{{table._id}}' })" ui-sref-opts="{reload: true}" ui-sref-opts="{reload: true}">Cancel </button>
 			</div>
-		
+			</div>
 		</div>
 	</div>
 </div>

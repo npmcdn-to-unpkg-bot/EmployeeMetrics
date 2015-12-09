@@ -11,6 +11,10 @@
 
 			};
 
+			$scope.q = "";
+
+
+
 			var color = {
 				mix 	: ['#001f3f','#39CCCC','#2ECC40','#3D9970','#FF851B','#FFDC00','#FF4136','#B10DC9','#111111','#AAAAAA']
 			};
@@ -26,6 +30,8 @@
 				scaleStartValue : 1,
 				multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"    		
 			}
+
+			$scope.search = {};
 
 			var loadFields = function(){
 				$scope.fields = [
