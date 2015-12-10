@@ -29,6 +29,8 @@
     "mongodb": "^2.0.46",
     "mongoose": "^4.1.12",
     "mongoskin": "^2.0.3",
+    "node-sass": "^3.4.2",
+    "node-sass-middleware": "^0.9.7",
     "request": "^2.65.0"
   },
   "devDependencies": {

@@ -76,7 +76,7 @@ fieldset{
     text-align: center;
 }
 
-@media (max-width: 1024px){
+/*@media (max-width: 1024px){
     table.responsive-table{
       box-shadow: none;  
     }
@@ -138,7 +138,7 @@ fieldset{
         border-top: none;
     }
     table.responsive-table td.organisationnumber{
-        /*background: #D5E0CC;*/
+        background: #D5E0CC;
         border-top: 1px solid #B3BFAA;
     }
     table.responsive-table td.actions{
@@ -148,4 +148,4 @@ fieldset{
         border: none;
         background: none;
     }
-}
+}*/

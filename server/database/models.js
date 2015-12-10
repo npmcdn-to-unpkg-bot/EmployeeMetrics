@@ -155,13 +155,13 @@ var findEmployeesCategoriesMatrix = function(req, res){
 	if(req.query.employeeId.toString() == req.user._id.toString()){
 		//if it is the user sets managerId to null
 		managerId = null;
-		console.log('no manager');
+		
 	}else{
 		//if it is the manager sets the manager id with the token._id information
 		managerId = req.user._id;
-		console.log('manager');
+		
 	}
-	console.log(managerId);
+	
 
 	
 	//gets the date from the query
@@ -192,7 +192,6 @@ var findEmployeesCategoriesMatrix = function(req, res){
 				res.json(response);
 			}else
 			{
-				console.log(data);
 				//Sends to the client the deata retrieved
 				res.json(data);
 				
@@ -207,7 +206,6 @@ var updateTrainingMatrix = function(req, res){
 	//Creates new employeeCategory for validation on the server side
 
 	var peopleCategories = req.body;
-	console.log(req.body);
 	for (var i = 0; i<peopleCategories.length; i++){
 		for (var j=0; j<peopleCategories[i].length; j++){
 			var db = {};
@@ -282,14 +280,11 @@ var addScoreTrainingMatrix = function(req,res){
 			
 			
 			//compares the employeeId requested with the user asking for this employee
-			console.log(req.user._id,peopleCategories[i][j].employeeId);
 			if(req.user._id.toString() == peopleCategories[i][j].employeeId.toString()){
 				//if it is the user sets managerId to null
-				console.log('is self');
 				db.managerId = null;
 			}else{
 				//if it is the manager sets the manager id with the token._id information
-				console.log('is manager')
 				db.managerId = req.user._id;
 
 			}
@@ -303,7 +298,6 @@ var addScoreTrainingMatrix = function(req,res){
 			db.Results 		= peopleCategories[i][j].Results;
 			db.tableId 		= peopleCategories[i][j].tableId;
 			db.date 		= peopleCategories[i][j].date;
-			//console.log(db);
 			//Calss the save functiont to mongo
 			db.save(function(err){
 				//if an error is or not saves a different response and sends it to the client
@@ -626,7 +620,6 @@ var findEmployeesCategoriesFromEmployee = function(req,res){
 			res.json(response);
 		}else
 		{
-			//console.log(data);
 			var array = [];
 			
 			var userArray = [];

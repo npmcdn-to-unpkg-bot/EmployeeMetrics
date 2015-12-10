@@ -1,6 +1,8 @@
-<nav class="navbar navbar-default" ng-init='initialize()'>
-	<div class = 'container'>
+
+<nav class="navbar-default"  ng-init='initialize()'>
+	
 		<!--Mobile Navbar-->
+	
 		<div class="navbar-header">
 	    	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 		        <span class="sr-only">Toggle navigation</span>
@@ -8,7 +10,7 @@
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 	      	</button>
-	     	<a class="navbar-brand" ui-sref='app.dashboard'>System Name</a>
+	     	<a ui-sref='app.dashboard'><img src='assets/Sees-logo2.png' height = '100'></img></a>
 	    </div>
 		<div class='collapse navbar-collapse' id="bs-example-navbar-collapse-1">
 			<ul class = 'nav navbar-nav'>
@@ -18,16 +20,7 @@
 				<li ng-repeat = 'table in tables' ng-hide = 'admin'>
 					<a ui-sref = "app.matrix({id: '{{table._id}}' } )" ui-sref-opts="{reload: true}">{{table.name}}</a>
 				</li>
-				<!-- <li>
-					<a ui-sref = 'app.training' ng-hide = 'admin'>Training Matrix</a>
-				</li>
-				<li>
-					<a ui-sref = 'app.technologymatrix' ng-hide = 'admin'>Technology Matrix</a>
-				</li>
-				<li>
-					<a ui-sref = 'app.continuous-evaluation' ng-hide = 'admin'>Continuous Evaluation</a>
-				</li>
-				 -->
+			
 				<li>
 					<a ui-sref='app.category' ng-show = 'admin'>Categories</a>
 				</li>
@@ -67,10 +60,10 @@
 			
 			</ul>
 		</div>
-	</div>
+	
 </nav>
 
-	<div ui-view></div>
+<div ui-view></div>
 
 <!--
 navbar-nav

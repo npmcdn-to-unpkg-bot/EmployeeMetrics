@@ -60,13 +60,19 @@ competitionMatricesModule.controller('viewDashboardController',
 			responsive: true,
 			animation: true,
 			scaleOverride : true,
+			scaleShowGridLines : true,
+			scaleGridLineColor : "rgba(0,0,0,.05)",
+			scaleShowVerticalLines: true,
+			scaleShowHorizontalLines: true,
+			showXLabels: 8,
 			showScale: true,
-			scaleSteps : 1,
-			scaleStepWidth : 2,
+			scaleSteps : 2,
+			scaleStepWidth : 1,
 			scaleStartValue : 1,
 			showTooltips: false,
 			multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>" ,
-			scaleFontColor : '#333'   
+			scaleFontColor: '#222'   
+			
 		}
 	
 	

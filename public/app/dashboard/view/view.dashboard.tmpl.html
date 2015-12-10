@@ -1,21 +1,15 @@
-<aside style = '{background-color: #999; width: 380px;}'>
-</aside>
 <div class = 'container' ng-controller = 'viewDashboardController'>
 	<div ng-init='initialize()'>
 		<div class = 'col-lg-12'>
-			<div class = 'col-lg-6'>
+			<div class = 'col-lg-6 col-md-6'>
 				<h1>Dashboard</h1>
 			</div>
-		</div>
 		
 		
-		<div class = 'col-lg-12' ng-hide='isAdmin'>
-			<div class='col-lg-6 col-xs-12 col-sm-12'>
-				<h4>Manager Results</h4>
-			</div>
+		<div class = 'row' ng-hide='isAdmin'>
 			<form class = 'form form-inline clearfix'>
-				<div class = 'col-lg-6 col-xs-12 col-sm-12 pull-right'>
-					<div class = 'col-md-6 form-group' ng-show='isManager'>
+				<div class = 'col-lg-6 col-md-6 col-xs-12 col-sm-12 pull-right'>
+					<div class = 'col-md-6 col-lg-6 col-sm-12 form-group' ng-show='isManager'>
 						<label  for = 'users'>Choose person to see</label>
 						
 						<select ng-model ='personSelected._id' name = 'user' ng-change='personChange()' class = 'form-control'>
@@ -23,29 +17,31 @@
 						</select>
 						
 					</div>
-					<div class = 'col-md-6 form-group' ng-hide='isAdmin'>
+					<div class = 'col-md-6 col-lg-6 col-sm-12 form-group pull-right' ng-hide='isAdmin'>
 						<label  for = 'date'>Choose month - year</label>
 						<select ng-model ='date.month' ng-change='dateChange()' class = 'form-control' ng-options='month as month for month in select.month'></select>	
 						<select ng-model ='date.year' ng-change='dateChange()' class = 'form-control' ng-options = 'year as year for year in select.year'></select>	
 					</div>
 				</div>
 			</form>
-			<div class = 'col-lg-12 row'>
-				<div class="col-md-4" ng-repeat='table in tables'>
+		</div>
+			<div class = 'row'>
+				<h4>Manager Results</h4>
+				<div class="col-lg-4 col-md-4 col-xs-11" style='{border: 1px solid #ccc}' ng-repeat='table in tables'>
 					<center><h4>{{table.name}} Matrix</h4></center>
 					<select ng-model = 'filterTable[$index]' ng-options = 'category._id as category.name for category in selectCategories[$index]' class = 'form-control' ng-change = 'filterCategory($index)'>
 						<option value = ''>Select all categories</option>
 					</select>
-					<canvas id="{{table.name + 'ManagerChart'}}" width='300' height='300'></canvas>
-					<div id = "{{table.name + 'ManagerLegend'}}"></div>
+					<div><canvas id="{{table.name + 'ManagerChart'}}" height='300'></canvas></div>
+					<div id = "{{table.name + 'ManagerLegend'}}" class='legend'></div>
 				</div>
 			</div>
 			<h4>User Results</h4>
-			<div class = 'col-lg-12 row'>
-				<div class="col-lg-4" ng-repeat='table in tables'>
-					<h4>{{table.name}} Matrix</h4>
-					<canvas id="{{table.name + 'UserChart'}}"  width='300' height='300'></canvas>
-					<div id = "{{table.name + 'UserLegend'}}"></div>
+			<div class = 'row'>
+				<div class="col-lg-4 col-md-4 col-xs-11" ng-repeat='table in tables'>
+					<center><h4>{{table.name}} Matrix</h4></center>
+					<div><canvas id="{{table.name + 'UserChart'}}" height='300'></canvas></div>
+					<div id = "{{table.name + 'UserLegend'}}" class='legend'></div>
 				</div>
 			</div>
 		</div>

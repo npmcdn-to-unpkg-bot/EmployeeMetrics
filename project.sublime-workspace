@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"manager",
+				"managerId"
+			],
+			[
+				"select",
+				"selectCategories"
+			],
+			[
+				"aux",
+				"auxData"
+			],
+			[
+				"draw",
+				"drawMatrix"
+			],
+			[
 				"table",
 				"tableIndex"
 			],
@@ -30,10 +46,6 @@
 			[
 				"categor",
 				"categoryId"
-			],
-			[
-				"manager",
-				"managerArray"
 			],
 			[
 				"j",
@@ -347,7 +359,15 @@
 			"file": "public/app/dashboard/dashboardController.js",
 			"settings":
 			{
-				"buffer_size": 18732,
+				"buffer_size": 19674,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/app/table/viewtable/viewtable.table.tmpl.html",
+			"settings":
+			{
+				"buffer_size": 841,
 				"line_ending": "Windows"
 			}
 		},
@@ -355,15 +375,39 @@
 			"file": "public/app/dashboard/view/view.dashboard.tmpl.html",
 			"settings":
 			{
-				"buffer_size": 2585,
+				"buffer_size": 2743,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "server/routesApi.js",
+			"file": "server/database/models.js",
 			"settings":
 			{
-				"buffer_size": 3824,
+				"buffer_size": 28631,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/app/matrices/competitionMatricesController.js",
+			"settings":
+			{
+				"buffer_size": 10753,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/app/matrices/view.matrix.tmpl.html",
+			"settings":
+			{
+				"buffer_size": 2508,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/app/table/view/view.table.tmpl.html",
+			"settings":
+			{
+				"buffer_size": 963,
 				"line_ending": "Windows"
 			}
 		},
@@ -371,7 +415,31 @@
 			"file": "public/app/table/tableController.js",
 			"settings":
 			{
-				"buffer_size": 5614,
+				"buffer_size": 5659,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/styles/bootstrap.min.css",
+			"settings":
+			{
+				"buffer_size": 128718,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "public/styles/style.css",
+			"settings":
+			{
+				"buffer_size": 2981,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "index.html",
+			"settings":
+			{
+				"buffer_size": 5413,
 				"line_ending": "Windows"
 			}
 		}
@@ -416,12 +484,22 @@
 	},
 	"file_history":
 	[
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/database/models.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/index.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/styles/style.css",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/aspects/view/view.aspect.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/categories/view/view.category.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/view/view.employee.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/groups/view/view.group.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/table/tableController.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/view/view.manager.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/table/view/view.table.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/routesApi.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/table/viewtable/viewtable.table.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/view/view.dashboard.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/dashboardController.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/database/models.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/view/view.dashboard.controller.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/groups/groupController.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/index.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/app.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/competitionMatricesServices.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/models/employeecategory.js",
@@ -429,16 +507,11 @@
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/competitionMatricesController.js",
 		"/C/Users/Carlos.Danna/Desktop/test.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/categories/categoryConfig.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/table/tableController.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/table/viewtable/viewtable.table.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/aspects/view/view.aspect.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/aspects/aspectController.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/categories/view/view.category.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/categories/categoryController.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/training/training.matrix.controller.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/training/training.matrix.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/matrices/competitionMatricesConfig.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/groups/view/view.group.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/groups/create/create.group.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/groups/update/update.group.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/table/tableConfig.js",
@@ -448,12 +521,10 @@
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/aspects/update/update.aspect.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/aspects/create/create.aspect.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/categories/create/create.category.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/styles/style.css",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/categories/update/update.category.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/aspectServices.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/categoryServices.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/tableServices.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/table/view/view.table.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/employeeController.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/create/create.employee.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/update/update.employee.tmpl.html",
@@ -462,12 +533,10 @@
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/models/table.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/models/category.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/models/aspect.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/view/view.employee.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/groups/groupConfig.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/employeeServices.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/models/employee.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/groupServices.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/routesApi.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/database/dbcalls.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/employeeConfig.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/employees/update/update.employee.controller.js",
@@ -488,7 +557,6 @@
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/attributes/aspectModule.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/attributes/view/view.aspect.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/attributes/update/update.aspect.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/view/view.manager.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/manager/edit/edit.manager.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/attributes/attributesModule.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/attributes/attributesConfig.js",
@@ -561,6 +629,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"$scope.matrix",
 			"u",
 			"console.log",
 			"_id",
@@ -687,8 +756,7 @@
 			"matrix",
 			"{\n",
 			"matrix",
-			"});",
-			"findcategories"
+			"});"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -709,7 +777,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -717,15 +785,15 @@
 					"file": "public/app/dashboard/dashboardController.js",
 					"settings":
 					{
-						"buffer_size": 18732,
+						"buffer_size": 19674,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								12942,
-								12942
+								2545,
+								2545
 							]
 						],
 						"settings":
@@ -734,25 +802,25 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 5764.0,
+						"translation.y": 715.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "public/app/dashboard/view/view.dashboard.tmpl.html",
+					"file": "public/app/table/viewtable/viewtable.table.tmpl.html",
 					"settings":
 					{
-						"buffer_size": 2585,
+						"buffer_size": 841,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1346,
-								1357
+								825,
+								825
 							]
 						],
 						"settings":
@@ -768,45 +836,45 @@
 				},
 				{
 					"buffer": 2,
-					"file": "server/routesApi.js",
+					"file": "public/app/dashboard/view/view.dashboard.tmpl.html",
 					"settings":
 					{
-						"buffer_size": 3824,
+						"buffer_size": 2743,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3559,
-								3594
+								2264,
+								2264
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"syntax": "Packages/AngularJS/AngularJS.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1482.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "public/app/table/tableController.js",
+					"file": "server/database/models.js",
 					"settings":
 					{
-						"buffer_size": 5614,
+						"buffer_size": 28631,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								1227,
+								1227
 							]
 						],
 						"settings":
@@ -815,7 +883,196 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2262.0,
+						"translation.y": 156.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "public/app/matrices/competitionMatricesController.js",
+					"settings":
+					{
+						"buffer_size": 10753,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								615,
+								615
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "public/app/matrices/view.matrix.tmpl.html",
+					"settings":
+					{
+						"buffer_size": 2508,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								149,
+								149
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/AngularJS/AngularJS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "public/app/table/view/view.table.tmpl.html",
+					"settings":
+					{
+						"buffer_size": 963,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								230,
+								230
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/AngularJS/AngularJS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "public/app/table/tableController.js",
+					"settings":
+					{
+						"buffer_size": 5659,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								488,
+								488
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "public/styles/bootstrap.min.css",
+					"settings":
+					{
+						"buffer_size": 128718,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								128718,
+								128718
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage"
+						},
+						"translation.x": 768588.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "public/styles/style.css",
+					"settings":
+					{
+						"buffer_size": 2981,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								451,
+								451
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "index.html",
+					"settings":
+					{
+						"buffer_size": 5413,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								37,
+								37
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/AngularJS/AngularJS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
