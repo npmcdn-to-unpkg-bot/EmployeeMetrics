@@ -147,6 +147,7 @@ employeeApp.controller('employeeController', ['$scope','$mdToast', '$stateParams
 							loadFields(false);
 
 							for(var i = 0 ; i< $scope.employees.length; i++){
+								$scope.employees[i].active = $scope.employees[i].active ? "Active" : "Inactive";
 								for(var j = 0; j< $scope.groups.length; j++){
 									if ($scope.employees[i].group === $scope.groups[j]._id){
 										$scope.employees[i].groupname = $scope.groups[j].name;
@@ -167,39 +168,69 @@ employeeApp.controller('employeeController', ['$scope','$mdToast', '$stateParams
 	$scope.saveEmployee = function(){
 		
 		var employee = $scope.model;
-		EmployeeServices.SaveEmployee(employee).then(function(response){
+		if($scope.model.firstname == '' || $scope.model.firstname == null ||
+		   $scope.model.lastname  == '' || $scope.model.lastname  == null ||
+		   $scope.model.email     == '' || $scope.model.email     == null ||
+		   $scope.model.accesslevel == '' || $scope.model.accesslevel == null ||
+		   $scope.model.group     == '' || $scope.model.group     == null ||
+		   $scope.model.password  == '' || $scope.model.password  == null){
 			$mdToast.show(
 				$mdToast.simple()
-				.content('Employee has been added successfully')
+				.content('It cannot be a required field empty')
 				.action('x')
 				.highlightAction(false)
 				.hideDelay(3000)
 				.position("top right")
-				.theme('success-toast')
-			);
-		
-		
-		$state.go('app.employee',	{}	,{	reload: true	});	
-			
-			
-		});	
+				.theme('error-toast')
+			);	
+		}else{
+
+			EmployeeServices.SaveEmployee(employee).then(function(response){
+				$mdToast.show(
+					$mdToast.simple()
+					.content('Employee has been added successfully')
+					.action('x')
+					.highlightAction(false)
+					.hideDelay(3000)
+					.position("top right")
+					.theme('success-toast')
+				);
+				$state.go('app.employee',	{}	,{	reload: true	});	
+			});	
+		}
 	}
 
 	$scope.updateEmployee = function(){
-		
-		EmployeeServices.UpdateEmployee($scope.model).then(function(response){
+		if($scope.model.firstname == '' || $scope.model.firstname == null ||
+		   $scope.model.lastname  == '' || $scope.model.lastname  == null ||
+		   $scope.model.email     == '' || $scope.model.email     == null ||
+		   $scope.model.accesslevel == '' || $scope.model.accesslevel == null ||
+		   $scope.model.group     == '' || $scope.model.group     == null){
 			$mdToast.show(
 				$mdToast.simple()
-				.content('Employee updated successfully')
+				.content('It cannot be a required field empty')
 				.action('x')
 				.highlightAction(false)
 				.hideDelay(3000)
 				.position("top right")
-				.theme('success-toast')
-			);
-			$state.go('app.employee',	{}	, {	reload: true });	
-			
-		});
+				.theme('error-toast')
+			);	
+		}else{
+
+			EmployeeServices.UpdateEmployee($scope.model).then(function(response){
+				$mdToast.show(
+					$mdToast.simple()
+					.content('Employee updated successfully')
+					.action('x')
+					.highlightAction(false)
+					.hideDelay(3000)
+					.position("top right")
+					.theme('success-toast')
+				);
+				$state.go('app.employee',	{}	, {	reload: true });	
+				
+			});
+		}
 	}
 
 	$scope.changePassword = function(params){
@@ -219,7 +250,7 @@ employeeApp.controller('employeeController', ['$scope','$mdToast', '$stateParams
 			accesslevel : null,
 			group: null,
 			active : true,
-			password: ""
+			password: ''
 		};
 
 		$state.go('app.employee',	{}	,{	reload: true	});	
@@ -227,6 +258,7 @@ employeeApp.controller('employeeController', ['$scope','$mdToast', '$stateParams
 
 	$scope.goToUpdateEmployee = function(employee){
 		loadFields(true);
+		employee.active = (employee.active == "Active") ? true : false;
 		$scope.model = {
 			_id			: 	employee._id,
 			firstname: 		employee.firstname,

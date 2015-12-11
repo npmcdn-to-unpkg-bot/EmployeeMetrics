@@ -39,8 +39,9 @@
 						key: 'name',
 						type: 'horizontalInput',
 						templateOptions: {
+							required: true,
 							label: 'Table Name: ',
-							placeholder: 'Angular JS / Backbone JS'
+							placeholder: 'Continuous Evaluation'
 						}
 
 					},
@@ -48,6 +49,7 @@
 						key: 'group',
 						type: 'horizontalSelect',
 						templateOptions: {
+							required: true,
 							label: 'User Group: ',
 							options: $scope.groups,
 							ngOptions: 'option._id as option.name for option in to.options'
@@ -87,6 +89,7 @@
 								TableServices.GetTables().then(function(response){
 									$scope.tables = response;
 									for(var i = 0 ; i< $scope.tables.length; i++){
+										$scope.tables[i].active = ($scope.tables[i].active) ? "Active" : "Inactive";
 										for(var j = 0 ; j < $scope.groups.length ; j++){
 											if($scope.tables[i].group == $scope.groups[j]._id){
 												$scope.tables[i].groupName = $scope.groups[j].name;
@@ -129,37 +132,60 @@
 			}
 
 			$scope.updateTable = function(){
-				TableServices.UpdateTable($scope.model).then(function(response){
-				$mdToast.show(
-					$mdToast.simple()
-					.content('Attribute updated successfully')
-					.action('x')
-					.highlightAction(false)
-					.hideDelay(3000)
-					.position("top right")
-					.theme('success-toast')
-				);
-				$state.go('app.table',	{}	, {	reload: true });	
-				
-			});
+				if($scope.model.name == '' || $scope.model.name == null || $scope.model.group == '' || $scope.model.group == null){
+					$mdToast.show(
+							$mdToast.simple()
+							.content('It cannot be a required field empty')
+							.action('x')
+							.highlightAction(false)
+							.hideDelay(3000)
+							.position("top right")
+							.theme('error-toast')
+						);
+				}else{
+					TableServices.UpdateTable($scope.model).then(function(response){
+						$mdToast.show(
+							$mdToast.simple()
+							.content('Attribute updated successfully')
+							.action('x')
+							.highlightAction(false)
+							.hideDelay(3000)
+							.position("top right")
+							.theme('success-toast')
+						);
+						$state.go('app.table',	{}	, {	reload: true });	
+					
+					});
+				}
 			}
 
 			$scope.createTable = function(){
-			
-			TableServices.CreateTable($scope.model).then(function(response){
-				$mdToast.show(
-					$mdToast.simple()
-					.content('Attribute added successfully')
-					.action('x')
-					.highlightAction(false)
-					.hideDelay(3000)
-					.position("top right")
-					.theme('success-toast')
-				);
-				$state.go('app.table',	{}	, {	reload: true });	
-				
-			});
-		}
+				if($scope.model.name == '' || $scope.model.name == null || $scope.model.group == '' || $scope.model.group == null){
+					$mdToast.show(
+							$mdToast.simple()
+							.content('It cannot be a required field empty')
+							.action('x')
+							.highlightAction(false)
+							.hideDelay(3000)
+							.position("top right")
+							.theme('error-toast')
+						);
+				}else{
+					TableServices.CreateTable($scope.model).then(function(response){
+						$mdToast.show(
+							$mdToast.simple()
+							.content('Attribute added successfully')
+							.action('x')
+							.highlightAction(false)
+							.hideDelay(3000)
+							.position("top right")
+							.theme('success-toast')
+						);
+						$state.go('app.table',	{}	, {	reload: true });	
+						
+					});
+				}
+			}
 
 		$scope.cancel = function(){
 			$scope.model = {

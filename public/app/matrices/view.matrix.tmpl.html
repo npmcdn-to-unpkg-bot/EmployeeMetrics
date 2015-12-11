@@ -11,7 +11,7 @@
 				<div class = 'col-md-offset-1 col-md-6'>
 						<h2 align = 'center'>{{table.name}} Matrix</h2>
 				</div>
-				<div class = 'col-md-3 pull-right row' style= '{float: right;}'>
+				<div class = 'col-md-3 pull-right row'>
 					<label for = 'date'>Choose month - year</label>
 					<select ng-model ='date.month' ng-change='getPeopleCategories(params)' class = 'form-control' ng-options='month as month for month in select.month'></select>	
 					<select ng-model ='date.year' ng-change='getPeopleCategories(params)' class = 'form-control' ng-options = 'year as year for year in select.year'></select>	

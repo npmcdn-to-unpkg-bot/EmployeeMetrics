@@ -16,6 +16,7 @@
 						type: 'horizontalInput',
 						templateOptions: {
 							label: 'Attribute Name: ',
+							required: true,
 							placeholder: 'Angular JS / Backbone JS'
 						}
 
@@ -25,6 +26,7 @@
 						type: 'horizontalSelect',
 						templateOptions: {
 							label: 'Table',
+							required: true,
 							options: $scope.tables,
 							ngOptions: 'option._id as option.groupShow for option in to.options'
 						}
@@ -86,7 +88,7 @@
 									$scope.aspects = response;
 									
 									for (var i = 0 ; i < $scope.aspects.length; i++){
-										
+										$scope.aspects[i].active = $scope.aspects[i].active ? "Active" : "Inactive";
 										for(var j = 0; j < $scope.tables.length; j++){
 											
 											if($scope.aspects[i].table == $scope.tables[j]._id){
@@ -129,37 +131,60 @@
 			}
 
 			$scope.updateAspect = function(){
-				AspectServices.UpdateAspect($scope.model).then(function(response){
+				if($scope.model.name == '' || $scope.model.table == '' || $scope.model.name == null || $scope.model.table == null){
 					$mdToast.show(
 						$mdToast.simple()
-						.content('Attribute updated successfully')
+						.content('It cannot be a required field empty')
 						.action('x')
 						.highlightAction(false)
 						.hideDelay(3000)
 						.position("top right")
-						.theme('success-toast')
-					);
-					$state.go('app.aspect',	{}	, {	reload: true });	
-				
-				});
+						.theme('error-toast')
+					);	
+				}else{
+					AspectServices.UpdateAspect($scope.model).then(function(response){
+						$mdToast.show(
+							$mdToast.simple()
+							.content('Attribute updated successfully')
+							.action('x')
+							.highlightAction(false)
+							.hideDelay(3000)
+							.position("top right")
+							.theme('success-toast')
+						);
+						$state.go('app.aspect',	{}	, {	reload: true });	
+					
+					});
+				}
 			}
 
 			$scope.createAspect = function(){
-			
-			AspectServices.CreateAspect($scope.model).then(function(response){
-				$mdToast.show(
-					$mdToast.simple()
-					.content('Attribute added successfully')
-					.action('x')
-					.highlightAction(false)
-					.hideDelay(3000)
-					.position("top right")
-					.theme('success-toast')
-				);
-				$state.go('app.aspect',	{}	, {	reload: true });	
-				
-			});
-		}
+				if($scope.model.name == '' || $scope.model.table == '' || $scope.model.name == null || $scope.model.table == null){
+					$mdToast.show(
+						$mdToast.simple()
+						.content('It cannot be a required field empty')
+						.action('x')
+						.highlightAction(false)
+						.hideDelay(3000)
+						.position("top right")
+						.theme('error-toast')
+					);	
+				}else{
+					AspectServices.CreateAspect($scope.model).then(function(response){
+						$mdToast.show(
+							$mdToast.simple()
+							.content('Attribute added successfully')
+							.action('x')
+							.highlightAction(false)
+							.hideDelay(3000)
+							.position("top right")
+							.theme('success-toast')
+						);
+						$state.go('app.aspect',	{}	, {	reload: true });	
+						
+					});
+				}			
+			}	
 
 		$scope.cancel = function(){
 			$scope.model = {

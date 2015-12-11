@@ -1,7 +1,7 @@
 <div>
 <form class ='form-horizontal' name = 'tableForm2' novalidate>
 	<formly-form model='model' fields = 'fields' options='options' form = 'tableForm2'>
-		<button type="submit" class="btn btn-primary submit-button" ng-disabled="form.$invalid" ng-click = 'saveEmployee()'>Save employee</button>
+		<button type="submit" class="btn btn-primary submit-button" ng-disabled="tableForm2.$invalid tableForm2.$error" ng-click = 'saveEmployee()'>Save employee</button>
         <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
     </formly-form>
 </form>

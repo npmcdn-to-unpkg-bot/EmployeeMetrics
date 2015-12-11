@@ -28,7 +28,7 @@ passport.use('login',new LocalStrategy(
 	},
 	function(username, password,done){
 		
-		Employee.findOne({'email': username}, function(err,data){
+		Employee.findOne({'email': username, 'active': true}, function(err,data){
 			if(err){
 				return done(err);
 			}else{

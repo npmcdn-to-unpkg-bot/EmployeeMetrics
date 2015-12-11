@@ -15,6 +15,7 @@
 						key: 'name',
 						type: 'horizontalInput',
 						templateOptions: {
+							required: true,
 							label: 'Category Name: ',
 							placeholder: 'Angular JS / Backbone JS'
 						}
@@ -24,6 +25,7 @@
 						key: 'table',
 						type: 'horizontalSelect',
 						templateOptions: {
+							required: true,
 							label: 'Table',
 							options: $scope.tables,
 							ngOptions: 'option._id as option.groupShow for option in to.options'
@@ -88,7 +90,7 @@
 									$scope.categories = response;
 									
 									for (var i = 0 ; i < $scope.categories.length; i++){
-										
+										$scope.categories[i].active = $scope.categories[i].active ? "Active" : "Inactive" ;
 										for(var j = 0; j < $scope.tables.length; j++){
 											//Compates if the table._id is equal to the tableId in Categories
 											if($scope.categories[i].table == $scope.tables[j]._id){
@@ -132,37 +134,62 @@
 			}
 
 			$scope.updateCategory = function(){
-				CategoryServices.UpdateCategory($scope.model).then(function(response){
+				if($scope.model.name == '' || $scope.model.table == '' || $scope.model.name == null || $scope.model.table == null){
 					$mdToast.show(
 						$mdToast.simple()
-						.content('Attribute updated successfully')
+						.content('It cannot be a required field empty')
 						.action('x')
 						.highlightAction(false)
 						.hideDelay(3000)
 						.position("top right")
-						.theme('success-toast')
-					);
-					$state.go('app.category',	{}	, {	reload: true });	
+						.theme('error-toast')
+					);	
+				}else{
+					CategoryServices.UpdateCategory($scope.model).then(function(response){
+						$mdToast.show(
+							$mdToast.simple()
+							.content('Attribute updated successfully')
+							.action('x')
+							.highlightAction(false)
+							.hideDelay(3000)
+							.position("top right")
+							.theme('success-toast')
+						);
+						
+						$state.go('app.category',	{}	, {	reload: true });	
 				
-				});
+					});
+				}
 			}
 
 			$scope.createCategory = function(){
-			
-			CategoryServices.CreateCategory($scope.model).then(function(response){
-				$mdToast.show(
-					$mdToast.simple()
-					.content('Attribute added successfully')
-					.action('x')
-					.highlightAction(false)
-					.hideDelay(3000)
-					.position("top right")
-					.theme('success-toast')
-				);
-				$state.go('app.category',	{}	, {	reload: true });	
-				
-			});
-		}
+				if($scope.model.name == '' || $scope.model.table == '' || $scope.model.name == null || $scope.model.table == null){
+					$mdToast.show(
+						$mdToast.simple()
+						.content('It cannot be a required field empty')
+						.action('x')
+						.highlightAction(false)
+						.hideDelay(3000)
+						.position("top right")
+						.theme('error-toast')
+					);	
+				}else{
+					CategoryServices.CreateCategory($scope.model).then(function(response){
+						$mdToast.show(
+							$mdToast.simple()
+							.content('Category added successfully')
+							.action('x')
+							.highlightAction(false)
+							.hideDelay(3000)
+							.position("top right")
+							.theme('success-toast')
+						);
+						$state.go('app.category',	{}	, {	reload: true });	
+						
+					});
+					
+				}
+			}	
 
 		$scope.cancel = function(){
 			$scope.model = {

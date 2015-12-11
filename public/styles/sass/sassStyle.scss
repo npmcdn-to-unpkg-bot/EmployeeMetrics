@@ -1,13 +1,74 @@
+$elementsMargin: 30px;
+
 .navbar-default{
-	border: 10px solid;
-	padding-left: 360px;
-	padding-right: 370px
+	padding-top: 6px;
+	padding-bottom: 6px;
 }
 
 .navbar-nav{
-	margin-top: 40px;
+	margin-top: 60px;
 }
 
-img{
-	box-shadow: 10px 10px 5px #888888;
+
+.navbar-toggle{
+	margin-top: 60px;	
+}
+
+.container{
+	margin-top: $elementsMargin;
+}
+
+
+@media (min-width: 1825px) {
+	.navbar-default{
+		padding-left: 360px;
+		padding-right: 380px;
+	}
+	
+}
+
+table{
+	&.table{
+		margin-top: $elementsMargin;
+	} 
+
+}
+
+.pagination{
+	>li{
+		>a{
+			background-color: #2c3e50;
+		}
+		>a:hover{
+			background-color: #2c3e50;
+		}
+		>a:focus{
+			background-color: #56799c;
+		}
+
+		
+	}
+	>.active{
+		>a{
+			background-color: #415b76;
+		}
+		>a:hover{
+			background-color: #415b76;
+		}
+		>a:focus{
+			background-color: #56799c;
+		}
+	}
+	>.disabled{
+		>a{
+			background-color: #56799c;
+		}
+		>a:hover{
+			background-color: #415b76;
+		}
+		>a:focus{
+			background-color: #56799c;
+		}
+	}
+	
 }

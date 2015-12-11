@@ -47,8 +47,6 @@
 								var today = new Date();
 								var month = moment(today).month();
 								var year = moment(today).year();
-
-
 								
 								var params = {id : $stateParams.id};
 								$scope.params.employeeId = response._id;

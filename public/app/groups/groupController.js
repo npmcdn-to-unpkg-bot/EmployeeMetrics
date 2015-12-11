@@ -16,6 +16,7 @@
 					key: 'name',
 					type: 'horizontalInput',
 					templateOptions: {
+						required: true,
 						label: 'Group Name: ',
 						placeholder: 'Front End Developers'
 					}
@@ -48,6 +49,9 @@
 						case 2:
 							GroupServices.GetGroups().then(function(response){
 								$scope.groups = response;
+								for(var i = 0; i< response.length;i++){
+									$scope.groups[i].active = response[i].active ? "Active" : 'Inactive'
+								}
 								
 							});
 							break;
@@ -79,37 +83,61 @@
 			}
 
 			$scope.updateGroup = function(){
-				GroupServices.UpdateGroup($scope.model).then(function(response){
-				$mdToast.show(
-					$mdToast.simple()
-					.content('group updated successfully')
-					.action('x')
-					.highlightAction(false)
-					.hideDelay(3000)
-					.position("top right")
-					.theme('success-toast')
-				);
-				$state.go('app.group',	{}	, {	reload: true });	
-				
-			});
+				if($scope.model.name == '' || $scope.model.name == null){
+					$mdToast.show(
+							$mdToast.simple()
+							.content('It cannot be a required field empty')
+							.action('x')
+							.highlightAction(false)
+							.hideDelay(3000)
+							.position("top right")
+							.theme('error-toast')
+						);
+				}else{
+					GroupServices.UpdateGroup($scope.model).then(function(response){
+						$mdToast.show(
+							$mdToast.simple()
+							.content('group updated successfully')
+							.action('x')
+							.highlightAction(false)
+							.hideDelay(3000)
+							.position("top right")
+							.theme('success-toast')
+						);
+						$state.go('app.group',	{}	, {	reload: true });	
+					
+					});
+				}
 			}
-
+			
 			$scope.createGroup = function(){
 			
-			GroupServices.CreateGroup($scope.model).then(function(response){
-				$mdToast.show(
-					$mdToast.simple()
-					.content('Attribute added successfully')
-					.action('x')
-					.highlightAction(false)
-					.hideDelay(3000)
-					.position("top right")
-					.theme('success-toast')
-				);
-				$state.go('app.group',	{}	, {	reload: true });	
-				
-			});
-		}
+				if($scope.model.name == '' || $scope.model.name == null){
+					$mdToast.show(
+							$mdToast.simple()
+							.content('It cannot be a required field empty')
+							.action('x')
+							.highlightAction(false)
+							.hideDelay(3000)
+							.position("top right")
+							.theme('error-toast')
+						);
+				}else{
+					GroupServices.CreateGroup($scope.model).then(function(response){
+						$mdToast.show(
+							$mdToast.simple()
+							.content('Attribute added successfully')
+							.action('x')
+							.highlightAction(false)
+							.hideDelay(3000)
+							.position("top right")
+							.theme('success-toast')
+						);
+						$state.go('app.group',	{}	, {	reload: true });	
+						
+					});
+				}
+			}
 
 		$scope.cancel = function(){
 			$state.go('app.group',{}, {reload: true});

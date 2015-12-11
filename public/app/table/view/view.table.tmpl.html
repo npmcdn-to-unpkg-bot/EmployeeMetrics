@@ -19,7 +19,7 @@
 				<th>View</th>
 				<th>Edit</th>
 			</thead>
-				<tr dir-paginate="table in tables | filter: [true] | itemsPerPage: 10 ">
+				<tr dir-paginate="table in tables | itemsPerPage: 10 ">
 					<td>{{table.name}}</td>
 					<td>{{table.groupName}}</td>
 					<td>{{table.active}}</td>
