@@ -394,7 +394,7 @@ var updateEmployee = function(req,res){
 						$set: 
 						{
 							'firstname' 	: db.firstname,
-							'lastaname'		: db.lastaname,
+							'lastname'		: db.lastname,
 							'accesslevel'	: db.accesslevel,
 							'group'			: db.group,
 							'email'			: db.email,

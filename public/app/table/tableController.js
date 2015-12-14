@@ -11,7 +11,9 @@
 
 			};
 
-			$scope.q = "";
+			
+
+			$scope.q = {};
 
 
 
@@ -24,16 +26,24 @@
 				responsive: true,
 				animation: true,
 				scaleOverride : true,
+				scaleShowGridLines : true,
+				scaleGridLineColor : "rgba(0,0,0,.05)",
+				scaleShowVerticalLines: true,
+				scaleShowHorizontalLines: true,
+				showXLabels: 8,
 				showScale: true,
-				scaleSteps : 1,
-				scaleStepWidth : 2,
+				scaleSteps : 2,
+				scaleStepWidth : 1,
 				scaleStartValue : 1,
-				multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"    		
+				showTooltips: false,
+				multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>" ,
+				scaleFontColor: '#222'   
+				
 			}
 
-			$scope.search = {};
+			$scope.searchShow = false;
 
-			var loadFields = function(){
+			function loadFields(){
 				$scope.fields = [
 					{
 						key: 'name',
@@ -66,14 +76,46 @@
 					}
 
 				];
+
+				$scope.filterFields = [
+					{
+						key: 'name',
+						type: 'horizontalInput',
+						templateOptions: {
+							label: 'Table Name: ',
+							placeholder: 'Continuous Evaluation'
+						}
+
+					},
+					{
+						key: 'group',
+						type: 'horizontalSelect',
+						templateOptions: {
+							label: 'User Group: ',
+							options: $scope.groups,
+							ngOptions: 'option._id as option.name for option in to.options'
+						}
+
+					},
+					{
+						key: 'active',
+						type: 'horizontalCheckbox',
+						templateOptions: {
+							label: 'Active',
+							placeholder: 'Active'
+						}
+					}
+
+				];
 			}
 
 			$scope.initialize = function(){
-								
+				$scope.searchShow = false;	
 				$scope.model = {
 					name: '',
 					group: '',
-					active: true
+					active: true,
+					activeString: ''
 				};
 
 				AppServices.GetAccess().then(function(data){
@@ -89,7 +131,7 @@
 								TableServices.GetTables().then(function(response){
 									$scope.tables = response;
 									for(var i = 0 ; i< $scope.tables.length; i++){
-										$scope.tables[i].active = ($scope.tables[i].active) ? "Active" : "Inactive";
+										$scope.tables[i].activeString = ($scope.tables[i].active) ? "Active" : "Inactive";
 										for(var j = 0 ; j < $scope.groups.length ; j++){
 											if($scope.tables[i].group == $scope.groups[j]._id){
 												$scope.tables[i].groupName = $scope.groups[j].name;
@@ -97,6 +139,7 @@
 											}
 										}
 									}
+
 								});
 							});
 							break;
@@ -108,11 +151,16 @@
 			$scope.showCreate = function()
 			{
 				$scope.showCreateForm = true;
+				$scope.searchShow = false;
+
+
 			}
 
 			var showTable = function(number){
 				
 				return $scope.table[number].name
+
+
 			}
 			
 			$scope.goToUpdateTable = function(table){
@@ -123,10 +171,10 @@
 					active: table.active
 				};
 				
-				
 				if($scope.showCreateForm == false)
 				{
 					$scope.showCreateForm = true;
+					$scope.searchShow = false;
 					$state.go('app.table.update');
 				}
 			}
@@ -160,6 +208,7 @@
 			}
 
 			$scope.createTable = function(){
+
 				if($scope.model.name == '' || $scope.model.name == null || $scope.model.group == '' || $scope.model.group == null){
 					$mdToast.show(
 							$mdToast.simple()
@@ -198,6 +247,7 @@
 		}
 
 		$scope.loadViewTable = function(table){
+			$scope.searchShow = false;
 			$scope.table = table;
 			var params = {table: table._id, active: true};
 			$scope.numbers = [1,2,3];
@@ -212,6 +262,7 @@
 				$scope.showCreateForm = true;
 			
 			}
+			$state.go('app.table.view');
 			AspectServices.GetAspects(params).then(function(response){
 				$scope.aspects = response;
 				CategoryServices.GetCategories(params).then(function(response){
@@ -224,14 +275,15 @@
 							$scope.results[i][j] = 1;
 						}
 					}
-					$state.go('app.table.view');
+					$scope.reload();
 				});
 			});
 
 		}
 
 		$scope.reload = function(){
-			
+			$scope.searchShow = false;
+
 			var dataset = [];
 			for (var i = 0; i< $scope.categories.length ; i++)
 			{
@@ -273,6 +325,17 @@
 			
 		}
 
-	}]);
+	
+		$scope.openFilter = function(){
+			$scope.searchShow = true;
+		}
+		
+		$scope.closeFilter = function(){
+			$scope.searchShow = false;
+		}
 
+		$scope.clearFilter = function(){
+			$scope.q = {};
+		}
+	}]);
 })();

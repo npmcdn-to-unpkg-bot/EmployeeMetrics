@@ -5,28 +5,43 @@
 
 		
 		<div class = 'row'>
-			<div class = 'col-md-offset-10 col-md-2'>
+			<div class = 'pull-right'>
+				<button class = 'btn btn-info' ng-click = 'openFilter()' ng-hide = 'showCreateForm' >Search</button>
 				<a ui-sref = 'app.category.create' class='btn btn-primary' ng-hide = 'showCreateForm' ng-click='showCreate()'>Add New Category</a>	
 			</div>
+		</div>
+
+		<div class = 'col-md-offset-2 col-md-8' ng-show='searchShow'>
+			<form class ='form-horizontal'  name = 'tableForm2' novalidate>
+				<formly-form model='q' fields = 'filterFields' options='options' form = 'tableForm2'>
+					<div class = 'pull-right'>
+						<button class = 'btn btn-default' ng-click = 'clearFilter()'>Clear</button>
+						<button class = 'btn btn-warning' ng-click = 'closeFilter()'>Close Search</button>
+					</div>
+			    </formly-form>
+			</form>
 		</div>
 	
 		<div class = 'col-md-12'>
 		<table class='table table-striped table-condensed table-hover table-bordered'>
 			<thead>
-				<th>Name</th>
-				<th>Table</th>
+				<th>Category Name</th>
+				<th>Table - Group</th>
 				<th>Active</th>
 			</thead>
-				<tr  ng-click = "goToUpdateCategory(category)" dir-paginate="category in categories | itemsPerPage: 10">
+				<tr  ng-click = "goToUpdateCategory(category)" dir-paginate="category in categories | filter: q | itemsPerPage: 10">
 					<td>{{category.name}}</td>
-					<td>{{category.tableName + ' - '+ category.groupName}}</td>
-					<td>{{category.active}}</td>
+					<td>{{category.tableName + ' - ' + category.groupName}}</td>
+					<td>{{category.activeString}}</td>
 				</tr>
 
 		</table>
 	</div>
-	
-	<dir-pagination-controls></dir-pagination-controls>
+	<div class='row'>
+		<div class="col-md-12">
+			
+			<dir-pagination-controls></dir-pagination-controls>
+		</div>
 	</div>
 
 

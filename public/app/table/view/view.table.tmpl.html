@@ -4,10 +4,21 @@
 		<div ui-view></div>
 		
 		<h1>Table</h1>
-		<div class = 'row'>
-			<div class = 'col-md-2 pull-right'>
+		<div class = 'pull-right'>
+			
+				<button class = 'btn btn-info' ng-click = 'openFilter()' ng-hide = 'showCreateForm' >Search</button>
 				<a ui-sref = 'app.table.create' class='btn btn-primary' ng-hide = 'showCreateForm' ng-click='showCreate()'>Add New Table</a>
-			</div>
+		</div>
+
+		<div class = 'col-md-offset-2 col-md-8' ng-show='searchShow'>
+			<form class ='form-horizontal'  name = 'tableForm2' novalidate>
+				<formly-form model='q' fields = 'filterFields' options='options' form = 'tableForm2'>
+				<div class = 'pull-right'>
+					<button class = 'btn btn-default' ng-click = 'clearFilter()'>Clear</button>
+					<button class = 'btn btn-warning' ng-click = 'closeFilter()'>Close Search</button>
+				</div>
+			    </formly-form>
+			</form>
 		</div>
 
 		<div class = 'col-md-12'>
@@ -19,10 +30,10 @@
 				<th>View</th>
 				<th>Edit</th>
 			</thead>
-				<tr dir-paginate="table in tables | itemsPerPage: 10 ">
+				<tr dir-paginate="table in tables | filter: q | itemsPerPage: 10 ">
 					<td>{{table.name}}</td>
 					<td>{{table.groupName}}</td>
-					<td>{{table.active}}</td>
+					<td>{{table.activeString}}</td>
 					<td ng-click = 'loadViewTable(table)'>	<a>View</a></td>
 					<td ng-click = "goToUpdateTable(table)"><a>Edit</a></td>
 				</tr>

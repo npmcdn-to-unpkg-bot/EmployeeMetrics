@@ -65,12 +65,10 @@
 									findPerson(response,i);
 								}
 								var index = response.length;
-								console.log(index);
+								
 
 								EmployeeServices.GetEmployee().then(function(response){
-									console.log(index);
 										$scope.people[index] = response;
-										console.log($scope.people);
 										var today = new Date();
 										var month = moment(today).month();
 										var year = moment(today).year();
@@ -298,7 +296,6 @@
 		
 		TableServices.GetTable(params).then(function(response){
 			$scope.table = response;
-			console.log(response);
 			var params = {table : $stateParams.id};
 			CategoryServices.GetCategories(params).then(function(response){
 				

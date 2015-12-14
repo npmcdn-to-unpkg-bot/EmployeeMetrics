@@ -7,6 +7,7 @@ employeeApp.controller('employeeController', ['$scope','$mdToast', '$stateParams
 	
 	$scope.employee = {};
 	$scope.showCreateForm = false;
+	$scope.searchShow = false;
 
 	$scope.accesslevels = [{
 		'id' : 0,
@@ -32,6 +33,7 @@ employeeApp.controller('employeeController', ['$scope','$mdToast', '$stateParams
 	{
 		
 		$scope.showCreateForm = true;
+		$scope.searchShow = false;
 	}
 
 	var showAccessLevel = function(number){
@@ -114,18 +116,77 @@ employeeApp.controller('employeeController', ['$scope','$mdToast', '$stateParams
 				}
 			}
 		];
+
+		$scope.filterFields = 
+		[
+			{
+				key: 'firstname',
+				type: 'horizontalInput',
+				templateOptions: {
+					label: 'First Name: ',
+					placeholder: 'John',
+				}
+			},
+			{
+				key: 'lastname',
+				type: 'horizontalInput',
+				templateOptions: {
+					label: 'Last Name: ',
+					placeholder: 'Doe',
+				}
+			},
+			{
+				key: 'email',
+				type: 'horizontalInput',
+				templateOptions: {
+					type: 'email',
+					label: 'E-Mail: ',
+					placeholder: 'John.Doe@synechron.com',
+				}
+			},
+			{
+				key: 'accesslevel',
+				type: 'horizontalSelect',
+				templateOptions: {
+					label: 'Access Level: ',
+					options: $scope.accesslevels,
+					ngOptions: 'option.id as option.name for option in to.options',
+					
+				}
+			},
+			{
+				key: 'group',
+				type: 'horizontalSelect',
+				templateOptions: {
+					label: 'User Group: ',
+					options: $scope.groups,
+					ngOptions: 'option._id as option.name for option in to.options'	,
+					
+				}
+
+			},
+			{
+				key: 'active',
+				type: 'horizontalCheckbox',
+				templateOptions: {
+					label: 'Active',
+					placeholder: 'Active'
+				}
+			}
+		];
 	}
 
 	$scope.initialize = function(){
-
+		$scope.searchShow = false;
 		$scope.model = {
 			_id: '',
 			firstname: '',
 			lastname: '',
 			email: '',
-			accesslevel : null,
+			accesslevel : 0,
 			group: null,
 			active : true,
+			activeString : '',
 			password: ''
 		};
 
@@ -147,7 +208,7 @@ employeeApp.controller('employeeController', ['$scope','$mdToast', '$stateParams
 							loadFields(false);
 
 							for(var i = 0 ; i< $scope.employees.length; i++){
-								$scope.employees[i].active = $scope.employees[i].active ? "Active" : "Inactive";
+								$scope.employees[i].activeString = $scope.employees[i].active ? "Active" : "Inactive";
 								for(var j = 0; j< $scope.groups.length; j++){
 									if ($scope.employees[i].group === $scope.groups[j]._id){
 										$scope.employees[i].groupname = $scope.groups[j].name;
@@ -168,10 +229,10 @@ employeeApp.controller('employeeController', ['$scope','$mdToast', '$stateParams
 	$scope.saveEmployee = function(){
 		
 		var employee = $scope.model;
+
 		if($scope.model.firstname == '' || $scope.model.firstname == null ||
 		   $scope.model.lastname  == '' || $scope.model.lastname  == null ||
 		   $scope.model.email     == '' || $scope.model.email     == null ||
-		   $scope.model.accesslevel == '' || $scope.model.accesslevel == null ||
 		   $scope.model.group     == '' || $scope.model.group     == null ||
 		   $scope.model.password  == '' || $scope.model.password  == null){
 			$mdToast.show(
@@ -201,10 +262,10 @@ employeeApp.controller('employeeController', ['$scope','$mdToast', '$stateParams
 	}
 
 	$scope.updateEmployee = function(){
+
 		if($scope.model.firstname == '' || $scope.model.firstname == null ||
 		   $scope.model.lastname  == '' || $scope.model.lastname  == null ||
 		   $scope.model.email     == '' || $scope.model.email     == null ||
-		   $scope.model.accesslevel == '' || $scope.model.accesslevel == null ||
 		   $scope.model.group     == '' || $scope.model.group     == null){
 			$mdToast.show(
 				$mdToast.simple()
@@ -257,25 +318,37 @@ employeeApp.controller('employeeController', ['$scope','$mdToast', '$stateParams
 	}
 
 	$scope.goToUpdateEmployee = function(employee){
+		$scope.searchShow = false;
 		loadFields(true);
-		employee.active = (employee.active == "Active") ? true : false;
 		$scope.model = {
 			_id			: 	employee._id,
-			firstname: 		employee.firstname,
-			lastname: 		employee.lastname,
-			email:			employee.email,
+			firstname	:	employee.firstname,
+			lastname	:	employee.lastname,
+			email 		:	employee.email,
 			accesslevel : 	employee.accesslevel,
-			group:			employee.group,
-			active : 		employee.active,
-			password : 		employee.password
+			group 		:	employee.group,
+			active 		:	employee.active,
+			password 	:	employee.password
 		};
 		
 		if($scope.showCreateForm == false)
 		{
+			$scope.searchShow = false;
 			$scope.showCreateForm = true;
 			$state.go('app.employee.update');
+			console.log($scope.model);
 						
 		}
 	}
 
+	$scope.clearFilter = function(){
+		$scope.q = [];
+	}
+
+	$scope.openFilter = function(){
+		$scope.searchShow = true;
+	}
+	$scope.closeFilter = function(){
+		$scope.searchShow = false;
+	}
 }]);

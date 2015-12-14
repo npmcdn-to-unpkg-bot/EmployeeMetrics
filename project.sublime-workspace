@@ -4,6 +4,58 @@
 		"selected_items":
 		[
 			[
+				"access",
+				"accesslevel"
+			],
+			[
+				"employee",
+				"employee"
+			],
+			[
+				"margin",
+				"margin-bottom"
+			],
+			[
+				"background-cl",
+				"background-color"
+			],
+			[
+				"navbar",
+				"navbar-default"
+			],
+			[
+				"paddi",
+				"padding-top"
+			],
+			[
+				"border",
+				"border-top"
+			],
+			[
+				"marin",
+				"margin-top"
+			],
+			[
+				"paddin",
+				"padding-bottom"
+			],
+			[
+				"min",
+				"min-width"
+			],
+			[
+				"padding",
+				"padding-right"
+			],
+			[
+				"padd",
+				"padding-top"
+			],
+			[
+				"max-",
+				"max-height"
+			],
+			[
 				"manager",
 				"managerId"
 			],
@@ -116,10 +168,6 @@
 				"TableServices"
 			],
 			[
-				"padd",
-				"padding"
-			],
-			[
 				"Table",
 				"TableServices"
 			],
@@ -138,10 +186,6 @@
 			[
 				"page",
 				"pages"
-			],
-			[
-				"employee",
-				"employeeDisplay"
 			],
 			[
 				"pading",
@@ -356,14 +400,6 @@
 	"buffers":
 	[
 		{
-			"file": "public/app/dashboard/dashboardController.js",
-			"settings":
-			{
-				"buffer_size": 19674,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "public/app/table/viewtable/viewtable.table.tmpl.html",
 			"settings":
 			{
@@ -375,7 +411,7 @@
 			"file": "public/app/dashboard/view/view.dashboard.tmpl.html",
 			"settings":
 			{
-				"buffer_size": 2743,
+				"buffer_size": 3201,
 				"line_ending": "Windows"
 			}
 		},
@@ -383,7 +419,7 @@
 			"file": "server/database/models.js",
 			"settings":
 			{
-				"buffer_size": 28631,
+				"buffer_size": 28360,
 				"line_ending": "Windows"
 			}
 		},
@@ -391,7 +427,7 @@
 			"file": "public/app/matrices/competitionMatricesController.js",
 			"settings":
 			{
-				"buffer_size": 10753,
+				"buffer_size": 10751,
 				"line_ending": "Windows"
 			}
 		},
@@ -399,7 +435,7 @@
 			"file": "public/app/matrices/view.matrix.tmpl.html",
 			"settings":
 			{
-				"buffer_size": 2508,
+				"buffer_size": 2507,
 				"line_ending": "Windows"
 			}
 		},
@@ -407,15 +443,7 @@
 			"file": "public/app/table/view/view.table.tmpl.html",
 			"settings":
 			{
-				"buffer_size": 963,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "public/app/table/tableController.js",
-			"settings":
-			{
-				"buffer_size": 5659,
+				"buffer_size": 946,
 				"line_ending": "Windows"
 			}
 		},
@@ -439,7 +467,87 @@
 			"file": "index.html",
 			"settings":
 			{
-				"buffer_size": 5413,
+				"buffer_size": 5488,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/app/auth/app.tmpl.html",
+			"settings":
+			{
+				"buffer_size": 1995,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "server.js",
+			"settings":
+			{
+				"buffer_size": 1276,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/styles/sass/sassStyle.scss",
+			"settings":
+			{
+				"buffer_size": 820,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/app/categories/view/view.category.tmpl.html",
+			"settings":
+			{
+				"buffer_size": 857,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/app/groups/groupController.js",
+			"settings":
+			{
+				"buffer_size": 3332,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/app/table/tableController.js",
+			"settings":
+			{
+				"buffer_size": 6596,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/app/aspects/aspectController.js",
+			"settings":
+			{
+				"buffer_size": 4995,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/app/categories/categoryController.js",
+			"settings":
+			{
+				"buffer_size": 5276,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/app/employees/employeeController.js",
+			"settings":
+			{
+				"buffer_size": 6429,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/app/employees/create/create.employee.tmpl.html",
+			"settings":
+			{
+				"buffer_size": 443,
 				"line_ending": "Windows"
 			}
 		}
@@ -450,6 +558,18 @@
 		"height": 392.0,
 		"selected_items":
 		[
+			[
+				"package ",
+				"Package Control: Install Package"
+			],
+			[
+				"package c",
+				"Package Control: Discover Packages"
+			],
+			[
+				"scss",
+				"Set Syntax: CSS"
+			],
 			[
 				"install",
 				"Package Control: Install Package"
@@ -484,6 +604,13 @@
 	},
 	"file_history":
 	[
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/aspects/create/create.aspect.tmpl.html",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/styles/sass/_variables.scss",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/styles/sass/_bootswatch.scss",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/dashboardController.js",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/styles/sassStyle.css",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/styles/sass/sassStyle.scss",
+		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/sass/sassStyle.scss",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/database/models.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/index.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/styles/style.css",
@@ -497,7 +624,6 @@
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/routesApi.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/table/viewtable/viewtable.table.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/view/view.dashboard.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/dashboardController.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/view/view.dashboard.controller.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/groups/groupController.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/auth/app.tmpl.html",
@@ -519,7 +645,6 @@
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/table/update/update.table.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/table/create/create.table.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/aspects/update/update.aspect.tmpl.html",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/aspects/create/create.aspect.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/categories/create/create.category.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/categories/update/update.category.tmpl.html",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/services/aspectServices.js",
@@ -606,12 +731,7 @@
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/conf/dbconf.js",
 		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/public/app/dashboard/dashboardModule.js",
 		"/C/cygwin/home/Carlos.Danna/jasmineTest/server.js",
-		"/C/cygwin/home/Carlos.Danna/jasmineTest/spec/spec.js",
-		"/C/cygwin/home/Carlos.Danna/jasmineTest/spec/support/jasmine.json",
-		"/C/cygwin/home/Carlos.Danna/jasmineTest/spec.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/server/spec/databaseSpec",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/spec/serverSpec.js",
-		"/C/cygwin/home/Carlos.Danna/ExpressNodeJs/spec/support/jasmine.json"
+		"/C/cygwin/home/Carlos.Danna/jasmineTest/spec/spec.js"
 	],
 	"find":
 	{
@@ -629,6 +749,18 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"employee",
+			"<div class='col-lg-12 col-md-12 col-sm-12'>\n				<h3>User Results</h3>\n			</div>",
+			"}\n",
+			"@media",
+			"table",
+			"fff",
+			"table",
+			"body",
+			".container",
+			"#container",
+			"11",
+			"console.log",
 			"$scope.matrix",
 			"u",
 			"console.log",
@@ -744,19 +876,7 @@
 			"sm",
 			"hasManager",
 			"j",
-			"J",
-			"j",
-			"J",
-			"j",
-			"0",
-			"console.log",
-			"findCategories",
-			"matrix",
-			"findEmployeesCategoresFromManager",
-			"matrix",
-			"{\n",
-			"matrix",
-			"});"
+			"J"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -777,38 +897,11 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 17,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "public/app/dashboard/dashboardController.js",
-					"settings":
-					{
-						"buffer_size": 19674,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2545,
-								2545
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 715.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "public/app/table/viewtable/viewtable.table.tmpl.html",
 					"settings":
 					{
@@ -819,8 +912,8 @@
 						"selection":
 						[
 							[
-								825,
-								825
+								629,
+								629
 							]
 						],
 						"settings":
@@ -835,24 +928,51 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 1,
 					"file": "public/app/dashboard/view/view.dashboard.tmpl.html",
 					"settings":
 					{
-						"buffer_size": 2743,
+						"buffer_size": 3201,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2264,
-								2264
+								2842,
+								2842
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/AngularJS/AngularJS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 78.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "server/database/models.js",
+					"settings":
+					{
+						"buffer_size": 28360,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1608,
+								1608
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
@@ -863,18 +983,18 @@
 				},
 				{
 					"buffer": 3,
-					"file": "server/database/models.js",
+					"file": "public/app/matrices/competitionMatricesController.js",
 					"settings":
 					{
-						"buffer_size": 28631,
+						"buffer_size": 10751,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1227,
-								1227
+								1894,
+								1894
 							]
 						],
 						"settings":
@@ -883,30 +1003,30 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 156.0,
+						"translation.y": 234.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "public/app/matrices/competitionMatricesController.js",
+					"file": "public/app/matrices/view.matrix.tmpl.html",
 					"settings":
 					{
-						"buffer_size": 10753,
+						"buffer_size": 2507,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								615,
-								615
+								1096,
+								1096
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"syntax": "Packages/AngularJS/AngularJS.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
@@ -917,18 +1037,18 @@
 				},
 				{
 					"buffer": 5,
-					"file": "public/app/matrices/view.matrix.tmpl.html",
+					"file": "public/app/table/view/view.table.tmpl.html",
 					"settings":
 					{
-						"buffer_size": 2508,
+						"buffer_size": 946,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								149,
-								149
+								713,
+								713
 							]
 						],
 						"settings":
@@ -944,60 +1064,6 @@
 				},
 				{
 					"buffer": 6,
-					"file": "public/app/table/view/view.table.tmpl.html",
-					"settings":
-					{
-						"buffer_size": 963,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								230,
-								230
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/AngularJS/AngularJS.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "public/app/table/tableController.js",
-					"settings":
-					{
-						"buffer_size": 5659,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								488,
-								488
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
 					"file": "public/styles/bootstrap.min.css",
 					"settings":
 					{
@@ -1008,7 +1074,7 @@
 						"selection":
 						[
 							[
-								128718,
+								0,
 								128718
 							]
 						],
@@ -1023,7 +1089,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 7,
 					"file": "public/styles/style.css",
 					"settings":
 					{
@@ -1034,8 +1100,8 @@
 						"selection":
 						[
 							[
-								451,
-								451
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1051,19 +1117,46 @@
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 8,
 					"file": "index.html",
 					"settings":
 					{
-						"buffer_size": 5413,
+						"buffer_size": 5488,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								37,
-								37
+								2900,
+								2900
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/AngularJS/AngularJS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1287.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "public/app/auth/app.tmpl.html",
+					"settings":
+					{
+						"buffer_size": 1995,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								27,
+								13
 							]
 						],
 						"settings":
@@ -1076,13 +1169,253 @@
 						"zoom_level": 1.0
 					},
 					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "server.js",
+					"settings":
+					{
+						"buffer_size": 1276,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								953,
+								953
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "public/styles/sass/sassStyle.scss",
+					"settings":
+					{
+						"buffer_size": 820,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								715,
+								715
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Sass/Syntaxes/Sass.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 156.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "public/app/categories/view/view.category.tmpl.html",
+					"settings":
+					{
+						"buffer_size": 857,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								857,
+								857
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/AngularJS/AngularJS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "public/app/groups/groupController.js",
+					"settings":
+					{
+						"buffer_size": 3332,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2426,
+								2426
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 955.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "public/app/table/tableController.js",
+					"settings":
+					{
+						"buffer_size": 6596,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1142,
+								1142
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 312.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "public/app/aspects/aspectController.js",
+					"settings":
+					{
+						"buffer_size": 4995,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3402,
+								3367
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1579.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "public/app/categories/categoryController.js",
+					"settings":
+					{
+						"buffer_size": 5276,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4612,
+								4382
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1599.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "public/app/employees/employeeController.js",
+					"settings":
+					{
+						"buffer_size": 6429,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6429,
+								6429
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2106.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "public/app/employees/create/create.employee.tmpl.html",
+					"settings":
+					{
+						"buffer_size": 443,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								239,
+								239
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/AngularJS/AngularJS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
 				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 0.0
+		"height": 34.0
 	},
 	"input":
 	{

@@ -8,6 +8,8 @@
 			$scope.showCreateForm = false;
 			
 			$scope.tables = [];
+			$scope.q = [];			
+			$scope.searchShow = false;
 
 			var loadFields = function(){
 				$scope.fields = [
@@ -17,7 +19,7 @@
 						templateOptions: {
 							required: true,
 							label: 'Category Name: ',
-							placeholder: 'Angular JS / Backbone JS'
+							placeholder: 'Ability to structure the application'
 						}
 
 					},
@@ -26,6 +28,36 @@
 						type: 'horizontalSelect',
 						templateOptions: {
 							required: true,
+							label: 'Table',
+							options: $scope.tables,
+							ngOptions: 'option._id as option.groupShow for option in to.options'
+						}
+					},
+					{
+						key: 'active',
+						type: 'horizontalCheckbox',
+						templateOptions: {
+							label: 'Active',
+							placeholder: 'Active'
+						}
+					}
+
+				];
+
+				$scope.filterFields = [
+					{
+						key: 'name',
+						type: 'horizontalInput',
+						templateOptions: {
+							label: 'Category Name: ',
+							placeholder: 'Ability to structure the application'
+						}
+
+					},
+					{
+						key: 'table',
+						type: 'horizontalSelect',
+						templateOptions: {
 							label: 'Table',
 							options: $scope.tables,
 							ngOptions: 'option._id as option.groupShow for option in to.options'
@@ -52,7 +84,7 @@
 			
 
 			$scope.initialize = function(){
-								
+				$scope.searchShow = false;
 				$scope.model = {
 					_id: '',
 					name: '',
@@ -72,6 +104,7 @@
 								$scope.tables = response;
 								//load fields
 								loadFields();
+								
 								//Get All categories available
 								GroupServices.GetGroups().then(function(response){
 									$scope.groups = response;
@@ -90,7 +123,7 @@
 									$scope.categories = response;
 									
 									for (var i = 0 ; i < $scope.categories.length; i++){
-										$scope.categories[i].active = $scope.categories[i].active ? "Active" : "Inactive" ;
+										$scope.categories[i].activeString = $scope.categories[i].active ? "Active" : "Inactive" ;
 										for(var j = 0; j < $scope.tables.length; j++){
 											//Compates if the table._id is equal to the tableId in Categories
 											if($scope.categories[i].table == $scope.tables[j]._id){
@@ -113,11 +146,13 @@
 			$scope.showCreate = function()
 			{
 				$scope.showCreateForm = true;
+				$scope.searchShow = false;
 			}
 
 
 			
 			$scope.goToUpdateCategory = function(category){
+				$scope.searchShow = false;
 				$scope.model = {
 					_id: category._id,
 					name: category.name,
@@ -201,8 +236,18 @@
 			$state.go('app.category',{}, {reload: true});
 		}
 
-		$scope.submit = function(){
-			console.log($scope.model);
+		
+
+		$scope.openFilter = function(){
+			$scope.searchShow = true;
+		}
+		
+		$scope.closeFilter = function(){
+			$scope.searchShow = false;
+		}
+
+		$scope.clearFilter = function(){
+			$scope.q = [];
 		}
 
 	}]);
