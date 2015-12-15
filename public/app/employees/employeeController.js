@@ -336,8 +336,6 @@ employeeApp.controller('employeeController', ['$scope','$mdToast', '$stateParams
 			$scope.searchShow = false;
 			$scope.showCreateForm = true;
 			$state.go('app.employee.update');
-			console.log($scope.model);
-						
 		}
 	}
 

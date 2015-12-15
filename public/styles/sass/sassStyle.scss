@@ -34,6 +34,52 @@ table{
 
 }
 
+.btn-large{
+	margin-top: 15px;
+	margin-bottom: 15px;
+	padding: 50px 50px;
+	width: 300px;
+}
+
+
+@media (max-width: 768px){
+	h1{
+		margin-bottom: 10px;
+	};
+	.btn-large{
+		width: 100%;
+		margin: 0px 0px;
+	}
+}
+
+footer{
+	margin-top: 60px;
+	background-color: #2c3e50;
+	color: #ffffff;
+	
+	
+	bottom: 0px;
+	width: 100%;
+	.row{
+		text-align: center;
+		padding: 30px 0px;
+	
+	}
+}
+
+.well{
+	background-color: transparent;
+
+}
+
+form{
+	margin-top: 10px;
+}
+.wrapper{
+	position: relative;
+	margin-bottom: 100px;
+	min-height: 613px;
+}
 .pagination{
 	li{
 		a{

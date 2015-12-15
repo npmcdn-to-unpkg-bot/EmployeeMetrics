@@ -4,29 +4,46 @@
 		<h1>Attributes</h1>
 
 		
+			<div class = 'pull-right'>
+					<button class = 'btn btn-info' ng-click = 'openFilter()' ng-hide = 'showCreateForm' >Search</button>
+					<a ui-sref = 'app.aspect.create' class='btn btn-primary' ng-hide = 'showCreateForm' ng-click='showCreate()'>Add New Attribute</a>	
+			</div>
+		
+		<div class = 'col-md-offset-2 col-md-8' ng-show='searchShow'>
+			<form class ='form-horizontal'  name = 'tableForm2' novalidate>
+				<formly-form model='q' fields = 'filterFields' options='options' form = 'tableForm2'>
+			    </formly-form>
+			    
+					<div class = 'pull-right'>
+						<button class = 'btn btn-default' ng-click = 'clearFilter()'>Clear</button>
+						<button class = 'btn btn-warning' ng-click = 'closeFilter()'>Close Search</button>
+					</div>
+			</form>
+		</div>
+		
 		<div class = 'row'>
-			<div class = 'col-md-offset-10 col-md-2'>
-				<a ui-sref = 'app.aspect.create' class='btn btn-primary' ng-hide = 'showCreateForm' ng-click='showCreate()'>Add New Attribute</a>	
+			<div class = 'col-md-12'>
+				<table class='table table-striped table-condensed table-hover table-bordered'>
+					<thead>
+						<th>Name</th>
+						<th>Table</th>
+						<th>Active</th>
+					</thead>
+						<tr  ng-click = "goToUpdateAspect(aspect)" dir-paginate="aspect in aspects | filter: q | itemsPerPage: 10">
+							<td>{{aspect.name}}</td>
+							<td>{{aspect.tableName + ' - '+ aspect.groupName}}</td>
+							<td>{{aspect.activeString}}</td>
+						</tr>
+
+				</table>
 			</div>
 		</div>
 	
-		<div class = 'col-md-12'>
-		<table class='table table-striped table-condensed table-hover table-bordered'>
-			<thead>
-				<th>Name</th>
-				<th>Table</th>
-				<th>Active</th>
-			</thead>
-				<tr  ng-click = "goToUpdateAspect(aspect)" dir-paginate="aspect in aspects | itemsPerPage: 10">
-					<td>{{aspect.name}}</td>
-					<td>{{aspect.tableName + ' - '+ aspect.groupName}}</td>
-					<td>{{aspect.active}}</td>
-				</tr>
-
-		</table>
-	</div>
-	
-	<dir-pagination-controls></dir-pagination-controls>
+		<div class='row pull-right'>
+			<div class="col-md-12">
+				<dir-pagination-controls></dir-pagination-controls>
+			</div>
+		</div>
 	</div>
 
 

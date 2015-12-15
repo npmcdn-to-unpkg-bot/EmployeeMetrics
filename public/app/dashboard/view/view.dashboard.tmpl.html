@@ -69,12 +69,45 @@
 
 	</div>
 	<div class = 'row' ng-show='isAdmin'>
-		<div class='col-md-4'>[Categories Image]</div>
-		<div class='col-md-4'>[Attributes Image]</div>
-		<div class='col-md-4'>[Tables     Image]</div>
-		<div class='col-md-4'>[Employees  Image]</div>
-		<div class='col-md-4'>[Groups     Image]</div>
-		<div class='col-md-4'>[Manager Designation Image]</div>
+		<div class='col-md-4 col-sm-6 col-xs-12'>
+			<a ui-sref="app.aspect" class = 'btn btn-large btn-info'>
+				<i class='fa fa-columns fa-5x'></i>
+				<br /> Attributes
+			</a>
+		</div>
+		<div class='col-md-4 col-sm-6 col-xs-12'>
+			<button ui-sref="app.category" class = 'btn btn-large btn-warning'>
+				<i class='fa fa-list-alt fa-5x'></i>
+				<br /> Categories
+			</button>
+		</div>
+		<div class='col-md-4 col-sm-6 col-xs-12'>
+			<a ui-sref="app.table" class = 'btn btn-large btn-danger'>
+				<i class='fa fa-table fa-5x'></i>
+				<br /> Tables
+			</a>
+		</div>
+	
+	
+	
+		<div class='col-md-4 col-sm-6 col-xs-12'>
+			<a class = 'btn btn-large btn-primary'  ui-sref = 'app.employee'>
+				<i class="fa fa-user  fa-5x"></i>
+				<br />Employees
+			</a>
+		</div>
+		<div class='col-md-4 col-sm-6 col-xs-12'>
+			<a class = 'btn btn-large btn-default' ui-sref = 'app.group'>
+				<i class="fa fa-users  fa-5x"></i>
+				<br />Groups
+			</a>
+		</div>
+		<div class='col-md-4 col-sm-6 col-xs-12'>
+			<a class = 'btn btn-large btn-success' ui-sref = 'app.manager'>
+				<i class="fa fa-user-plus  fa-5x"></i>
+				<br />Manager
+			</a>
+		
 	</div>
 </div>
 

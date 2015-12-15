@@ -1,9 +1,13 @@
-<div class = 'container'>
 <h1>Create category</h1>
 <form class='form form-horizontal' name = 'categoryForm2' novalidate>
 	<formly-form model='model' fields = 'fields' options='options' form = 'categoryForm2'>
-		<button type="submit" class="btn btn-primary submit-button" ng-disabled="form.$invalid" ng-click = 'createCategory()'>Create Category</button>
-        <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+		<div class="row pull-right">
+		    		
+	    	<div class="col-md-12">
+		        <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+				<button type="submit" class="btn btn-primary submit-button" ng-disabled="form.$invalid" ng-click = 'createCategory()'>Create Category</button>
+		    </div>
+		</div>
     </formly-form>
 </form>
 </div>

@@ -6,7 +6,7 @@
 						function($scope, $stateParams, $state,$mdToast , AspectServices, AppServices, TableServices, GroupServices){
 			$scope.aspects = {};
 			$scope.showCreateForm = false;
-			
+			$scope.searchShow = false;
 			$scope.tables = [];
 
 			var loadFields = function(){
@@ -42,6 +42,35 @@
 
 				];
 				
+				$scope.filterFields = [
+					{
+						key: 'name',
+						type: 'horizontalInput',
+						templateOptions: {
+							label: 'Attribute Name: ',
+							placeholder: 'Angular JS / Backbone JS'
+						}
+
+					},
+					{
+						key: 'table',
+						type: 'horizontalSelect',
+						templateOptions: {
+							label: 'Table',
+							options: $scope.tables,
+							ngOptions: 'option._id as option.groupShow for option in to.options'
+						}
+					},
+					{
+						key: 'active',
+						type: 'horizontalCheckbox',
+						templateOptions: {
+							label: 'Active',
+							placeholder: 'Active'
+						}
+					}
+
+				];
 			}
 			
 
@@ -52,7 +81,7 @@
 			
 
 			$scope.initialize = function(){
-								
+				$scope.searchShow = false;				
 				$scope.model = {
 					_id: '',
 					name: '',
@@ -88,7 +117,7 @@
 									$scope.aspects = response;
 									
 									for (var i = 0 ; i < $scope.aspects.length; i++){
-										$scope.aspects[i].active = $scope.aspects[i].active ? "Active" : "Inactive";
+										$scope.aspects[i].activeString = $scope.aspects[i].active ? "Active" : "Inactive";
 										for(var j = 0; j < $scope.tables.length; j++){
 											
 											if($scope.aspects[i].table == $scope.tables[j]._id){
@@ -110,11 +139,13 @@
 			$scope.showCreate = function()
 			{
 				$scope.showCreateForm = true;
+				$scope.searchShow = false;
 			}
 
 
 			
 			$scope.goToUpdateAspect = function(aspect){
+				$scope.searchShow = false;
 				$scope.model = {
 					_id: aspect._id,
 					name: aspect.name,
@@ -198,6 +229,17 @@
 
 		$scope.submit = function(){
 			console.log($scope.model);
+		}
+
+		$scope.clearFilter = function(){
+			$scope.q = [];
+		}
+
+		$scope.openFilter = function(){
+			$scope.searchShow = true;
+		}
+		$scope.closeFilter = function(){
+			$scope.searchShow = false;
 		}
 
 	}]);
