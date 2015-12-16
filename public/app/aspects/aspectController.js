@@ -100,7 +100,6 @@
 
 							TableServices.GetTables().then(function(response){
 								$scope.tables = response;
-								loadFields();
 								GroupServices.GetGroups().then(function(response){
 									$scope.groups = response;
 									for(var i = 0; i< $scope.tables.length; i++){
@@ -116,6 +115,7 @@
 								AspectServices.GetAspects().then(function(response){
 									$scope.aspects = response;
 									
+									loadFields();
 									for (var i = 0 ; i < $scope.aspects.length; i++){
 										$scope.aspects[i].activeString = $scope.aspects[i].active ? "Active" : "Inactive";
 										for(var j = 0; j < $scope.tables.length; j++){

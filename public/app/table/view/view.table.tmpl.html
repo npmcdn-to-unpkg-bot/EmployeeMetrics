@@ -1,4 +1,4 @@
-<div ng-controller="tableController" ng-init="initialize()">
+<div ng-init="initialize()">
 	
 	<div class = 'container'>
 		<div ui-view></div>
@@ -15,7 +15,7 @@
 
 		<div class = 'col-md-offset-2 col-md-8' ng-show='searchShow'>
 			<form class ='form-horizontal'  name = 'tableForm2' novalidate>
-				<formly-form model='q' fields = 'filterFields' options='options' form = 'tableForm2'>
+				<formly-form model='q' fields = 'filterFields' options='option' form = 'tableForm2'>
 			    </formly-form>
 			    
 			    	
@@ -36,7 +36,7 @@
 						<th>View</th>
 						<th>Edit</th>
 					</thead>
-					<tr dir-paginate="table in tables | filter: q | itemsPerPage: 10 ">
+						<tr dir-paginate="table in tables | filter: q  | itemsPerPage: 10 ">
 						<td>{{table.name}}</td>
 						<td>{{table.groupName}}</td>
 						<td>{{table.activeString}}</td>
@@ -48,7 +48,7 @@
 			</div>
 		</div>
 	
-		<div class='row pull-right'>
+		<div class='pull-right'>
 			<div class="col-md-12">
 				
 				<dir-pagination-controls></dir-pagination-controls>

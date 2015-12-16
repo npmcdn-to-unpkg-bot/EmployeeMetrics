@@ -11,11 +11,6 @@
 
 			};
 
-			
-
-			$scope.q = {};
-
-
 
 			var color = {
 				mix 	: ['#001f3f','#39CCCC','#2ECC40','#3D9970','#FF851B','#FFDC00','#FF4136','#B10DC9','#111111','#AAAAAA']
@@ -43,7 +38,7 @@
 
 			$scope.searchShow = false;
 
-			function loadFields(){
+			var loadFields=function(){
 				$scope.fields = [
 					{
 						key: 'name',
@@ -110,12 +105,15 @@
 			}
 
 			$scope.initialize = function(){
+				
 				$scope.searchShow = false;	
 				$scope.model = {
+					_id: '',
 					name: '',
 					group: '',
 					active: true,
-					activeString: ''
+					activeString: '',
+					groupName: ''
 				};
 
 				AppServices.GetAccess().then(function(data){
@@ -127,9 +125,10 @@
 						case 2:
 							GroupServices.GetGroups().then(function(response){
 								$scope.groups = response;
-								loadFields();
 								TableServices.GetTables().then(function(response){
 									$scope.tables = response;
+									
+									loadFields();
 									for(var i = 0 ; i< $scope.tables.length; i++){
 										$scope.tables[i].activeString = ($scope.tables[i].active) ? "Active" : "Inactive";
 										for(var j = 0 ; j < $scope.groups.length ; j++){
@@ -335,7 +334,7 @@
 		}
 
 		$scope.clearFilter = function(){
-			$scope.q = {};
+			$scope.q = [];
 		}
 	}]);
 })();

@@ -1,36 +1,51 @@
-<div class = 'container' ng-init='initialize()'>
-	
-	<div class = 'col-md-offset-2 col-md-10'>
-		<h2>Employees Evaluation System Login</h2>
+<div class='full-page'>
+	<div class = 'container' ng-init='initialize()'>
+		<div class='vertical-center'>
+		
+		<div class="row">
+			<div class = 'col-md-offset-5 col-md-7'>
+				<img src='assets/Sees-logo2.png' height = '120' class='img-center'></img>
+			</div>
+		</div>
+		<div class="row">
+			<div class = 'col-md-offset-2 col-md-9'>
+				<h2 class='appTitle'>Synechron Employees Evaluation System</h2>
+			</div>
+		</div>
+		
+
+		<div class='row'>
+			<div class = 'col-md-offset-3 col-md-6 well'>
+				<form name = 'login' class = 'form form-horizontal' ng-controller = 'authLoginController' novalidate>
+				
+						<div class = 'form-group' name='email' ng-class ="{ 'has-error' : login.email.$invalid && !login.email.$pristine }">
+						<label class='control-label col-md-3' for = 'email'>E-mail Address: </label>
+						<div class='col-md-8'>
+							<input name='email' type = 'email' class = 'form-control' placeholder = 'you@email.com' size='30' ng-model = 'loginForm.email' required></input>
+							<p ng-show='login.email.$invalid && !login.email.$pristine' class='help-block'>Enter a valid e-mail</p>
+						</div>
+					</div>
+					
+
+					<div class = 'form-group' name = 'password' ng-class ="{ 'has-error' : login.password.$invalid && !login.password.$pristine }">
+						<label class='control-label col-md-3' for = 'password'>Password: </label>	
+						<div class='col-md-8'>
+							<input name='password' type = 'password' class = 'form-control' ng-model = 'loginForm.password' required></input>
+							<p ng-show='login.password.$invalid && !login.password.$pristine' class='help-block'>Password is required</p>
+						</div>
+					</div>
+
+				
+					<div class = 'col-md-3 pull-right'>
+						<button ng-click= 'sendLogin()' ng-disabled = 'login.$invalid' class = 'btn btn-primary'>Log in</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
 	</div>
 
-	<div class='col-md-12'>
-		<form name = 'login' class = 'form form-horizontal' ng-controller = 'authLoginController' novalidate>
-			<fieldset>		
-			
-			<div class = 'form-group' name='email' ng-class ="{ 'has-error' : login.email.$invalid && !login.email.$pristine }">
-				<label class='control-label col-md-3' for = 'email'>E-mail Address: </label>
-				<div class='col-md-6'>
-					<input name='email' type = 'email' class = 'form-control' placeholder = 'you@email.com' size='30' ng-model = 'loginForm.email' required></input>
-					<p ng-show='login.email.$invalid && !login.email.$pristine' class='help-block'>Enter a valid e-mail</p>
-				</div>
-			</div>
-			
-
-			<div class = 'form-group' name = 'password' ng-class ="{ 'has-error' : login.password.$invalid && !login.password.$pristine }">
-				<label class='control-label col-md-3' for = 'password'>Password: </label>	
-				<div class='col-md-6'>
-					<input name='password' type = 'password' class = 'form-control' ng-model = 'loginForm.password' required></input>
-					<p ng-show='login.password.$invalid && !login.password.$pristine' class='help-block'>Password is required</p>
-				</div>
-			</div>
-
-
-			<div class = 'form-group'>
-				<button ng-click= 'sendLogin()' ng-disabled = 'login.$invalid' class = 'col-md-offset-8 btn btn-default'>Log in</button>
-			</div>
-		</fieldset>
-		</form>
 	</div>
 
 </div>
+

@@ -6,12 +6,12 @@ $elementsMargin: 30px;
 }
 
 .navbar-nav{
-	margin-top: 60px;
+	margin-top: $elementsMargin*2;
 }
 
 
 .navbar-toggle{
-	margin-top: 60px;	
+	margin-top: $elementsMargin*2;	
 }
 
 .container{
@@ -34,13 +34,40 @@ table{
 
 }
 
+.wrapper{
+	position: relative;
+	margin-bottom: 100px;
+	min-height: 613px;
+}
+
+.vertical-center{
+	margin-top: 75px;
+}
+
+.appTitle{
+	margin-bottom: $elementsMargin;
+	margin-left: -100px;
+	text-align: center;
+}
+
+.img-center{
+	margin-bottom: $elementsMargin;
+	margin-left: 20px;
+	text-align: center;
+}
+
 .btn-large{
-	margin-top: 15px;
-	margin-bottom: 15px;
+	margin-top: $elementsMargin/2;
+	margin-bottom: $elementsMargin/2;
 	padding: 50px 50px;
 	width: 300px;
 }
 
+.full-page{
+	
+	position: relative;
+	height: 850px;
+}
 
 @media (max-width: 768px){
 	h1{
@@ -53,23 +80,21 @@ table{
 }
 
 footer{
-	margin-top: 60px;
 	background-color: #2c3e50;
 	color: #ffffff;
-	
-	
 	bottom: 0px;
 	width: 100%;
+	margin-bottom: 0px;
 	.row{
 		text-align: center;
-		padding: 30px 0px;
-	
+		padding-top: 30px ;
+		padding-bottom: 30px;
+		margin-bottom: 0px;
 	}
 }
 
-.well{
-	background-color: transparent;
-
+.centered{
+	text-align: center;
 }
 
 form{
@@ -117,4 +142,73 @@ form{
 		}
 	}
 	
+}
+
+.clearfix:before,
+.clearfix:after {
+  content: ' ';
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.chart-legend li span{
+    
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+}
+
+.line-legend {
+
+	li{
+		display: block;
+		span{
+			display: inline-block;
+		    width: 12px;
+		    height: 12px;
+		    margin-right: 5px;		
+		}
+	}
+}
+
+div canvas {
+    margin-left: -15%;
+    padding: auto;
+
+	height: 300px;
+	width: 300px;
+}
+
+md-toast{
+    margin-top: 5%;
+
+	.md-success-toast-theme {
+    	background-color: #568203;    	
+	}
+	.md-error-toast-theme {
+	    background-color: #C40233;
+    }
+}
+
+
+
+fieldset{
+    padding-top: 2em;
+    background: #cacaca;
+    width: 80%;
+    border-radius: 10px;
+    border: 2px solid black;
+    box-shadow: 10px;
+}
+
+.centered{   
+    display: inline-block;
+    width: auto;
+    height: 100%;
+    margin: auto;
+    text-align: center;
 }

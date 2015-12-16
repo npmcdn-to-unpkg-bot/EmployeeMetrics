@@ -8,6 +8,7 @@ employeeApp.controller('employeeController', ['$scope','$mdToast', '$stateParams
 	$scope.employee = {};
 	$scope.showCreateForm = false;
 	$scope.searchShow = false;
+	
 
 	$scope.accesslevels = [{
 		'id' : 0,
@@ -177,6 +178,7 @@ employeeApp.controller('employeeController', ['$scope','$mdToast', '$stateParams
 	}
 
 	$scope.initialize = function(){
+		console.log($scope.q);
 		$scope.searchShow = false;
 		$scope.model = {
 			_id: '',
@@ -186,7 +188,6 @@ employeeApp.controller('employeeController', ['$scope','$mdToast', '$stateParams
 			accesslevel : 0,
 			group: null,
 			active : true,
-			activeString : '',
 			password: ''
 		};
 

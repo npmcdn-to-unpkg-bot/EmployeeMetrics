@@ -10,6 +10,8 @@
 			$scope.option = {
 
 			};
+
+			$scope.isDataLoaded = false;
 			$scope.params = {};
 
 			$scope.numbers = [1,2,3];
@@ -202,6 +204,7 @@
 					for(var i = 0; i<$scope.categories.length;i++){
 						$scope.resultChanged(i);
 					}
+					$scope.isDataLoaded = true;
 				});
 			});
 		});
@@ -371,7 +374,7 @@
 							for(var i = 0;i<$scope.peopleCategories.length;i++){
 								$scope.resultChanged(i);
 							}
-							
+							$scope.isDataLoaded = true;
 						}else{
 							$scope.ShowButton = true;
 

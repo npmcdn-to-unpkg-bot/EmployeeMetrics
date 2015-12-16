@@ -8,10 +8,11 @@
 			$scope.showCreateForm = false;
 			
 			$scope.tables = [];
-			$scope.q = [];			
+			$scope.q = [];
 			$scope.searchShow = false;
 
 			var loadFields = function(){
+				$scope.q = [];
 				$scope.fields = [
 					{
 						key: 'name',
@@ -84,11 +85,15 @@
 			
 
 			$scope.initialize = function(){
+				
 				$scope.searchShow = false;
 				$scope.model = {
 					_id: '',
 					name: '',
 					table: '',
+					tableName: '',
+					groupName: '',
+					activeString: '',
 					active: true
 				};
 
@@ -103,7 +108,6 @@
 							TableServices.GetTables().then(function(response){
 								$scope.tables = response;
 								//load fields
-								loadFields();
 								
 								//Get All categories available
 								GroupServices.GetGroups().then(function(response){
@@ -117,25 +121,26 @@
 											}
 										}
 									}
+									CategoryServices.GetCategories().then(function(response){
+										$scope.categories = response;
+										
+										loadFields();
+										for (var i = 0 ; i < $scope.categories.length; i++){
+											$scope.categories[i].activeString = $scope.categories[i].active ? "Active" : "Inactive" ;
+											for(var j = 0; j < $scope.tables.length; j++){
+												//Compates if the table._id is equal to the tableId in Categories
+												if($scope.categories[i].table == $scope.tables[j]._id){
+													//Saves the name in the variable
+													$scope.categories[i].tableName = $scope.tables[j].name;
+													$scope.categories[i].groupName = $scope.tables[j].groupName;
+													break;
+												}
+												
+											}
+										}
+									});
 								});
 
-								CategoryServices.GetCategories().then(function(response){
-									$scope.categories = response;
-									
-									for (var i = 0 ; i < $scope.categories.length; i++){
-										$scope.categories[i].activeString = $scope.categories[i].active ? "Active" : "Inactive" ;
-										for(var j = 0; j < $scope.tables.length; j++){
-											//Compates if the table._id is equal to the tableId in Categories
-											if($scope.categories[i].table == $scope.tables[j]._id){
-												//Saves the name in the variable
-												$scope.categories[i].tableName = $scope.tables[j].name;
-												$scope.categories[i].groupName = $scope.tables[j].groupName;
-												break;
-											}
-											
-										}
-									}
-								});
 							});
 							break;
 					}
@@ -239,6 +244,7 @@
 		
 
 		$scope.openFilter = function(){
+			console.log($scope.q);
 			$scope.searchShow = true;
 		}
 		
@@ -247,6 +253,7 @@
 		}
 
 		$scope.clearFilter = function(){
+			console.log($scope.q);
 			$scope.q = [];
 		}
 

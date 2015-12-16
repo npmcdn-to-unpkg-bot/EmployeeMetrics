@@ -6,7 +6,7 @@ app.controller('authLogoutController',['$scope','$rootScope', '$state' , '$windo
 
 		
 		AppServices.Logout().then(function(response){});
-
+		$state.go('login');
 		
 
 
